@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.focus-ring {
+		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+	}
+
+	.nav-link {
+		@apply font-label text-label-md text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+	}
+
+	.nav-link-active {
+		@apply font-label text-label-md text-primary border-b-2 border-primary pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+	}
+
+	.btn-primary {
+		@apply inline-flex items-center justify-center bg-primary-container text-white px-10 py-4 rounded-xl font-label text-label-md hover:shadow-lg hover:shadow-primary/20 transition-shadow active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+	}
+
+	.btn-secondary {
+		@apply inline-flex items-center justify-center bg-surface-container-lowest text-on-surface border border-outline-variant px-10 py-4 rounded-xl font-label text-label-md hover:bg-surface-container-low transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+	}
+
+	.trust-card {
+		@apply p-8 rounded-xl bg-white/80 backdrop-blur-md border border-primary-fixed-dim/30 hover:shadow-xl transition-shadow duration-300 hover:border-primary;
+	}
+
+	.icon-tile {
+		@apply w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center mb-6 transition-colors;
+	}
+
+	.footer-link {
+		@apply text-body-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+	}
+}
