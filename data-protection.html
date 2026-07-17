@@ -12,37 +12,6 @@
     <link href="./assets/css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(184, 195, 255, 0.3);
-        }
-
-        .material-symbols-filled {
-            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
-        }
-
-        #mobile-nav-panel {
-            max-height: 0;
-            opacity: 0;
-            transform: translateY(-4px);
-            overflow: hidden;
-            pointer-events: none;
-            transition: max-height 320ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms ease-out, transform 260ms ease-out;
-        }
-
-        #mobile-nav-panel.is-open {
-            max-height: 36rem;
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-    </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-white">
     <!-- Top Navigation Bar -->
@@ -64,7 +33,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <a class="hidden sm:inline-flex items-center justify-center bg-primary-container text-white px-5 py-2 rounded-lg font-label text-label-md hover:opacity-90 transition-opacity active:scale-95 duration-150 shadow-sm focus-ring" href="#contact">
+                <a class="nav-cta hidden sm:inline-flex" href="#contact">
                     Automation Assessment
                 </a>
                 <button aria-controls="mobile-nav-panel" aria-expanded="false" aria-label="Open site navigation" class="inline-flex lg:hidden h-10 w-10 items-center justify-center rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container-low transition-colors focus-ring" id="mobile-nav-toggle" type="button">
@@ -72,7 +41,7 @@
                 </button>
             </div>
         </div>
-        <div class="lg:hidden border-t border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md" id="mobile-nav-panel">
+        <div aria-hidden="true" class="mobile-nav-panel lg:hidden border-t border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md" id="mobile-nav-panel">
             <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col gap-2">
                 <a class="nav-link py-2" href="/">Home</a>
                 <a class="nav-link py-2" href="#sovereign-node">Digital Associates</a>
@@ -82,7 +51,7 @@
                 <a class="nav-link py-2" href="#partners">Partners</a>
                 <a class="nav-link py-2" href="#about">About</a>
                 <a class="nav-link py-2" href="#contact">Contact</a>
-                <a class="mt-2 inline-flex items-center justify-center bg-primary-container text-white px-5 py-3 rounded-lg font-label text-label-md hover:opacity-90 transition-opacity active:scale-95 duration-150 shadow-sm focus-ring" href="#contact">Automation Assessment</a>
+                <a class="nav-cta mt-2 py-3" href="#contact">Automation Assessment</a>
             </div>
         </div>
     </nav>
@@ -93,7 +62,7 @@
             <div class="absolute inset-0 opacity-40"></div>
             <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
                 <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
-                    <span class="material-symbols-outlined text-primary text-[18px]">lock</span>
+                    <span class="material-symbols-outlined icon-size-sm text-primary">lock</span>
                     <span class="font-label text-label-sm text-on-surface">Sovereign Data Architecture</span>
                 </div>
                 <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
@@ -156,7 +125,7 @@
                         <div class="relative z-10 w-full h-full flex items-center justify-center">
                             <div class="w-32 h-32 rounded-full border-4 border-dashed border-primary/20 flex items-center justify-center motion-safe:animate-[spin_30s_linear_infinite] motion-reduce:animate-none">
                                 <div class="w-24 h-24 rounded-full border-4 border-primary flex items-center justify-center bg-surface-container-lowest shadow-lg shadow-primary/10">
-                                    <span class="material-symbols-outlined material-symbols-filled text-primary text-[48px]">security</span>
+                                    <span class="material-symbols-outlined material-symbols-filled icon-size-xl text-primary">security</span>
                                 </div>
                             </div>
                             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
@@ -284,7 +253,7 @@
                         <div class="bg-primary-container p-10 rounded-2xl flex flex-col justify-between text-white relative overflow-hidden shadow-xl">
                             <div class="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
                             <div>
-                                <span class="material-symbols-outlined text-[64px] mb-8" style="font-variation-settings: 'FILL' 1;">terminal</span>
+                                <span class="material-symbols-outlined material-symbols-filled icon-size-2xl mb-8">terminal</span>
                                 <h3 class="font-headline text-headline-lg mb-4">Command Central</h3>
                                 <p class="text-white/80 font-body text-body-sm leading-relaxed">Administer your Sovereign Node from a single, high-security dashboard.</p>
                             </div>
@@ -361,19 +330,37 @@
     <script>
         const mobileNavToggle = document.getElementById('mobile-nav-toggle');
         const mobileNavPanel = document.getElementById('mobile-nav-panel');
+        const mainContent = document.getElementById('data-protection');
+        const mobileNavLinks = mobileNavPanel.querySelectorAll('a');
+
+        const getFocusableInPanel = () =>
+            Array.from(mobileNavPanel.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])'));
+
+        const isMobileNavOpen = () => mobileNavToggle.getAttribute('aria-expanded') === 'true';
 
         const closeMobileNav = () => {
             mobileNavPanel.classList.remove('is-open');
+            mobileNavPanel.setAttribute('aria-hidden', 'true');
             mobileNavToggle.setAttribute('aria-expanded', 'false');
             mobileNavToggle.setAttribute('aria-label', 'Open site navigation');
             mobileNavToggle.querySelector('.material-symbols-outlined').textContent = 'menu';
+            document.body.classList.remove('overflow-hidden');
+            mainContent.removeAttribute('inert');
         };
 
         const openMobileNav = () => {
             mobileNavPanel.classList.add('is-open');
+            mobileNavPanel.setAttribute('aria-hidden', 'false');
             mobileNavToggle.setAttribute('aria-expanded', 'true');
             mobileNavToggle.setAttribute('aria-label', 'Close site navigation');
             mobileNavToggle.querySelector('.material-symbols-outlined').textContent = 'close';
+            document.body.classList.add('overflow-hidden');
+            mainContent.setAttribute('inert', '');
+
+            const focusable = getFocusableInPanel();
+            if (focusable.length > 0) {
+                focusable[0].focus();
+            }
         };
 
         mobileNavToggle.addEventListener('click', () => {
@@ -385,14 +372,48 @@
             }
         });
 
-        mobileNavPanel.querySelectorAll('a').forEach((link) => {
+        mobileNavLinks.forEach((link) => {
             link.addEventListener('click', closeMobileNav);
         });
 
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && mobileNavToggle.getAttribute('aria-expanded') === 'true') {
+            if (!isMobileNavOpen()) {
+                return;
+            }
+
+            if (event.key === 'Escape') {
                 closeMobileNav();
                 mobileNavToggle.focus();
+                return;
+            }
+
+            if (event.key === 'Tab') {
+                const focusable = getFocusableInPanel();
+                if (focusable.length === 0) {
+                    event.preventDefault();
+                    return;
+                }
+
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+
+                if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!isMobileNavOpen()) {
+                return;
+            }
+
+            if (!mobileNavPanel.contains(event.target) && !mobileNavToggle.contains(event.target)) {
+                closeMobileNav();
             }
         });
 

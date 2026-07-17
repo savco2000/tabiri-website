@@ -2,17 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+	.material-symbols-outlined {
+		font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+	}
+
+	.material-symbols-filled {
+		font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+	}
+}
+
 @layer components {
 	.focus-ring {
-		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-offset-on-background;
 	}
 
 	.nav-link {
-		@apply font-label text-label-md text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+		@apply font-label text-label-md text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:text-on-primary-container dark:hover:text-white;
 	}
 
 	.nav-link-active {
-		@apply font-label text-label-md text-primary border-b-2 border-primary pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+		@apply font-label text-label-md text-primary border-b-2 border-primary pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:text-white dark:border-white;
+	}
+
+	.nav-cta {
+		@apply inline-flex items-center justify-center bg-primary-container text-white px-5 py-2 rounded-lg font-label text-label-md hover:opacity-90 transition-opacity active:scale-95 duration-150 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
 	}
 
 	.btn-primary {
@@ -20,11 +34,17 @@
 	}
 
 	.btn-secondary {
-		@apply inline-flex items-center justify-center bg-surface-container-lowest text-on-surface border border-outline-variant px-10 py-4 rounded-xl font-label text-label-md hover:bg-surface-container-low transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+		@apply inline-flex items-center justify-center bg-surface-container-lowest text-on-surface border border-outline-variant px-10 py-4 rounded-xl font-label text-label-md hover:bg-surface-container-low transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-on-background dark:text-on-primary-container dark:border-outline;
+	}
+
+	.glass-card {
+		background: rgba(255, 255, 255, 0.8);
+		backdrop-filter: blur(12px);
+		border: 1px solid rgba(184, 195, 255, 0.3);
 	}
 
 	.trust-card {
-		@apply p-8 rounded-xl bg-white/80 backdrop-blur-md border border-primary-fixed-dim/30 hover:shadow-xl transition-shadow duration-300 hover:border-primary;
+		@apply p-8 rounded-xl bg-white/80 backdrop-blur-md border border-primary-fixed-dim/30 hover:shadow-xl transition-shadow duration-300 hover:border-primary dark:bg-on-background/70;
 	}
 
 	.icon-tile {
@@ -32,6 +52,41 @@
 	}
 
 	.footer-link {
-		@apply text-body-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+		@apply text-body-sm text-on-surface-variant hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:text-on-primary-container;
+	}
+
+	.mobile-nav-panel {
+		max-height: 0;
+		opacity: 0;
+		transform: translateY(-4px);
+		overflow: hidden;
+		pointer-events: none;
+		transition: max-height 320ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms ease-out, transform 260ms ease-out;
+	}
+
+	.mobile-nav-panel.is-open {
+		max-height: 36rem;
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+
+	.icon-size-sm {
+		font-size: 18px;
+	}
+
+	.icon-size-xl {
+		font-size: 48px;
+	}
+
+	.icon-size-2xl {
+		font-size: 64px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.mobile-nav-panel {
+			transition: none;
+			transform: none;
+		}
 	}
 }
