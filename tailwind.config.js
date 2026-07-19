@@ -33,6 +33,7 @@ module.exports = {
         "surface-container-low": "#f2f3ff",
         "on-tertiary-fixed": "#001e2f",
         "primary-container": "#1a45d2",
+        "accent-container": "#FD644C",
         error: "#ba1a1a",
         "inverse-surface": "#283044",
         "on-error": "#ffffff",
