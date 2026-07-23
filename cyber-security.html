@@ -145,68 +145,65 @@
             </div>
         </section>
 
-        <!-- OpenClaw Tiers -->
-        <section class="py-12 bg-surface-container-lowest" id="containment-logic">
-            <div class="max-w-7xl mx-auto px-gutter">
-                <div class="text-center mb-10 md:mb-12">
-                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-outline-variant bg-surface-container-low mb-4">
-                        <span class="material-symbols-outlined icon-size-sm text-primary">layers</span>
-                        <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">OpenClaw Containment Logic</span>
-                    </span>
-                    <h2 class="font-headline text-headline-lg text-on-background mb-4">A Three-Tier Escalation Model</h2>
-                    <p class="font-body text-body-md text-on-surface-variant max-w-3xl mx-auto">
-                        Our agentic containment model applies proportional force while preserving business continuity and forensic integrity.
+        <!-- 3-Tier OpenClaw Containment Logic -->
+        <section class="py-24 bg-surface-container-lowest text-on-surface">
+            <div class="max-w-7xl mx-auto px-margin-desktop text-center mb-16">
+                <h2 class="font-headline text-headline-lg text-on-background mb-4">The 3-Tier OpenClaw Containment Logic</h2>
+                <p class="text-on-surface-variant max-w-2xl mx-auto font-body-md">Our proprietary agentic logic allows for granular escalation without disrupting business operations.</p>
+            </div>
+            <div class="max-w-7xl mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tier 1: Observational -->
+                <div class="glass-panel p-8 rounded-xl relative group hover:shadow-lg transition-all duration-300">
+                    <div class="absolute -top-4 left-8 bg-surface-container-high text-on-surface font-label-sm text-label-sm px-4 py-1 rounded-full font-bold border border-outline-variant/30">
+                        TIER 1
+                    </div>
+                    <div class="mb-6">
+                        <span class="material-symbols-outlined text-primary text-4xl">visibility</span>
+                    </div>
+                    <h3 class="font-headline-md mb-4 text-primary font-bold">Observational</h3>
+                    <p class="text-body-md text-on-surface-variant mb-8">
+                        Non-invasive shadowing of suspicious traffic. The agent benchmarks the behavior against the Sovereign Node’s global intelligence map without altering the process state.
                     </p>
+                    <div class="border-t border-outline-variant/20 pt-6 flex justify-between items-center">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant/50">RISK LEVEL</span>
+                        <span class="text-primary font-bold font-label-sm">LOW</span>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Tier 1: Observational -->
-                    <article class="trust-card group">
-                        <div class="mb-4 flex items-center justify-between">
-                            <span class="inline-flex px-3 py-1 rounded-full border border-outline-variant bg-surface-container-lowest text-label-sm font-label text-on-surface-variant">TIER 1</span>
-                            <span class="material-symbols-outlined text-primary">visibility</span>
-                        </div>
-                        <h3 class="font-headline text-headline-md mb-3 text-on-surface">Observational</h3>
-                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">
-                            Non-invasive shadowing of suspicious traffic. The agent benchmarks behavior against the Sovereign Node intelligence map without altering process state.
-                        </p>
-                        <div class="pt-4 border-t border-outline-variant flex items-center justify-between">
-                            <span class="font-label text-label-sm text-on-surface-variant">RISK LEVEL</span>
-                            <span class="font-label text-label-sm text-primary font-bold">LOW</span>
-                        </div>
-                    </article>
+                <!-- Tier 2: Precision Isolation -->
+                <div class="bg-white p-8 rounded-xl relative group border-2 border-primary/20 transition-all duration-300 scale-105 z-20 shadow-2xl">
+                    <div class="absolute -top-4 left-8 bg-primary text-white font-label-sm text-label-sm px-4 py-1 rounded-full font-bold">
+                        TIER 2
+                    </div>
+                    <div class="mb-6">
+                        <span class="material-symbols-outlined text-primary text-4xl">gps_fixed</span>
+                    </div>
+                    <h3 class="font-headline-md mb-4 text-primary font-bold">Precision Isolation</h3>
+                    <p class="text-body-md text-on-surface-variant mb-8">
+                        Micro-segmentation of the specific process or user session. Agentic reasoning severs outbound network calls while allowing internal telemetry for forensic collection.
+                    </p>
+                    <div class="border-t border-outline-variant/20 pt-6 flex justify-between items-center">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant/50">RISK LEVEL</span>
+                        <span class="text-primary font-bold font-label-sm">MEDIUM</span>
+                    </div>
+                </div>
 
-                    <!-- Tier 2: Precision Isolation -->
-                    <article class="trust-card group border-primary shadow-lg">
-                        <div class="mb-4 flex items-center justify-between">
-                            <span class="inline-flex px-3 py-1 rounded-full border border-primary bg-primary text-label-sm font-label text-white">TIER 2</span>
-                            <span class="material-symbols-outlined text-primary">gps_fixed</span>
-                        </div>
-                        <h3 class="font-headline text-headline-md mb-3 text-on-surface">Precision Isolation</h3>
-                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">
-                            Micro-segmentation isolates the specific process or session. Agentic logic severs suspicious egress while preserving telemetry for forensics.
-                        </p>
-                        <div class="pt-4 border-t border-outline-variant flex items-center justify-between">
-                            <span class="font-label text-label-sm text-on-surface-variant">RISK LEVEL</span>
-                            <span class="font-label text-label-sm text-primary font-bold">MEDIUM</span>
-                        </div>
-                    </article>
-
-                    <!-- Tier 3: Hard Quarantine -->
-                    <article class="trust-card group">
-                        <div class="mb-4 flex items-center justify-between">
-                            <span class="inline-flex px-3 py-1 rounded-full border border-accent bg-accent text-label-sm font-label text-white">TIER 3</span>
-                            <span class="material-symbols-outlined text-accent">security</span>
-                        </div>
-                        <h3 class="font-headline text-headline-md mb-3 text-on-surface">Hard Quarantine</h3>
-                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">
-                            Full machine suspension with credential rotation and mandatory human authorization before restoration.
-                        </p>
-                        <div class="pt-4 border-t border-outline-variant flex items-center justify-between">
-                            <span class="font-label text-label-sm text-on-surface-variant">RISK LEVEL</span>
-                            <span class="font-label text-label-sm text-accent font-bold">CRITICAL</span>
-                        </div>
-                    </article>
+                <!-- Tier 3: Hard Quarantine -->
+                <div class="glass-panel p-8 rounded-xl relative group hover:shadow-lg transition-all duration-300">
+                    <div class="absolute -top-4 left-8 bg-accent text-white font-label-sm text-label-sm px-4 py-1 rounded-full font-bold">
+                        TIER 3
+                    </div>
+                    <div class="mb-6">
+                        <span class="material-symbols-outlined text-accent text-4xl">security</span>
+                    </div>
+                    <h3 class="font-headline-md mb-4 text-primary font-bold">Hard Quarantine</h3>
+                    <p class="text-body-md text-on-surface-variant mb-8">
+                        Full machine suspension. OpenClaw locks the hardware ID and rotates all credentials associated with the node. Human-in-the-loop required for restoration.
+                    </p>
+                    <div class="border-t border-outline-variant/20 pt-6 flex justify-between items-center">
+                        <span class="font-label-sm text-label-sm text-on-surface-variant/50">RISK LEVEL</span>
+                        <span class="text-accent font-bold font-label-sm">CRITICAL</span>
+                    </div>
                 </div>
             </div>
         </section>
