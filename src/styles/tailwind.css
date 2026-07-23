@@ -41,8 +41,16 @@
 		@apply inline-flex items-center justify-center bg-surface-container-lowest text-on-surface border border-outline-variant px-10 py-4 rounded-xl font-label text-label-md hover:bg-surface-container-low transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-on-background dark:text-on-primary-container dark:border-outline disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
 	}
 
+	.btn-secondary-primary {
+		@apply bg-white text-primary hover:bg-surface-container-lowest;
+	}
+
 	.cta-shell {
 		@apply relative bg-primary-container text-white rounded-2xl overflow-hidden p-8 md:p-12 shadow-2xl;
+	}
+
+	.cta-copy {
+		@apply font-body text-body-md text-white/90 max-w-3xl mx-auto mb-8;
 	}
 
 	.form-label {
