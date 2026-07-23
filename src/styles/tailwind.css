@@ -37,6 +37,26 @@
 		@apply inline-flex items-center justify-center bg-surface-container-lowest text-on-surface border border-outline-variant px-10 py-4 rounded-xl font-label text-label-md hover:bg-surface-container-low transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-on-background dark:text-on-primary-container dark:border-outline;
 	}
 
+	.btn-cta-contrast {
+		@apply bg-surface-container-lowest text-on-surface shadow-lg hover:bg-surface-container-low;
+	}
+
+	.btn-cta-contrast:focus-visible {
+		@apply ring-white ring-offset-primary;
+	}
+
+	.cta-shell {
+		@apply relative bg-primary-container text-white rounded-2xl overflow-hidden p-8 md:p-12 shadow-2xl;
+	}
+
+	.form-label {
+		@apply font-label text-label-sm text-on-surface-variant block uppercase tracking-wider;
+	}
+
+	.form-field-input {
+		@apply w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/30;
+	}
+
 	.glass-card {
 		background: rgba(255, 255, 255, 0.8);
 		backdrop-filter: blur(12px);

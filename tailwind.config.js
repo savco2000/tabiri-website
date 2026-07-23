@@ -82,6 +82,7 @@ module.exports = {
           "48px",
           { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" },
         ],
+        "display-xl": ["180px", { lineHeight: "1", fontWeight: "500" }],
         "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "600" }],
         "label-md": [
           "14px",

@@ -3,12 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description" content="Explore Tabiri Analytics security, compliance, and sovereign data architecture for enterprise AI.">
-    <link rel="canonical" href="https://tabiri.ai/data-protection">
-    <meta property="og:title" content="Security &amp; Trust | Tabiri Analytics">
-    <meta property="og:description" content="Sovereign data architecture, isolated compute, and enterprise-grade compliance for secure AI.">
+    <meta name="description" content="Join Tabiri's channel partner program to deliver secure AI automation services at scale.">
+    <link rel="canonical" href="https://tabiri.ai/channel-partners">
+    <meta property="og:title" content="Channel Partner Program | Tabiri Analytics">
+    <meta property="og:description" content="Apply to become a regional partner and co-deliver sovereign AI solutions for enterprise clients.">
     <meta property="og:type" content="website">
-    <title>Security &amp; Trust | Tabiri Analytics</title>
+    <meta property="og:url" content="https://tabiri.ai/channel-partners">
+    <title>Channel Partner Program | Tabiri Analytics</title>
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link href="./assets/css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
@@ -273,7 +274,7 @@
                             </div>
                         </div>
                         <div class="absolute -bottom-10 -right-10 opacity-10">
-                            <span class="material-symbols-outlined text-[180px]">hub</span>
+                            <span class="material-symbols-outlined text-display-xl">hub</span>
                         </div>
                     </article>
                 </div>
@@ -297,33 +298,34 @@
                     <form class="space-y-6" onsubmit="event.preventDefault();">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label class="font-label text-label-sm text-on-surface-variant block uppercase tracking-wider">Agency Name</label>
-                                <input class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20" placeholder="Global Consulting Group" type="text">
+                                <label class="form-label" for="partner_agency_name">Agency Name</label>
+                                <input autocomplete="organization" class="form-field-input" id="partner_agency_name" name="agency_name" placeholder="Global Consulting Group" required type="text">
                             </div>
                             <div class="space-y-2">
-                                <label class="font-label text-label-sm text-on-surface-variant block uppercase tracking-wider">Corporate Email</label>
-                                <input class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20" placeholder="partner@agency.com" type="email">
+                                <label class="form-label" for="partner_corporate_email">Corporate Email</label>
+                                <input autocomplete="email" class="form-field-input" id="partner_corporate_email" name="corporate_email" placeholder="partner@agency.com" required type="email">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label class="font-label text-label-sm text-on-surface-variant block uppercase tracking-wider">Client Volume</label>
-                                <select class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20">
-                                    <option>1-10 Clients</option>
-                                    <option>11-50 Clients</option>
-                                    <option>50+ Clients</option>
+                                <label class="form-label" for="partner_client_volume">Client Volume</label>
+                                <select class="form-field-input" id="partner_client_volume" name="client_volume" required>
+                                    <option disabled selected value="">Select client volume</option>
+                                    <option value="1-10">1-10 Clients</option>
+                                    <option value="11-50">11-50 Clients</option>
+                                    <option value="50+">50+ Clients</option>
                                 </select>
                             </div>
                             <div class="space-y-2">
-                                <label class="font-label text-label-sm text-on-surface-variant block uppercase tracking-wider">Primary Vertical</label>
-                                <input class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20" placeholder="Healthcare, Finance, Legal..." type="text">
+                                <label class="form-label" for="partner_primary_vertical">Primary Vertical</label>
+                                <input class="form-field-input" id="partner_primary_vertical" name="primary_vertical" placeholder="Healthcare, Finance, Legal..." required type="text">
                             </div>
                         </div>
 
                         <div class="space-y-2">
-                            <label class="font-label text-label-sm text-on-surface-variant block uppercase tracking-wider">Current Delivery Constraint</label>
-                            <textarea class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20" placeholder="Describe where your team is constrained today and what you want to scale first..." rows="4"></textarea>
+                            <label class="form-label" for="partner_delivery_constraint">Current Delivery Constraint</label>
+                            <textarea class="form-field-input" id="partner_delivery_constraint" name="delivery_constraint" placeholder="Describe where your team is constrained today and what you want to scale first..." required rows="4"></textarea>
                         </div>
 
                         <button class="btn-primary w-full" type="submit">Request Partner Review</button>
@@ -336,7 +338,7 @@
                             <div class="icon-tile mb-0">
                                 <span class="material-symbols-outlined text-primary">schedule</span>
                             </div>
-                            <h3 class="font-headline text-title-md text-on-surface">Review Timeline</h3>
+                            <h3 class="font-headline text-headline-md text-on-surface">Review Timeline</h3>
                         </div>
                         <ul class="space-y-2">
                             <li class="font-body text-body-sm text-on-surface-variant">Step 1: Partner fit assessment</li>
@@ -350,7 +352,7 @@
                             <div class="icon-tile mb-0">
                                 <span class="material-symbols-outlined text-primary">security</span>
                             </div>
-                            <h3 class="font-headline text-title-md text-on-surface">Security Baseline</h3>
+                            <h3 class="font-headline text-headline-md text-on-surface">Security Baseline</h3>
                         </div>
                         <p class="font-body text-body-sm text-on-surface-variant">All deployments align to private compute and enterprise-grade data control requirements.</p>
                     </article>

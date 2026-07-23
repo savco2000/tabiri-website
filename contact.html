@@ -3,12 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description" content="Explore Tabiri Analytics security, compliance, and sovereign data architecture for enterprise AI.">
-    <link rel="canonical" href="https://tabiri.ai/data-protection">
-    <meta property="og:title" content="Security &amp; Trust | Tabiri Analytics">
-    <meta property="og:description" content="Sovereign data architecture, isolated compute, and enterprise-grade compliance for secure AI.">
+    <meta name="description" content="Contact Tabiri Analytics to discuss secure AI deployment, workflow automation, and sovereign data architecture.">
+    <link rel="canonical" href="https://tabiri.ai/contact">
+    <meta property="og:title" content="Contact Tabiri Analytics | Start a Secure AI Project">
+    <meta property="og:description" content="Connect with our team to plan secure AI implementation for your organization.">
     <meta property="og:type" content="website">
-    <title>Security &amp; Trust | Tabiri Analytics</title>
+    <meta property="og:url" content="https://tabiri.ai/contact">
+    <title>Contact Tabiri Analytics | Start a Secure AI Project</title>
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link href="./assets/css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
@@ -89,18 +90,18 @@
                         <form class="space-y-6" onsubmit="event.preventDefault();">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="space-y-2">
-                                    <label class="font-label text-label-sm text-on-surface-variant block uppercase tracking-wider">Full Name</label>
-                                    <input class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20" placeholder="John Doe" type="text">
+                                    <label class="form-label" for="contact_full_name">Full Name</label>
+                                    <input autocomplete="name" class="form-field-input" id="contact_full_name" name="full_name" placeholder="John Doe" required type="text">
                                 </div>
                                 <div class="space-y-2">
-                                    <label class="font-label text-label-sm text-on-surface-variant block uppercase tracking-wider">Corporate Email</label>
-                                    <input class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20" placeholder="john@company.com" type="email">
+                                    <label class="form-label" for="contact_corporate_email">Corporate Email</label>
+                                    <input autocomplete="email" class="form-field-input" id="contact_corporate_email" name="corporate_email" placeholder="john@company.com" required type="email">
                                 </div>
                             </div>
 
                             <div class="space-y-2">
-                                <label class="font-label text-label-sm text-on-surface-variant block uppercase tracking-wider">Workflow Bottleneck</label>
-                                <textarea class="w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20" placeholder="Describe the manual process or backlog slowing your operations..." rows="4"></textarea>
+                                <label class="form-label" for="contact_workflow_bottleneck">Workflow Bottleneck</label>
+                                <textarea class="form-field-input" id="contact_workflow_bottleneck" name="workflow_bottleneck" placeholder="Describe the manual process or backlog slowing your operations..." required rows="4"></textarea>
                             </div>
 
                             <button class="btn-primary w-full" type="submit">Submit</button>
