@@ -56,7 +56,7 @@
         </div>
     </nav>
 
-    <main class="pt-24 md:pt-28" id="data-protection">
+    <main class="pt-24 md:pt-28" id="contact-main">
         <section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
             <div class="absolute inset-0 opacity-40"></div>
             <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
@@ -174,7 +174,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-16">
             <div class="md:col-span-1">
                 <div class="h-10 mb-4 max-w-xs">
-                    <img alt="Tabiri logo" class="h-full w-auto object-contain object-left" src="./assets/svg/logo.svg">
+                    <img alt="Tabiri logo" class="h-full w-auto object-contain object-left" loading="lazy" decoding="async" src="./assets/svg/logo.svg">
                 </div>
                 <p class="text-body-sm text-on-surface-variant max-w-xs">
                     Empowering the modern enterprise with secure, agentic intelligence. Sovereign by design.
@@ -212,102 +212,6 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        const mobileNavToggle = document.getElementById('mobile-nav-toggle');
-        const mobileNavPanel = document.getElementById('mobile-nav-panel');
-        const mainContent = document.getElementById('data-protection');
-        const mobileNavLinks = mobileNavPanel.querySelectorAll('a');
-
-        const getFocusableInPanel = () =>
-            Array.from(mobileNavPanel.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])'));
-
-        const isMobileNavOpen = () => mobileNavToggle.getAttribute('aria-expanded') === 'true';
-
-        const closeMobileNav = () => {
-            mobileNavPanel.classList.remove('is-open');
-            mobileNavPanel.setAttribute('aria-hidden', 'true');
-            mobileNavToggle.setAttribute('aria-expanded', 'false');
-            mobileNavToggle.setAttribute('aria-label', 'Open site navigation');
-            mobileNavToggle.querySelector('.material-symbols-outlined').textContent = 'menu';
-            document.body.classList.remove('overflow-hidden');
-            mainContent.removeAttribute('inert');
-        };
-
-        const openMobileNav = () => {
-            mobileNavPanel.classList.add('is-open');
-            mobileNavPanel.setAttribute('aria-hidden', 'false');
-            mobileNavToggle.setAttribute('aria-expanded', 'true');
-            mobileNavToggle.setAttribute('aria-label', 'Close site navigation');
-            mobileNavToggle.querySelector('.material-symbols-outlined').textContent = 'close';
-            document.body.classList.add('overflow-hidden');
-            mainContent.setAttribute('inert', '');
-
-            const focusable = getFocusableInPanel();
-            if (focusable.length > 0) {
-                focusable[0].focus();
-            }
-        };
-
-        mobileNavToggle.addEventListener('click', () => {
-            const isOpen = mobileNavToggle.getAttribute('aria-expanded') === 'true';
-            if (isOpen) {
-                closeMobileNav();
-            } else {
-                openMobileNav();
-            }
-        });
-
-        mobileNavLinks.forEach((link) => {
-            link.addEventListener('click', closeMobileNav);
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (!isMobileNavOpen()) {
-                return;
-            }
-
-            if (event.key === 'Escape') {
-                closeMobileNav();
-                mobileNavToggle.focus();
-                return;
-            }
-
-            if (event.key === 'Tab') {
-                const focusable = getFocusableInPanel();
-                if (focusable.length === 0) {
-                    event.preventDefault();
-                    return;
-                }
-
-                const first = focusable[0];
-                const last = focusable[focusable.length - 1];
-
-                if (event.shiftKey && document.activeElement === first) {
-                    event.preventDefault();
-                    last.focus();
-                } else if (!event.shiftKey && document.activeElement === last) {
-                    event.preventDefault();
-                    first.focus();
-                }
-            }
-        });
-
-        document.addEventListener('click', (event) => {
-            if (!isMobileNavOpen()) {
-                return;
-            }
-
-            if (!mobileNavPanel.contains(event.target) && !mobileNavToggle.contains(event.target)) {
-                closeMobileNav();
-            }
-        });
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 1024) {
-                closeMobileNav();
-            }
-        });
-    </script>
+    <script src="./assets/js/mobile-nav.js"></script>
 </body>
 </html>
