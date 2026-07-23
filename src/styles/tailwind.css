@@ -47,6 +47,10 @@
 		@apply p-8 rounded-xl bg-white/80 backdrop-blur-md border border-primary-fixed-dim/30 hover:shadow-xl transition-shadow duration-300 hover:border-primary dark:bg-on-background/70;
 	}
 
+	.trust-card-accent {
+		@apply p-8 rounded-xl bg-white/80 backdrop-blur-md border border-primary-fixed-dim/30 hover:shadow-xl transition-shadow duration-300 hover:border-accent dark:bg-on-background/70;
+	}
+
 	.icon-tile {
 		@apply w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center mb-6 transition-colors;
 	}
