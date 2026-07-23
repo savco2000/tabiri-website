@@ -26,15 +26,19 @@
 	}
 
 	.nav-cta {
-		@apply inline-flex items-center justify-center bg-primary-container text-white px-5 py-2 rounded-lg font-label text-label-md hover:opacity-90 transition-opacity active:scale-95 duration-150 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+		@apply inline-flex items-center justify-center bg-primary-container text-white px-5 py-2 rounded-lg font-label text-label-md hover:opacity-90 transition-opacity active:scale-95 duration-150 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
+	}
+
+	.nav-toggle-button {
+		@apply inline-flex lg:hidden h-10 w-10 items-center justify-center rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container-low transition-colors focus-ring;
 	}
 
 	.btn-primary {
-		@apply inline-flex items-center justify-center bg-primary-container text-white px-10 py-4 rounded-xl font-label text-label-md hover:shadow-lg hover:shadow-primary/20 transition-shadow active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+		@apply inline-flex items-center justify-center bg-primary-container text-white px-10 py-4 rounded-xl font-label text-label-md hover:shadow-lg hover:shadow-primary/20 transition-shadow active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
 	}
 
 	.btn-secondary {
-		@apply inline-flex items-center justify-center bg-surface-container-lowest text-on-surface border border-outline-variant px-10 py-4 rounded-xl font-label text-label-md hover:bg-surface-container-low transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-on-background dark:text-on-primary-container dark:border-outline;
+		@apply inline-flex items-center justify-center bg-surface-container-lowest text-on-surface border border-outline-variant px-10 py-4 rounded-xl font-label text-label-md hover:bg-surface-container-low transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-on-background dark:text-on-primary-container dark:border-outline disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
 	}
 
 	.cta-shell {
@@ -46,7 +50,7 @@
 	}
 
 	.form-field-input {
-		@apply w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/30;
+		@apply w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:opacity-60 disabled:cursor-not-allowed;
 	}
 
 	.glass-card {
