@@ -1634,12 +1634,20 @@ input:where([type='file']):focus {
   height: 100%;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .min-h-\[320px\] {
   min-height: 320px;
 }
 
 .min-h-\[360px\] {
   min-height: 360px;
+}
+
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-14 {
@@ -1736,6 +1744,10 @@ input:where([type='file']):focus {
 
 .max-w-xs {
   max-width: 20rem;
+}
+
+.max-w-xl {
+  max-width: 36rem;
 }
 
 .flex-1 {
