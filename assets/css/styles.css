@@ -2329,10 +2329,6 @@ input:where([type='file']):focus {
   line-height: 2.5rem;
 }
 
-.text-\[18px\] {
-  font-size: 18px;
-}
-
 .text-body-lg {
   font-size: 18px;
   line-height: 28px;
@@ -2420,11 +2416,6 @@ input:where([type='file']):focus {
 
 .tracking-widest {
   letter-spacing: 0.1em;
-}
-
-.\!text-primary {
-  --tw-text-opacity: 1 !important;
-  color: rgb(26 69 210 / var(--tw-text-opacity, 1)) !important;
 }
 
 .text-accent {
@@ -2638,11 +2629,6 @@ input:where([type='file']):focus {
 
 .hover\:bg-primary\/5:hover {
   background-color: rgb(26 69 210 / 0.05);
-}
-
-.hover\:bg-surface-container-lowest:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:shadow-lg:hover {
