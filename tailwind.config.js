@@ -21,7 +21,7 @@ module.exports = {
         "on-surface": "#131b2e",
         "surface-bright": "#f8f9fb",
         "on-secondary-fixed": "#0b1c30",
-        surface: "#f4f5f7",
+        surface: "#e6e8ec",
         secondary: "#505f76",
         background: "#f2f3f5",
         "on-tertiary-container": "#93d2ff",

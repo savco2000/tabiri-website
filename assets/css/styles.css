@@ -2086,7 +2086,7 @@ input:where([type='file']):focus {
 
 .bg-surface {
   --tw-bg-opacity: 1;
-  background-color: rgb(244 245 247 / var(--tw-bg-opacity, 1));
+  background-color: rgb(230 232 236 / var(--tw-bg-opacity, 1));
 }
 
 .bg-surface-container-high {
@@ -2113,11 +2113,11 @@ input:where([type='file']):focus {
 }
 
 .bg-surface\/85 {
-  background-color: rgb(244 245 247 / 0.85);
+  background-color: rgb(230 232 236 / 0.85);
 }
 
 .bg-surface\/90 {
-  background-color: rgb(244 245 247 / 0.9);
+  background-color: rgb(230 232 236 / 0.9);
 }
 
 .bg-white {
@@ -2166,8 +2166,8 @@ input:where([type='file']):focus {
 }
 
 .via-surface {
-  --tw-gradient-to: rgb(244 245 247 / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), #f4f5f7 var(--tw-gradient-via-position), var(--tw-gradient-to);
+  --tw-gradient-to: rgb(230 232 236 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #e6e8ec var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
 .to-surface-container-lowest {
