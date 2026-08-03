@@ -1694,10 +1694,6 @@ input:where([type='file']):focus {
   max-width: 20rem;
 }
 
-.flex-1 {
-  flex: 1 1 0%;
-}
-
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -2757,10 +2753,6 @@ input:where([type='file']):focus {
     min-height: 420px;
   }
 
-  .md\:w-auto {
-    width: auto;
-  }
-
   .md\:grid-cols-12 {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
@@ -2779,10 +2771,6 @@ input:where([type='file']):focus {
 
   .md\:flex-row {
     flex-direction: row;
-  }
-
-  .md\:items-center {
-    align-items: center;
   }
 
   .md\:p-12 {
