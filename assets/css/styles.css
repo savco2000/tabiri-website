@@ -1626,6 +1626,10 @@ input:where([type='file']):focus {
   min-height: 100vh;
 }
 
+.min-h-\[70vh\] {
+  min-height: 70vh;
+}
+
 .w-14 {
   width: 3.5rem;
 }
@@ -2311,6 +2315,11 @@ input:where([type='file']):focus {
   padding-bottom: 1.5rem;
 }
 
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .pb-4 {
   padding-bottom: 1rem;
 }
@@ -2857,6 +2866,10 @@ input:where([type='file']):focus {
     flex-direction: row;
   }
 
+  .md\:gap-12 {
+    gap: 3rem;
+  }
+
   .md\:p-12 {
     padding: 3rem;
   }
@@ -2878,6 +2891,16 @@ input:where([type='file']):focus {
   .md\:py-4 {
     padding-top: 1rem;
     padding-bottom: 1rem;
+  }
+
+  .md\:py-10 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .md\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   .md\:pt-28 {
