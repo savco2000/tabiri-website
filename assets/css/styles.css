@@ -1610,6 +1610,10 @@ input:where([type='file']):focus {
   height: 100%;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
 .min-h-\[320px\] {
   min-height: 320px;
 }
@@ -1684,6 +1688,10 @@ input:where([type='file']):focus {
 
 .w-px {
   width: 1px;
+}
+
+.w-20 {
+  width: 5rem;
 }
 
 .max-w-2xl {
@@ -2947,6 +2955,10 @@ input:where([type='file']):focus {
     padding: 1.5rem;
   }
 
+  .md\:p-10 {
+    padding: 2.5rem;
+  }
+
   .md\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -3029,12 +3041,20 @@ input:where([type='file']):focus {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  .lg\:grid-cols-\[1\.1fr_0\.9fr\] {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
   .lg\:flex-row {
     flex-direction: row;
   }
 
   .lg\:items-start {
     align-items: flex-start;
+  }
+
+  .lg\:items-center {
+    align-items: center;
   }
 
   .lg\:justify-start {
@@ -3059,6 +3079,10 @@ input:where([type='file']):focus {
 
   .lg\:p-8 {
     padding: 2rem;
+  }
+
+  .lg\:p-12 {
+    padding: 3rem;
   }
 
   .lg\:px-gutter {
