@@ -1698,6 +1698,10 @@ input:where([type='file']):focus {
   max-width: 64rem;
 }
 
+.max-w-6xl {
+  max-width: 72rem;
+}
+
 .max-w-7xl {
   max-width: 80rem;
 }
@@ -1877,6 +1881,10 @@ input:where([type='file']):focus {
   border-color: rgb(184 188 198 / 0.3);
 }
 
+.self-start {
+  align-self: flex-start;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1895,6 +1903,14 @@ input:where([type='file']):focus {
 
 .rounded-3xl {
   border-radius: 1.5rem;
+}
+
+.rounded-\[1\.5rem\] {
+  border-radius: 1.5rem;
+}
+
+.rounded-\[2rem\] {
+  border-radius: 2rem;
 }
 
 .rounded-full {
@@ -1965,6 +1981,10 @@ input:where([type='file']):focus {
 
 .border-outline-variant\/30 {
   border-color: rgb(184 188 198 / 0.3);
+}
+
+.border-outline-variant\/70 {
+  border-color: rgb(184 188 198 / 0.7);
 }
 
 .border-primary {
@@ -2092,6 +2112,10 @@ input:where([type='file']):focus {
   background-color: rgb(230 232 236 / var(--tw-bg-opacity, 1));
 }
 
+.bg-surface-container-lowest\/70 {
+  background-color: rgb(230 232 236 / 0.7);
+}
+
 .bg-surface-container-lowest\/80 {
   background-color: rgb(230 232 236 / 0.8);
 }
@@ -2157,6 +2181,12 @@ input:where([type='file']):focus {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-surface {
+  --tw-gradient-from: #e6e8ec var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(230 232 236 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .from-surface-container-low {
   --tw-gradient-from: #eceef2 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(236 238 242 / 0) var(--tw-gradient-to-position);
@@ -2166,6 +2196,15 @@ input:where([type='file']):focus {
 .via-surface {
   --tw-gradient-to: rgb(230 232 236 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #e6e8ec var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.via-surface-container-low {
+  --tw-gradient-to: rgb(236 238 242 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), #eceef2 var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
+.to-surface-container {
+  --tw-gradient-to: #e4e7ec var(--tw-gradient-to-position);
 }
 
 .to-surface-container-lowest {
@@ -2347,9 +2386,18 @@ input:where([type='file']):focus {
   font-family: JetBrains Mono;
 }
 
+.font-sans {
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-body-lg {
@@ -2438,6 +2486,10 @@ input:where([type='file']):focus {
 
 .leading-relaxed {
   line-height: 1.625;
+}
+
+.tracking-\[0\.2em\] {
+  letter-spacing: 0.2em;
 }
 
 .tracking-wider {
@@ -2568,6 +2620,15 @@ input:where([type='file']):focus {
 
 .blur-3xl {
   --tw-blur: blur(64px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.drop-shadow {
+  --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -2770,6 +2831,19 @@ input:where([type='file']):focus {
   .sm\:gap-8 {
     gap: 2rem;
   }
+
+  .sm\:p-4 {
+    padding: 1rem;
+  }
+
+  .sm\:p-6 {
+    padding: 1.5rem;
+  }
+
+  .sm\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -2837,6 +2911,14 @@ input:where([type='file']):focus {
     flex-direction: row;
   }
 
+  .md\:items-center {
+    align-items: center;
+  }
+
+  .md\:justify-between {
+    justify-content: space-between;
+  }
+
   .md\:gap-12 {
     gap: 3rem;
   }
@@ -2847,6 +2929,10 @@ input:where([type='file']):focus {
 
   .md\:p-16 {
     padding: 4rem;
+  }
+
+  .md\:p-6 {
+    padding: 1.5rem;
   }
 
   .md\:px-8 {
@@ -2955,6 +3041,10 @@ input:where([type='file']):focus {
     padding: 4rem;
   }
 
+  .lg\:p-8 {
+    padding: 2rem;
+  }
+
   .lg\:px-gutter {
     padding-left: 24px;
     padding-right: 24px;
@@ -2971,6 +3061,10 @@ input:where([type='file']):focus {
 }
 
 @media (min-width: 1280px) {
+  .xl\:grid-cols-\[1\.2fr_0\.8fr\] {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+
   .xl\:gap-6 {
     gap: 1.5rem;
   }
