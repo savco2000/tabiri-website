@@ -2519,6 +2519,16 @@ input:where([type='file']):focus {
   line-height: 1.75rem;
 }
 
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -3034,6 +3044,18 @@ input:where([type='file']):focus {
     line-height: 56px;
     letter-spacing: -0.02em;
     font-weight: 700;
+  }
+
+  .md\:text-headline-lg {
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 600;
+  }
+
+  .md\:text-headline-md {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
   }
 }
 
