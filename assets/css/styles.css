@@ -3057,6 +3057,11 @@ input:where([type='file']):focus {
     line-height: 32px;
     font-weight: 600;
   }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
 }
 
 @media (min-width: 1024px) {
