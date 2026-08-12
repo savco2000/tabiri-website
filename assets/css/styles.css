@@ -2268,6 +2268,11 @@ input:where([type='file']):focus {
      object-position: left;
 }
 
+.object-center {
+  -o-object-position: center;
+     object-position: center;
+}
+
 .p-10 {
   padding: 2.5rem;
 }
