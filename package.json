@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --kill-others --names css,go,browser \"npm:watch:css\" \"go run ./cmd/web/\" \"npm:open:browser\"",
+    "build:css": "BROWSERSLIST_IGNORE_OLD_DATA=true tailwindcss -i ./ui/static/css/input.css -o ./ui/static/css/styles.css --minify",
+    "watch:css": "BROWSERSLIST_IGNORE_OLD_DATA=true tailwindcss -i ./ui/static/css/input.css -o ./ui/static/css/styles.css --watch",
+    "open:browser": "wait-on http-get://localhost:4000 && \"$BROWSER\" http://localhost:4000 && wait-on --reverse http-get://localhost:4000"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "browserslist": "^4.28.9",
+    "caniuse-lite": "^1.0.30001810",
+    "concurrently": "^9.2.4",
+    "tailwindcss": "3.4.17",
+    "wait-on": "^9.5.1"
+  }
+}

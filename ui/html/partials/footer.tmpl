@@ -1,0 +1,44 @@
+{{define "footer"}}
+<footer class="w-full py-12 px-4 md:px-8 lg:px-margin-desktop max-w-7xl mx-auto border-t border-outline-variant bg-surface" id="site-footer">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-16">
+        <div class="md:col-span-1">
+            <div class="h-10 mb-4 max-w-xs">
+                <img alt="Tabiri logo" class="h-full w-auto object-contain object-left" width="161" height="77" loading="lazy" decoding="async" src="./static/svg/logo.svg">
+            </div>
+            <p class="text-body-sm text-on-surface-variant max-w-xs">
+                Empowering the modern enterprise with secure, agentic intelligence. Sovereign by design.
+            </p>
+        </div>
+        <div id="footer-product-links">
+            <h3 class="font-label text-label-md text-primary mb-6 uppercase tracking-wider">PRODUCT</h3>
+            <ul class="space-y-4">
+                <li><a class="footer-link" href="/case-studies.html">Case Studies</a></li>
+                <li><a class="footer-link" href="/data-protection.html">Sovereign Node</a></li>
+                <li><a class="footer-link" href="/managed-cybersecurity-services.html">CyberSecurity</a></li>                   
+            </ul>
+        </div>
+        <div id="footer-company-links">
+            <h3 class="font-label text-label-md text-primary mb-6 uppercase tracking-wider">COMPANY</h3>
+            <ul class="space-y-4">
+                <li><a class="footer-link" href="/about.html">About Us</a></li>
+                <li><a class="footer-link" href="/channel-partners.html">Partners</a></li>
+                <li><a class="footer-link" href="/contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3 class="font-label text-label-md text-primary mb-6 uppercase tracking-wider">LEGAL</h3>
+            <ul class="space-y-4">
+                <li><a class="footer-link" href="#privacy-policy">Privacy Policy</a></li>
+                <li><a class="footer-link" href="#terms-of-service">Terms of Service</a></li>
+                <li><a class="footer-link" href="#security-disclosure">Security Disclosure</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="border-t border-outline-variant pt-8 flex flex-col md:flex-row justify-between items-center text-body-sm text-on-surface-variant">
+        <span>© {{.CurrentYear}} Tabiri Analytics. Lexington, KY, USA.</span>
+        <div class="flex gap-6 mt-4 md:mt-0">
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-node-green"></span> All Systems Operational</span>
+        </div>
+    </div>
+</footer>
+{{end}}

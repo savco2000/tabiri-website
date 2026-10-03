@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Lost robot illustration</title>
+  <desc id="desc">A confused robot looking at a folded map under a 404 sign.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f4f5f7"/>
+      <stop offset="100%" stop-color="#e6e8ec"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="360" rx="24" fill="url(#bg)"/>
+
+  <circle cx="86" cy="72" r="34" fill="#1A45D2" opacity="0.12"/>
+  <circle cx="552" cy="296" r="42" fill="#FD644C" opacity="0.18"/>
+
+  <rect x="228" y="52" width="184" height="52" rx="12" fill="#1A45D2" opacity="0.12"/>
+  <text x="320" y="86" text-anchor="middle" font-family="Geist, sans-serif" font-size="28" font-weight="700" fill="#1A45D2">404</text>
+
+  <g transform="translate(220 114)">
+    <rect x="70" y="20" width="120" height="112" rx="16" fill="#ffffff" stroke="#b8bcc6" stroke-width="3"/>
+    <rect x="100" y="0" width="58" height="28" rx="10" fill="#ffffff" stroke="#b8bcc6" stroke-width="3"/>
+    <circle cx="122" cy="74" r="10" fill="#1A45D2"/>
+    <circle cx="158" cy="74" r="10" fill="#1A45D2"/>
+    <path d="M122 105 Q140 117 158 105" fill="none" stroke="#444655" stroke-width="4" stroke-linecap="round"/>
+
+    <rect x="0" y="112" width="132" height="92" rx="12" fill="#ffffff" stroke="#b8bcc6" stroke-width="3" transform="rotate(-12 66 158)"/>
+    <path d="M26 156 L65 137 L98 165" fill="none" stroke="#1A45D2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="65" cy="137" r="6" fill="#FD644C"/>
+    <line x1="65" y1="137" x2="65" y2="173" stroke="#FD644C" stroke-width="4" stroke-linecap="round"/>
+
+    <rect x="202" y="112" width="132" height="92" rx="12" fill="#ffffff" stroke="#b8bcc6" stroke-width="3" transform="rotate(12 268 158)"/>
+    <path d="M230 166 L268 138 L302 160" fill="none" stroke="#1A45D2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="268" cy="138" r="6" fill="#FD644C"/>
+    <line x1="268" y1="138" x2="268" y2="174" stroke="#FD644C" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+{
+  "name": "Go HTMX Tailwind",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode"
+    }
+  },
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+	      "ms-azuretools.vscode-docker",
+	      "ms-vscode-remote.remote-containers",
+        "golang.go",
+        "bradlc.vscode-tailwindcss",
+        "satrik.tailwind-highlight",
+	      "ms-vscode.makefile-tools"
+      ]
+    }
+  },
+  "forwardPorts": [4000],
+  "portsAttributes": {
+    "4000": {
+      "label": "Tabiri website",
+      "onAutoForward": "silent"
+    }
+  },
+  "postCreateCommand": "go mod download"
+}

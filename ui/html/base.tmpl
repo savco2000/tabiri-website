@@ -1,0 +1,51 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="Tabiri Analytics builds secure AI employees that automate enterprise workflows while protecting sensitive data.">
+    <link rel="canonical" href="https://tabirianalytics.com/">
+    <meta property="og:title" content="Secure Enterprise AI Automation | Tabiri Analytics">
+    <meta property="og:description" content="Deploy secure, agentic AI teammates for operations, service, and compliance-intensive environments.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tabirianalytics.com/">
+    <title>{{.PageTitle}}</title>
+    <link rel="icon" href="/static/favicon.ico" sizes="any">
+    <link rel="preload" href="/static/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/static/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/static/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="/static/css/fonts.css" rel="stylesheet">
+    <link href="/static/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-white">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH3CMBPJ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    {{template "nav" .}}
+
+    <main class="pt-24 md:pt-28" id="index-main">
+        {{template "main" .}}        
+    </main>
+
+    {{template "footer" .}}    
+
+    <!-- Scroll Up Button -->
+    <button 
+        id="scrollUpBtn" 
+        class="fixed bottom-6 right-6 z-50 hidden translate-y-4 opacity-0 rounded-full bg-blue-600 p-3 text-white shadow-lg transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+        aria-label="Go to top">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="/static/js/analytics.js"></script>
+    <script src="/static/js/mobile-nav.js"></script>
+    <script src="/static/js/scroll-up.js"></script>
+    <script src="/static/js/dropdown-nav.js"></script>
+</body>
+</html>
+{{end}}
