@@ -1,0 +1,246 @@
+{{define "main"}}
+<!-- Hero Section -->
+<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
+    <div class="absolute inset-0 opacity-40"></div>
+    <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 items-center">
+        <div class="flex flex-col items-center text-center lg:items-start lg:text-left">
+            <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
+                <span class="material-symbols-outlined icon-size-sm text-primary">groups</span>
+                <span class="font-label text-label-sm text-on-surface">About Tabiri Analytics</span>
+            </div>
+            <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
+                Built On <span class="text-primary">Zero-Trust Foundations</span>
+            </h1>
+            <p class="font-body text-body-lg text-on-surface-variant max-w-2xl">
+                Tabiri Analytics emerged from deep research into sovereign systems, cybersecurity, and agentic automation at <span class="text-on-surface font-semibold">Carnegie Mellon University</span>. We build Digital Employees that operate with precision, accountability, and enterprise-grade trust.
+            </p>
+            <div class="mt-10 md:mt-12 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 w-full sm:w-auto">
+                <a class="btn-primary w-full sm:w-auto" href="#leadership">Meet The Team</a>
+                <a class="btn-secondary w-full sm:w-auto" href="#values">Our Principles</a>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="absolute -inset-4 bg-primary-container/20 blur-3xl rounded-full"></div>
+            <div class="relative rounded-2xl overflow-hidden border border-outline-variant shadow-2xl">
+                <img alt="Modern research laboratory representing Tabiri's academic and engineering roots" class="w-full aspect-square object-cover" width="512" height="279" fetchpriority="high" decoding="async" src="./static/images/engineering_lab.avif">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="py-12 bg-surface-container-low border-y border-outline-variant">
+    <div class="max-w-4xl mx-auto px-gutter text-center">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-outline-variant bg-surface-container-lowest mb-4">
+            <span class="material-symbols-outlined icon-size-sm text-primary">track_changes</span>
+            <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Mission</span>
+        </span>
+        <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Empowering The Sovereign Node</h2>
+        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl mx-auto">
+            We bridge the gap between human intent and automated execution, ensuring that AI agents act with the same level of trust, security, and precision as your most valued colleague.
+        </p>
+    </div>
+</section>
+
+<!-- Leadership Section -->
+<section class="py-12 bg-surface-container-lowest" id="leadership">
+    <div class="max-w-7xl mx-auto px-gutter">
+        <div class="text-center mb-10 md:mb-12">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-outline-variant bg-surface-container-low mb-4">
+                <span class="material-symbols-outlined icon-size-sm text-primary">badge</span>
+                <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Leadership</span>
+            </span>
+            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">The Engineers Of <span class="text-primary">Agentic Automation</span></h2>
+            <p class="font-body text-body-md text-on-surface-variant max-w-3xl mx-auto">
+                Our team combines distributed systems, secure infrastructure, AI orchestration, and enterprise growth expertise to build trustworthy automation at scale.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Edwin Kairu Card -->
+            <article class="group relative bg-white border border-outline-variant rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div class="flex items-center gap-4 mb-6">
+                    <img alt="Edwin Kairu headshot" class="h-24 w-24 rounded-full object-cover ring-2 ring-primary/20" loading="lazy" decoding="async" src="./static/images/edwin_kairu_headshot.avif">
+                    <div>
+                        <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Edwin Kairu</h3>
+                        <p class="font-label text-label-sm uppercase tracking-wider text-primary">Co-Founder and CEO</p>
+                    </div>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Experienced cybersecurity professional and entrepreneur with a proven track record of strengthening the security posture of organizations across sectors.</p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Edwin is a Distinguished Service Professor at Carnegie Mellon University and brings deep expertise in agentic SecOps.</p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">He holds a BSc in Management Information Systems from the State University of New York (SUNY) at Buffalo and an MSc in Information Security Policy and Management from Carnegie Mellon University.</p>
+                <div class="h-1 w-full absolute bottom-0 left-0 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            </article>
+
+            <!-- Savannah Kadima Card -->
+            <article class="group relative bg-white border border-outline-variant rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div class="flex items-center gap-4 mb-6">
+                    <img alt="Savannah Kadima headshot" class="h-24 w-24 rounded-full object-cover ring-2 ring-primary/20" loading="lazy" decoding="async" src="./static/images/savannah_kadima_headshot.avif">
+                    <div>
+                        <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Savannah Kadima</h3>
+                        <p class="font-label text-label-sm uppercase tracking-wider text-primary">Co-Founder and CTO</p>
+                    </div>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">AI-first software architect and engineering leader with 8+ years of experience in high-scale governance and compliance.</p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Savannah has led enterprise AI readiness, data standardization, and digital transformation initiatives at Capital One.</p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">He holds an MSc in Mechanical and Aerospace Engineering from the State University of New York (SUNY) at Buffalo.</p>
+                <div class="h-1 w-full absolute bottom-0 left-0 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            </article>
+
+            <!-- Victor Card -->
+            <article class="group relative bg-white border border-outline-variant rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div class="flex items-center gap-4 mb-6">
+                    <img alt="Victor Kagimu headshot" class="h-24 w-24 rounded-full object-cover ring-2 ring-primary/20" loading="lazy" decoding="async" src="./static/images/victor_kagimu_headshot.avif">
+                    <div>
+                        <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Victor Kagimu</h3>
+                        <p class="font-label text-label-sm uppercase tracking-wider text-primary">Co-Founder and COO</p>
+                    </div>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Technology entrepreneur with over a decade of experience building ventures across East Africa. </p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Victor has led the company's investor relations and business development strategy from the ground up, and helped grow its customer base to 40+ enterprise clients across five countries. </p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">He holds an MSc in Information Technology from Carnegie Mellon University and was the inaugural recipient of the Innovation Forward Fellowship Fund.</p>
+                <div class="h-1 w-full absolute bottom-0 left-0 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            </article>
+            
+            <!-- Johnathon T. Davis Card -->
+            <article class="group relative bg-white border border-outline-variant rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div class="flex items-center gap-4 mb-6">
+                    <img alt="Johnathon T. Davis headshot" class="h-24 w-24 rounded-full object-cover ring-2 ring-primary/20" loading="lazy" decoding="async" src="./static/images/johnathon_t_davis_headshot.avif">
+                    <div>
+                        <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Johnathon T. Davis</h3>
+                        <p class="font-label text-label-sm uppercase tracking-wider text-primary">Founding Board Member</p>
+                    </div>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Managing Partner at JT Davis Asset Management with deep experience in capital strategy, portfolio management, and market development.</p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Johnathon holds a bachelor's degree in Business Marketing from the University of Kentucky and is registered as a Series 65 investment adviser in the Commonwealth of Kentucky.</p>
+                <div class="h-1 w-full absolute bottom-0 left-0 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            </article>
+
+            <!-- Betsy M. Bevilacqua Card -->
+            <article class="group relative bg-white border border-outline-variant rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div class="flex items-center gap-4 mb-6">
+                    <img alt="Betsy Mugo Bevilacqua headshot" class="h-24 w-24 rounded-full object-cover ring-2 ring-primary/20" loading="lazy" decoding="async" src="./static/images/betsy_mugo_bevilacqua_headshot.avif">
+                    <div>
+                        <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Betsy M. Bevilacqua</h3>
+                        <p class="font-label text-label-sm uppercase tracking-wider text-primary">Founding Member</p>
+                    </div>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Cybersecurity strategist with 15+ years leading security functions at Meta, eBay, and high-growth startups such as Chainalysis and Butterfly Network.</p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Betsy helps organizations protect their data and systems so they can stay focused on what they do best.</p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">She holds an MBA in Finance from Canisius University.</p>
+                <div class="h-1 w-full absolute bottom-0 left-0 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            </article>                    
+
+            <!-- Nate Dillard Card -->
+            <article class="group relative bg-white border border-outline-variant rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <div class="flex items-center gap-4 mb-6">
+                    <img alt="Nathan Nate Dillard headshot" class="h-24 w-24 rounded-full object-cover ring-2 ring-primary/20" loading="lazy" decoding="async" src="./static/images/nathan_dillard_headshot.avif">
+                    <div>
+                        <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Nate Dillard</h3>
+                        <p class="font-label text-label-sm uppercase tracking-wider text-primary">Chief Revenue Officer</p>
+                    </div>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Seasoned technologist, U.S. Air Force veteran, and serial entrepreneur with extensive experience in data-driven digital transformation and organizational growth.</p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">Nate leads enterprise growth strategy, market expansion, and commercial operations for emerging technology ventures, bridging sophisticated technical architecture with impactful market execution.</p>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed mb-6">He brings a robust background in defense systems and information management, complemented by leadership across high-growth digital initiatives.</p>
+                <div class="h-1 w-full absolute bottom-0 left-0 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values Section -->
+<section class="py-12 bg-surface-container-low border-y border-outline-variant" id="values">
+    <div class="max-w-7xl mx-auto px-gutter">
+        <div class="text-center mb-10 md:mb-12">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-outline-variant bg-surface-container-lowest mb-4">
+                <span class="material-symbols-outlined icon-size-sm text-primary">volunteer_activism</span>
+                <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Our Core Values</span>
+            </span>
+            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">The <span class="text-primary">core principles</span> behind our work</h2>
+            <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">
+                We build every engagement around trust, human partnership, and measurable impact.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <article class="trust-card-no-hover group">
+                <div class="mb-4 flex items-center gap-3">
+                    <div class="icon-tile mb-0">
+                        <span class="material-symbols-outlined text-primary">shield_lock</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Zero-Trust by Design</span></h3>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">
+                    We never treat security as an afterthought. Your digital teammates operate inside private Sovereign Nodes with strict no-training, contractual zero-retention rules to protect your private data boundaries.
+                </p>
+            </article>
+
+            <article class="trust-card-no-hover group">
+                <div class="mb-4 flex items-center gap-3">
+                    <div class="icon-tile mb-0">
+                        <span class="material-symbols-outlined text-primary">groups</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Human Augmentation, Not Replacement</span></h3>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">
+                    We build software to collaborate with your team, not replace them. Our tools handle the repetitive manual tasks under strict Human-in-the-Loop guardrails so your people can focus on strategy and real human connection.
+                </p>
+            </article>
+
+            <article class="trust-card-no-hover group">
+                <div class="mb-4 flex items-center gap-3">
+                    <div class="icon-tile mb-0">
+                        <span class="material-symbols-outlined text-primary">verified</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Uncompromising Integrity</span></h3>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">
+                    We value verified facts over guesswork. Our system is engineered to check every record, flag conflicts, and refuse to invent false citations or alter data under pressure.
+                </p>
+            </article>
+
+            <article class="trust-card-no-hover group">
+                <div class="mb-4 flex items-center gap-3">
+                    <div class="icon-tile mb-0">
+                        <span class="material-symbols-outlined text-primary">hub</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Ecosystem Synergy</span></h3>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">
+                    We partner wholesale with marketing agencies, consultants, and advisors rather than forcing high-friction direct sales. We create a win-win platform where trusted partners bring enterprise technology to their existing clients.
+                </p>
+            </article>
+
+            <article class="trust-card-no-hover group lg:col-span-2">
+                <div class="mb-4 flex items-center justify-center gap-3">
+                    <div class="icon-tile mb-0">
+                        <span class="material-symbols-outlined text-primary">bolt</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Practical Real-World Impact</span></h3>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed text-center max-w-3xl mx-auto">
+                    We build modular, fast-launch software designed to clear immediate office bottlenecks today, giving growing businesses and legal teams the reach of a much larger staff.
+                </p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-12 px-gutter bg-surface-container-low border-t border-outline-variant" id="trusted-ai-partner-cta">
+    <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
+        <div class="absolute inset-0 bg-gradient-to-tr from-[#1a45d2]/5 to-transparent"></div>
+        <div class="relative z-10 max-w-5xl mx-auto">
+            <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Meet the Team Behind Secure AI</p>
+            <h2 class="font-headline text-4xl md:text-display-lg lg:whitespace-nowrap text-center mb-4">Ready to Work with a <span class="text-primary">Trusted AI Partner?</h2>
+            <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+                Connect with our team to discuss your goals, evaluate secure deployment options, and design an implementation plan tailored to your organization.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a class="btn-primary" href="/contact">Schedule a Strategy Call</a>
+            </div>
+        </div>
+    </div>
+</section>
+{{end}}

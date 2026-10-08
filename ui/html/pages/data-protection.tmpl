@@ -1,0 +1,232 @@
+{{define "main"}}
+<!-- Hero Section -->
+<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest">
+    <div class="absolute inset-0 opacity-40"></div>
+    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
+        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
+            <span class="material-symbols-outlined icon-size-sm text-primary">lock</span>
+            <span class="font-label text-label-sm text-on-surface">Sovereign Data Architecture</span>
+        </div>
+        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
+            Your Data Stays Yours. <span class="text-accent">Period</span>
+        </h1>
+        <p class="font-body text-body-lg text-on-surface-variant max-w-2xl">
+            Most standard AI tools steal your company secrets to train their models. Tabiri AI isolates your files inside a <span class="font-bold text-on-surface">private data vault</span>, ensuring your intellectual property never leaves your control.
+        </p>
+        <div class="mt-10 md:mt-12 flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 w-full sm:w-auto">
+            <a class="btn-primary w-full sm:w-auto" href="/contact">Book a Data Privacy Call</a>
+            <!--
+            <a class="btn-secondary w-full sm:w-auto" href="/security-audit-2024">Security Audit 2024</a>
+            -->
+        </div>
+    </div>
+</section>
+
+<!-- Sovereign Node Section -->
+<section class="py-12 bg-surface-container-low relative border-y border-outline-variant" id="sovereign-node">
+    <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="order-2 lg:order-1">
+            <div class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">INFRASTRUCTURE</div>
+            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-2">The Sovereign Node</h2>
+            <p class="font-body text-body-md text-on-surface-variant mb-8">
+                Unlike public cloud AI platforms, Tabiri Analytics operates on a decentralized "Sovereign Node" model. This is an isolated workspace tailored specifically for your organization.
+            </p>
+            <ul class="space-y-8">
+                <li class="flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-accent mt-1">shield_with_heart</span>
+                    <div>
+                        <h3 class="font-headline text-2xl md:text-headline-md mb-2 text-on-surface">Isolated Compute</h3>
+                        <p class="text-body-sm text-on-surface-variant">
+                            Your Digital Employees run on dedicated resources with no multi-tenancy leakage.
+                        </p>
+                    </div>
+                </li>
+                <li class="flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-accent mt-1">cloud_off</span>
+                    <div>
+                        <h3 class="font-headline text-2xl md:text-headline-md mb-2 text-on-surface">Local or Private Cloud</h3>
+                        <p class="text-body-sm text-on-surface-variant">
+                            Deploy behind your own firewall, on-premise, or within a VPC on AWS/Azure.
+                        </p>
+                    </div>
+                </li>
+                <li class="flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-accent mt-1">encrypted</span>
+                    <div>
+                        <h3 class="font-headline text-2xl md:text-headline-md mb-2 text-on-surface">End-to-End Encryption</h3>
+                        <p class="text-body-sm text-on-surface-variant">
+                            AES-256 encryption for data at rest and TLS 1.3 for data in transit.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="order-1 lg:order-2 flex justify-center">
+            <!-- Technical Diagram -->
+            <div class="relative w-full max-w-md aspect-square bg-surface-container-lowest rounded-xl shadow-xl p-6 border border-outline-variant flex flex-col justify-center items-center overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary-container/5 to-transparent"></div>
+                <div class="absolute top-4 left-4 font-label text-label-sm text-outline uppercase tracking-widest">System Diagram // Node_Alpha_01</div>
+                <div class="relative z-10 w-full h-full flex items-center justify-center">
+                    <div class="w-32 h-32 rounded-full border-4 border-dashed border-primary/20 flex items-center justify-center motion-safe:animate-[spin_30s_linear_infinite] motion-reduce:animate-none">
+                        <div class="w-24 h-24 rounded-full border-4 border-primary flex items-center justify-center bg-surface-container-lowest shadow-lg shadow-primary/10">
+                            <span class="material-symbols-outlined material-symbols-filled icon-size-xl text-primary">security</span>
+                        </div>
+                    </div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
+                        <div class="absolute top-[12%] left-[12%] p-2 bg-surface shadow-sm rounded-lg border border-outline-variant flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-sm">database</span>
+                            <span class="font-label text-label-sm font-bold text-on-surface">Encrypted Vault</span>
+                        </div>
+                        <div class="absolute bottom-[18%] right-[8%] p-2 bg-surface shadow-sm rounded-lg border border-outline-variant flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-sm">robot_2</span>
+                            <span class="font-label text-label-sm font-bold text-on-surface">Isolated Agent</span>
+                        </div>
+                        <div class="absolute top-[22%] right-[12%] p-2 bg-surface shadow-sm rounded-lg border border-outline-variant flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-sm">hub</span>
+                            <span class="font-label text-label-sm font-bold text-on-surface">VPC Tunnel</span>
+                        </div>
+                    </div>
+                    <svg class="absolute inset-0 w-full h-full opacity-10 pointer-events-none" viewBox="0 0 100 100">
+                        <line class="text-primary" stroke="currentColor" stroke-width="0.75" x1="50" x2="15" y1="50" y2="15"></line>
+                        <line class="text-primary" stroke="currentColor" stroke-width="0.75" x1="50" x2="85" y1="50" y2="25"></line>
+                        <line class="text-primary" stroke="currentColor" stroke-width="0.75" x1="50" x2="80" y1="50" y2="80"></line>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trust Promises Section -->
+<section class="py-12 bg-surface-container-lowest" id="trust-pillars">
+    <div class="max-w-7xl mx-auto px-gutter">
+        <div class="text-center mb-8">
+            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Our Four Pillars of Trust</h2>
+            <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">
+                In an era of agentic AI, security isn't just a feature - it's the core substrate of our relationship with our partners.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Promise 1 -->
+            <div class="trust-card group">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-tile group-hover:bg-primary-container">
+                        <span class="material-symbols-outlined text-primary group-hover:text-white">visibility_off</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">No Data Training</span></h3>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">
+                    We never use your proprietary data, prompts, or documents to train or fine-tune our global AI models. Your IP remains exclusively yours.
+                </p>
+            </div>
+
+            <!-- Promise 2 -->
+            <div class="trust-card group">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-tile group-hover:bg-primary-container">
+                        <span class="material-symbols-outlined text-primary group-hover:text-white">grid_view</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Total Isolation</span></h3>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">
+                    Every Digital Associate operates within a containerized environment. Data cannot bleed between agents or cross organizational boundaries.
+                </p>
+            </div>
+
+            <!-- Promise 3 -->
+            <div class="trust-card group">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-tile group-hover:bg-primary-container">
+                        <span class="material-symbols-outlined text-primary group-hover:text-white">history_edu</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Accountability Logging</span></h3>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">
+                    Full cryptographic audit trails for every action taken by an AI. Export logs directly to your SIEM for total transparency.
+                </p>
+            </div>
+
+            <!-- Promise 4 -->
+            <div class="trust-card group">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="icon-tile group-hover:bg-primary-container">
+                        <span class="material-symbols-outlined text-primary group-hover:text-white">lan</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Default Network Lock</span></h3>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">
+                    Nodes operate with strict egress rules. Agents cannot communicate with the outside internet unless explicitly whitelisted.
+                </p>
+            </div>
+        </div>
+
+        <!-- Technical Validation -->
+        <div class="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!--Enterprise Compliance-->
+            <div class="md:col-span-2 bg-surface-container-low p-10 rounded-2xl shadow-sm border border-outline-variant">
+                <div class="flex justify-between items-start mb-10">
+                    <div>
+                        <h3 class="font-headline text-3xl md:text-headline-lg mb-2 text-on-surface">Enterprise Compliance</h3>
+                        <p class="text-on-surface-variant font-body">Built for highly regulated industries like Defense, Fintech, and Healthcare.</p>
+                    </div>
+                    <div class="flex flex-wrap justify-end gap-2">
+                        <div class="px-4 py-1.5 bg-node-green/10 text-on-surface text-label-sm font-bold rounded-full border border-node-green/20">SOC2 TYPE II</div>
+                        <div class="px-4 py-1.5 bg-primary-container/10 text-primary-container text-label-sm font-bold rounded-full border border-primary-container/20">HIPAA</div>
+                        <div class="px-4 py-1.5 bg-node-purple/10 text-node-purple text-label-sm font-bold rounded-full border border-node-purple/20">GDPR</div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between border-b border-outline-variant pb-4">
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined text-node-green">verified_user</span>
+                            <span class="font-body text-body-md font-bold text-on-surface">Vulnerability Disclosure Program</span>
+                        </div>
+                        <span class="font-label text-label-sm text-on-surface-variant">Active</span>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-outline-variant pb-4">
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined text-node-green">security_update_good</span>
+                            <span class="font-body text-body-md font-bold text-on-surface">Automated Penetration Testing</span>
+                        </div>
+                        <span class="font-label text-label-sm text-on-surface-variant">Quarterly</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined text-node-green">fingerprint</span>
+                            <span class="font-body text-body-md font-bold text-on-surface">Biometric &amp; MFA Hardware Support</span>
+                        </div>
+                        <span class="font-label text-label-sm text-on-surface-variant">Ready</span>
+                    </div>
+                    </div>
+            </div>
+            <div class="bg-primary-container p-10 rounded-2xl flex flex-col justify-between text-white relative overflow-hidden shadow-xl">
+                <div class="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+                <div>
+                    <span class="material-symbols-outlined material-symbols-filled icon-size-2xl mb-8">terminal</span>
+                    <h3 class="font-headline text-3xl md:text-headline-lg mb-4">Command Central</h3>
+                    <p class="text-white/80 font-body text-body-sm leading-relaxed">Administer your Sovereign Node from a single, high-security dashboard.</p>
+                </div>
+                <a class="btn-secondary mt-12 w-full" href="/contact">Request a Demo</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-12 px-gutter bg-surface-container-low border-t border-outline-variant" id="secure-ai-consultation-cta">
+    <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
+        <div class="absolute inset-0 bg-gradient-to-tr from-[#1a45d2]/5 to-transparent"></div>
+        <div class="relative z-10 max-w-5xl mx-auto">
+            <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">See Sovereign Security in Action</p>
+            <h2 class="font-headline text-4xl md:text-display-lg lg:whitespace-nowrap text-center mb-4">Ready for a <span class="text-primary">Secure AI Future?</span></h2>
+            <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+                Schedule a technical deep dive with our security engineering team to see how we protect your Sovereign Node.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a class="btn-primary" href="/contact">Talk to a Specialist</a>
+                <a class="btn-secondary" href="/case-studies.html">View Case Studies</a>
+            </div>
+        </div>
+    </div>
+</section>
+{{end}}

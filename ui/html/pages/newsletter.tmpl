@@ -1,0 +1,94 @@
+{{define "main"}}
+<!-- Hero Section -->
+<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
+    <div class="absolute inset-0 opacity-40"></div>
+    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
+        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
+            <span class="material-symbols-outlined icon-size-sm text-primary">mail</span>
+            <span class="font-label text-label-sm text-on-surface">Tabiri Newsletter</span>
+        </div>
+        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
+            Practical ideas for leading <span class="text-primary">secure AI adoption</span>
+        </h1>
+        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+            Get thoughtful analysis on AI operations, governance, and digital workforce design delivered to your inbox.
+        </p>
+    </div>
+</section>
+
+<section class="py-12 md:py-16 bg-surface-container-low border-b border-outline-variant" id="subscribe">
+    <div class="max-w-6xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
+        <article class="trust-card lg:col-span-3">
+            <div class="mb-8 flex items-center gap-4">
+                <div class="icon-tile mb-0 shrink-0">
+                    <span class="material-symbols-outlined text-primary">mark_email_unread</span>
+                </div>
+                <div>
+                    <h2 class="font-headline text-headline-md text-on-surface">Subscribe to the Newsletter</h2>
+                    <p class="font-body text-body-sm text-on-surface-variant">Join leaders building useful AI without compromising trust.</p>
+                </div>
+            </div>
+
+            <form class="space-y-6">
+                <div class="space-y-2">
+                    <label class="form-label" for="newsletter_first_name">First Name</label>
+                    <input autocomplete="given-name" class="form-field-input" id="newsletter_first_name" name="first_name" placeholder="Your first name" type="text">
+                </div>
+
+                <div class="space-y-2">
+                    <label class="form-label" for="newsletter_email">Email Address</label>
+                    <input autocomplete="email" class="form-field-input" id="newsletter_email" name="email" placeholder="you@company.com" required type="email">
+                </div>
+
+                <label class="flex items-start gap-3 text-body-sm text-on-surface-variant" for="newsletter_consent">
+                    <input class="mt-1 rounded border-outline-variant text-primary focus:ring-primary" id="newsletter_consent" name="consent" required type="checkbox">
+                    <span>I agree to receive the Tabiri newsletter by email. I can unsubscribe at any time.</span>
+                </label>
+
+                <button class="btn-primary w-full" type="submit">
+                    <span class="material-symbols-outlined mr-2 icon-size-sm">send</span>
+                    Subscribe
+                </button>
+            </form>
+        </article>
+
+        <aside class="lg:col-span-2 pt-2" aria-labelledby="newsletter-benefits-title">
+            <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-3">In Every Edition</p>
+            <h2 class="font-headline text-3xl text-on-background mb-8" id="newsletter-benefits-title">Signal, without the noise</h2>
+            <div class="space-y-7">
+                <div class="flex gap-4">
+                    <div class="icon-tile mb-0 shrink-0">
+                        <span class="material-symbols-outlined text-primary">strategy</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline text-lg font-semibold text-on-surface mb-1">Practical Playbooks</h3>
+                        <p class="text-body-sm text-on-surface-variant">Clear guidance for introducing AI into real operating environments.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="icon-tile mb-0 shrink-0">
+                        <span class="material-symbols-outlined text-primary">shield_lock</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline text-lg font-semibold text-on-surface mb-1">Security Perspective</h3>
+                        <p class="text-body-sm text-on-surface-variant">Governance and data protection considerations explained plainly.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="icon-tile mb-0 shrink-0">
+                        <span class="material-symbols-outlined text-primary">schedule</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline text-lg font-semibold text-on-surface mb-1">Respect for Your Time</h3>
+                        <p class="text-body-sm text-on-surface-variant">Concise, useful editions sent only when there is something worth sharing.</p>
+                    </div>
+                </div>
+            </div>
+            <a class="inline-flex items-center gap-2 mt-10 font-label text-label-md text-primary hover:opacity-80" href="/blog.html">
+                <span class="material-symbols-outlined icon-size-sm">arrow_back</span>
+                Return to the blog
+            </a>
+        </aside>
+    </div>
+</section>
+{{end}}

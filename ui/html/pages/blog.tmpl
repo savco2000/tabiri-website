@@ -1,0 +1,119 @@
+{{define "main"}}
+<!-- Hero Section -->
+<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
+    <div class="absolute inset-0 opacity-40"></div>
+    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
+        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
+            <span class="material-symbols-outlined icon-size-sm text-primary">article</span>
+            <span class="font-label text-label-sm text-on-surface">Insights & Playbooks</span>
+        </div>
+        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
+            Ideas, signals, and <span class="text-primary">secure AI operating models</span> for the modern enterprise
+        </h1>
+        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+            Practical thinking for teams that want to automate operations without compromising privacy, trust, or human accountability.
+        </p>
+        <div class="mt-10 md:mt-12 flex flex-wrap justify-center gap-3">
+            <span class="inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm text-on-surface">AI Strategy</span>
+            <span class="inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm text-on-surface">Cybersecurity</span>
+            <span class="inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm text-on-surface">Operational Design</span>
+            <span class="inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm text-on-surface">Governance</span>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Post Section -->
+<section class="py-12 bg-surface-container-low border-b border-outline-variant" id="featured-post">
+    <div class="max-w-7xl mx-auto px-gutter">
+        <article class="overflow-hidden rounded-[2rem] border border-outline-variant bg-surface-container-lowest shadow-sm lg:flex">
+            <div class="lg:w-[48%] relative min-h-[280px] md:min-h-[360px] bg-surface-container-low">
+                <img alt="Secure digital payment infrastructure under assessment" class="absolute inset-0 h-full w-full object-cover" src="./static/images/fintech-compliance.avif">
+            </div>
+            <div class="lg:w-[52%] p-6 md:p-8 lg:p-10 flex flex-col justify-center">
+                <span class="inline-flex w-fit items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 font-label text-label-sm text-primary uppercase tracking-wider">Featured article</span>
+                <h2 class="mt-5 font-headline text-3xl md:text-headline-lg text-on-background">Inside a regulated fintech's Agentic SecOps penetration test</h2>
+                <p class="mt-4 text-body-md text-on-surface-variant leading-relaxed">
+                    How we combined machine-speed coverage with human judgment to assess live payment infrastructure, expose material risk quickly, and give a regulated fintech a practical path to remediation.
+                </p>
+                <div class="mt-6 flex flex-wrap items-center gap-4 text-body-sm text-on-surface-variant">
+                    <span>September 25, 2026</span>
+                    <span>•</span>
+                    <span>9 min read</span>
+                </div>
+                <div class="mt-8">
+                    <a class="btn-primary" href="/blog-post-2.html">Read the article</a>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- Latest Posts Section -->
+<section class="py-12 bg-surface-container-lowest" id="latest-posts">
+    <div class="max-w-7xl mx-auto px-gutter">
+        <div class="mb-10 text-center md:text-left">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-outline-variant bg-surface-container-low mb-4">
+                <span class="material-symbols-outlined icon-size-sm text-primary">newspaper</span>
+                <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Latest posts</span>
+            </span>
+            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background">Fresh thinking for AI operations</h2>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+                <div class="h-48 overflow-hidden bg-surface-container-lowest">
+                    <img alt="Agentic security operations protecting connected municipal geospatial infrastructure" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" width="1600" height="1067" src="./static/images/municipal-agentic-secops.avif">
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                    <div class="mb-4 flex items-center gap-2 text-body-sm text-on-surface-variant">
+                        <span class="font-label text-label-sm uppercase tracking-wider text-primary">Cybersecurity</span>
+                        <span>•</span>
+                        <span>8 min read</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">From alert queues to agentic defense</h3>
+                    <p class="mt-4 text-body-sm text-on-surface-variant leading-relaxed">How CDP-MapSync's continuous monitoring evolved from engineer-led log analysis into human-governed Agentic SecOps.</p>
+                    <div class="mt-auto pt-6">
+                        <a class="text-primary font-label text-label-sm uppercase tracking-wider hover:opacity-80" href="/blog-post-3.html">Read more</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+                <div class="h-48 overflow-hidden bg-surface-container-lowest">
+                    <img alt="Office team reviewing secure AI workflows" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="./static/images/tabiri_office_environment.avif">
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                    <div class="mb-4 flex items-center gap-2 text-body-sm text-on-surface-variant">
+                        <span class="font-label text-label-sm uppercase tracking-wider text-primary">AI Strategy</span>
+                        <span>•</span>
+                        <span>7 min read</span>
+                    </div>
+                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Why secure AI teams outperform generic automation tools</h3>
+                    <p class="mt-4 text-body-sm text-on-surface-variant leading-relaxed">Why governance, controlled isolation, and human oversight matter more than raw model performance in secure enterprise AI workflows.</p>
+                    <div class="mt-auto pt-6">
+                        <a class="text-primary font-label text-label-sm uppercase tracking-wider hover:opacity-80" href="/blog-post.html">Read more</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-12 px-gutter bg-surface-container-low border-t border-outline-variant" id="newsletter-signup-cta">
+    <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
+        <div class="absolute inset-0 bg-gradient-to-tr from-[#1a45d2]/5 to-transparent"></div>
+        <div class="relative z-10 max-w-5xl mx-auto">
+            <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Lead Secure AI with Confidence</p>
+            <h2 class="font-headline text-4xl md:text-display-lg lg:whitespace-nowrap text-center mb-4">Get <span class="text-primary">practical AI insights</span> in your inbox</h2>
+            <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+                Thoughtful analysis for leaders building secure, accountable AI systems.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a class="btn-primary" href="/newsletter.html">Subscribe to Newsletter</a>
+            </div>
+        </div>
+    </div>
+</section>
+{{end}}

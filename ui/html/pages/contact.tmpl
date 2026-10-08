@@ -1,0 +1,100 @@
+{{define "main"}}
+<!-- Hero Section -->  
+<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
+    <div class="absolute inset-0 opacity-40"></div>
+    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
+        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
+            <span class="material-symbols-outlined icon-size-sm text-primary">apartment</span>
+            <span class="font-label text-label-sm text-on-surface">Commercial Customer Contact</span>
+        </div>
+        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
+            Optimize Operations with <span class="text-primary">Secure AI Support</span>
+        </h1>
+        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+            This page is for commercial organizations looking to modernize workflows, reduce manual overhead, and deploy secure AI capabilities.
+        </p>
+    </div>
+</section>
+
+<!-- Contact Details Section -->
+<section class="py-12 bg-surface-container-low border-y border-outline-variant" id="contact">
+    <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
+        <div class="lg:col-span-2">
+            <article class="trust-card">
+                <div class="mb-6 flex items-center gap-4">
+                    <div class="icon-tile mb-0">
+                        <span class="material-symbols-outlined text-primary">contact_support</span>
+                    </div>
+                    <div>
+                        <h2 class="font-headline text-headline-md text-on-surface">Talk to Our Commercial Team</h2>
+                        <p class="font-body text-body-sm text-on-surface-variant">Start a commercial readiness assessment for secure AI deployment in your organization.</p>
+                    </div>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="form-label" for="contact_full_name">Full Name</label>
+                            <input autocomplete="name" class="form-field-input" id="contact_full_name" name="full_name" placeholder="John Doe" required type="text">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="form-label" for="contact_corporate_email">Corporate Email</label>
+                            <input autocomplete="email" class="form-field-input" id="contact_corporate_email" name="corporate_email" placeholder="john@company.com" required type="email">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="form-label" for="contact_workflow_bottleneck">Workflow Bottleneck</label>
+                        <textarea class="form-field-input" id="contact_workflow_bottleneck" name="workflow_bottleneck" placeholder="Describe the manual process or backlog slowing your operations..." required rows="4"></textarea>
+                    </div>
+
+                    <button class="btn-primary w-full" type="submit">Submit</button>
+                </form>
+
+                <div class="mt-8 pt-6 border-t border-outline-variant flex flex-col sm:flex-row gap-4 sm:gap-8">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary">security</span>
+                        <p class="font-body text-body-sm text-on-surface-variant">SOC2 compliant architecture</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <div class="space-y-6">
+            <article class="trust-card">
+                <div class="mb-5 flex items-center gap-3">
+                    <div class="icon-tile mb-0">
+                        <span class="material-symbols-outlined text-primary">mail</span>
+                    </div>
+                    <h2 class="font-headline text-headline-md text-on-surface">Email Direct</h2>
+                </div>
+                <p class="font-body text-body-sm text-primary leading-relaxed">info@tabirianalytics.ai</p>
+            </article>
+
+            <article class="trust-card">
+                <div class="mb-5 flex items-center gap-3">
+                    <div class="icon-tile mb-0">
+                        <span class="material-symbols-outlined text-primary">support_agent</span>
+                    </div>
+                    <h2 class="font-headline text-headline-md text-on-surface">Availability</h2>
+                </div>
+                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Mon-Fri: 9am - 5pm EST</p>
+            </article>
+
+            <article class="trust-card">
+                <div class="mb-5 flex items-center gap-3">
+                    <div class="icon-tile mb-0">
+                        <span class="material-symbols-outlined text-primary">bolt</span>
+                    </div>
+                    <h2 class="font-headline text-headline-md text-on-surface">What Happens Next</h2>
+                </div>
+                <ul class="space-y-3">
+                    <li class="font-body text-body-sm text-on-surface-variant">We review your workflow bottleneck and current operating constraints.</li>
+                    <li class="font-body text-body-sm text-on-surface-variant">We recommend the right digital associate or automation pathway.</li>
+                    <li class="font-body text-body-sm text-on-surface-variant">We scope a secure deployment plan tailored to your environment.</li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</section>
+{{end}}
