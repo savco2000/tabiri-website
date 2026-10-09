@@ -27,6 +27,7 @@ func (app *application) routes() *http.ServeMux {
 	//mux.HandleFunc("GET /blog/{id}", app.blogPost)
 	mux.HandleFunc("GET /about", app.about)
 	mux.HandleFunc("GET /contact", app.contact)
+	mux.HandleFunc("GET /partner-contact", app.partnerContact)
 	mux.HandleFunc("GET /newsletter", app.newsletter)
 	mux.HandleFunc("GET /automation-assessment", app.automationAssessment)
 	mux.HandleFunc("GET /", app.notFound)

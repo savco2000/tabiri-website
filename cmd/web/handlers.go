@@ -407,6 +407,36 @@ func (app *application) contact(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (app *application) partnerContact(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Server", "Go")
+
+	data := PageData{
+		PageTitle:            "Partner Contact | Channel Partner Application | Tabiri",
+		PageDescription:      "Apply to become a Tabiri Analytics channel partner and co-deliver secure AI solutions for enterprise and public-sector clients.",
+		OpenGraphDescription: "Submit your channel partner application and tell us how your team delivers secure AI outcomes at scale.",
+		CurrentPage:          "partner-contact",
+		CurrentYear:          time.Now().Year(),
+	}
+
+	files := []string{
+		"./ui/html/base.tmpl",
+		"./ui/html/partials/nav.tmpl",
+		"./ui/html/pages/partner-contact.tmpl",
+		"./ui/html/partials/footer.tmpl",
+	}
+
+	ts, err := template.ParseFiles(files...)
+
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+	err = ts.ExecuteTemplate(w, "base", data)
+	if err != nil {
+		app.serverError(w, r, err)
+	}
+}
+
 func (app *application) newsletter(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Server", "Go")
 
