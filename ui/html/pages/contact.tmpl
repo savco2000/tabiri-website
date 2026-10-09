@@ -21,42 +21,58 @@
     <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
         <div class="lg:col-span-2">
             <article class="trust-card">
-                <div class="mb-6 flex items-center gap-4">
-                    <div class="icon-tile mb-0">
-                        <span class="material-symbols-outlined text-primary">contact_support</span>
+                
+
+                {{if .FormSubmitted}}
+                <div class="mb-6 flex items-start gap-4 rounded-xl border border-outline-variant bg-surface-container-low p-5" role="status">
+                    <div class="icon-tile mb-0 shrink-0 bg-primary/10">
+                        <span class="material-symbols-outlined text-primary">check_circle</span>
                     </div>
                     <div>
-                        <h2 class="font-headline text-headline-md text-on-surface">Talk to Our Commercial Team</h2>
-                        <p class="font-body text-body-sm text-on-surface-variant">Start a commercial readiness assessment for secure AI deployment in your organization.</p>
+                        <h3 class="font-headline text-headline-sm text-on-surface">Thank you for contacting us</h3>
+                        <p class="mt-1 font-body text-body-sm text-on-surface-variant">Your response has been submitted successfully. Our commercial team will review it and follow up with you.</p>
+                        <a class="btn-secondary mt-4 inline-flex" href="/">Return to Homepage</a>
                     </div>
                 </div>
-
-                <form class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label class="form-label" for="contact_full_name">Full Name</label>
-                            <input autocomplete="name" class="form-field-input" id="contact_full_name" name="full_name" placeholder="John Doe" required type="text">
+                {{else}}
+                    <div class="mb-6 flex items-center gap-4">
+                        <div class="icon-tile mb-0">
+                            <span class="material-symbols-outlined text-primary">contact_support</span>
                         </div>
-                        <div class="space-y-2">
-                            <label class="form-label" for="contact_corporate_email">Corporate Email</label>
-                            <input autocomplete="email" class="form-field-input" id="contact_corporate_email" name="corporate_email" placeholder="john@company.com" required type="email">
+                        <div>
+                            <h2 class="font-headline text-headline-md text-on-surface">Talk to Our Commercial Team</h2>
+                            <p class="font-body text-body-sm text-on-surface-variant">Start a commercial readiness assessment for secure AI deployment in your organization.</p>
                         </div>
                     </div>
+                    <form action="/contact" class="space-y-6" method="post">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="form-label" for="contact_full_name">Full Name</label>
+                                <input autocomplete="name" class="form-field-input" id="contact_full_name" maxlength="200" name="full_name" placeholder="John Doe" required type="text" value="{{.ContactForm.FullName}}">
+                                {{with index .ContactForm.Errors "full_name"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                            </div>
+                            <div class="space-y-2">
+                                <label class="form-label" for="contact_corporate_email">Corporate Email</label>
+                                <input autocomplete="email" class="form-field-input" id="contact_corporate_email" maxlength="320" name="corporate_email" placeholder="john@company.com" required type="email" value="{{.ContactForm.CorporateEmail}}">
+                                {{with index .ContactForm.Errors "corporate_email"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                            </div>
+                        </div>
 
-                    <div class="space-y-2">
-                        <label class="form-label" for="contact_workflow_bottleneck">Workflow Bottleneck</label>
-                        <textarea class="form-field-input" id="contact_workflow_bottleneck" name="workflow_bottleneck" placeholder="Describe the manual process or backlog slowing your operations..." required rows="4"></textarea>
-                    </div>
+                        <div class="space-y-2">
+                            <label class="form-label" for="contact_workflow_bottleneck">Workflow Bottleneck</label>
+                            <textarea class="form-field-input" id="contact_workflow_bottleneck" maxlength="5000" name="workflow_bottleneck" placeholder="Describe the manual process or backlog slowing your operations..." required rows="4">{{.ContactForm.WorkflowBottleneck}}</textarea>
+                            {{with index .ContactForm.Errors "workflow_bottleneck"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                        </div>
 
-                    <button class="btn-primary w-full" type="submit">Submit</button>
-                </form>
-
-                <div class="mt-8 pt-6 border-t border-outline-variant flex flex-col sm:flex-row gap-4 sm:gap-8">
+                        <button class="btn-primary w-full" type="submit">Submit</button>
+                    </form>
+                    <div class="mt-8 pt-6 border-t border-outline-variant flex flex-col sm:flex-row gap-4 sm:gap-8">
                     <div class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary">security</span>
                         <p class="font-body text-body-sm text-on-surface-variant">SOC2 compliant architecture</p>
                     </div>
                 </div>
+                {{end}}                
             </article>
         </div>
 

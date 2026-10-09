@@ -22,3 +22,8 @@ go.work.sum
 .DS_Store
 
 node_modules/
+
+# Runtime data
+*.db
+*.db-shm
+*.db-wal

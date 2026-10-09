@@ -20,7 +20,19 @@
 <section class="py-12 bg-surface" id="partner-application">
     <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
         <article class="trust-card lg:col-span-2">
-            <div class="mb-6 flex items-center gap-4">
+            {{if .FormSubmitted}}
+            <div class="mb-6 flex items-start gap-4 rounded-xl border border-outline-variant bg-surface-container-low p-5" role="status">
+                <div class="icon-tile mb-0 shrink-0 bg-primary/10">
+                    <span class="material-symbols-outlined text-primary">check_circle</span>
+                </div>
+                <div>
+                    <h3 class="font-headline text-headline-sm text-on-surface">Thank you for applying</h3>
+                    <p class="mt-1 font-body text-body-sm text-on-surface-variant">Your partner application has been submitted successfully. Our partnerships team will review it and follow up with you.</p>
+                    <a class="btn-secondary mt-4 inline-flex" href="/">Return to Homepage</a>
+                </div>
+            </div>
+            {{else}}
+                <div class="mb-6 flex items-center gap-4">
                 <div class="icon-tile mb-0">
                     <span class="material-symbols-outlined text-primary">handshake</span>
                 </div>
@@ -28,17 +40,19 @@
                     <h2 class="font-headline text-headline-md text-on-surface">Apply To Become A Channel Partner</h2>
                     <p class="font-body text-body-sm text-on-surface-variant">Tell us about your delivery model and client profile.</p>
                 </div>
-            </div>
+                </div>
 
-            <form class="space-y-6">
+                <form action="/partner-contact" class="space-y-6" method="post">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label class="form-label" for="partner_agency_name">Agency Name</label>
-                        <input autocomplete="organization" class="form-field-input" id="partner_agency_name" name="agency_name" placeholder="Global Consulting Group" required type="text">
+                        <input autocomplete="organization" class="form-field-input" id="partner_agency_name" maxlength="200" name="agency_name" placeholder="Global Consulting Group" required type="text" value="{{.PartnerContactForm.AgencyName}}">
+                        {{with index .PartnerContactForm.Errors "agency_name"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                     </div>
                     <div class="space-y-2">
                         <label class="form-label" for="partner_corporate_email">Corporate Email</label>
-                        <input autocomplete="email" class="form-field-input" id="partner_corporate_email" name="corporate_email" placeholder="partner@agency.com" required type="email">
+                        <input autocomplete="email" class="form-field-input" id="partner_corporate_email" maxlength="320" name="corporate_email" placeholder="partner@agency.com" required type="email" value="{{.PartnerContactForm.CorporateEmail}}">
+                        {{with index .PartnerContactForm.Errors "corporate_email"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                     </div>
                 </div>
 
@@ -46,32 +60,36 @@
                     <div class="space-y-2">
                         <label class="form-label" for="partner_client_volume">Client Volume</label>
                         <select class="form-field-input" id="partner_client_volume" name="client_volume" required>
-                            <option disabled selected value="">Select client volume</option>
-                            <option value="1-10">1-10 Clients</option>
-                            <option value="11-50">11-50 Clients</option>
-                            <option value="50+">50+ Clients</option>
+                            <option disabled {{if not .PartnerContactForm.ClientVolume}}selected{{end}} value="">Select client volume</option>
+                            <option {{if eq .PartnerContactForm.ClientVolume "1-10"}}selected{{end}} value="1-10">1-10 Clients</option>
+                            <option {{if eq .PartnerContactForm.ClientVolume "11-50"}}selected{{end}} value="11-50">11-50 Clients</option>
+                            <option {{if eq .PartnerContactForm.ClientVolume "50+"}}selected{{end}} value="50+">50+ Clients</option>
                         </select>
+                        {{with index .PartnerContactForm.Errors "client_volume"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                     </div>
                     <div class="space-y-2">
                         <label class="form-label" for="partner_primary_vertical">Primary Vertical</label>
-                        <input class="form-field-input" id="partner_primary_vertical" name="primary_vertical" placeholder="Healthcare, Finance, Legal..." required type="text">
+                        <input class="form-field-input" id="partner_primary_vertical" maxlength="200" name="primary_vertical" placeholder="Healthcare, Finance, Legal..." required type="text" value="{{.PartnerContactForm.PrimaryVertical}}">
+                        {{with index .PartnerContactForm.Errors "primary_vertical"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label class="form-label" for="partner_delivery_constraint">Current Delivery Constraint</label>
-                    <textarea class="form-field-input" id="partner_delivery_constraint" name="delivery_constraint" placeholder="Describe where your team is constrained today and what you want to scale first..." required rows="4"></textarea>
+                    <textarea class="form-field-input" id="partner_delivery_constraint" maxlength="5000" name="delivery_constraint" placeholder="Describe where your team is constrained today and what you want to scale first..." required rows="4">{{.PartnerContactForm.DeliveryConstraint}}</textarea>
+                    {{with index .PartnerContactForm.Errors "delivery_constraint"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                 </div>
 
-                <button class="btn-primary w-full" type="submit">Request Partner Review</button>
-            </form>
+                    <button class="btn-primary w-full" type="submit">Request Partner Review</button>
+                </form>
 
-            <div class="mt-8 pt-6 border-t border-outline-variant flex flex-col sm:flex-row gap-4 sm:gap-8">
+                <div class="mt-8 pt-6 border-t border-outline-variant flex flex-col sm:flex-row gap-4 sm:gap-8">
                     <div class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary">security</span>
                         <p class="font-body text-body-sm text-on-surface-variant">SOC2 compliant architecture</p>
                     </div>
                 </div>
+            {{end}}            
         </article>
 
         <div class="space-y-6">

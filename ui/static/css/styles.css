@@ -2656,6 +2656,11 @@ select {
   color: rgb(19 27 46 / var(--tw-text-opacity, 1));
 }
 
+.text-on-primary-container {
+  --tw-text-opacity: 1;
+  color: rgb(190 200 255 / var(--tw-text-opacity, 1));
+}
+
 .text-on-surface {
   --tw-text-opacity: 1;
   color: rgb(19 27 46 / var(--tw-text-opacity, 1));
