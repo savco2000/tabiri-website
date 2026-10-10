@@ -4,7 +4,7 @@
     "dev": "concurrently --kill-others --names css,go,browser \"npm:watch:css\" \"go run ./cmd/web/\" \"npm:open:browser\"",
     "build:css": "BROWSERSLIST_IGNORE_OLD_DATA=true tailwindcss -i ./ui/static/css/input.css -o ./ui/static/css/styles.css --minify",
     "watch:css": "BROWSERSLIST_IGNORE_OLD_DATA=true tailwindcss -i ./ui/static/css/input.css -o ./ui/static/css/styles.css --watch",
-    "open:browser": "wait-on http-get://localhost:4000 && \"$BROWSER\" http://localhost:4000 && wait-on --reverse http-get://localhost:4000"
+    "open:browser": "wait-on http-get://localhost:4000 && { [ -z \"$BROWSER\" ] || \"$BROWSER\" http://localhost:4000; } && wait-on --reverse http-get://localhost:4000"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.10",
