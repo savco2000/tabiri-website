@@ -14,7 +14,18 @@
 <!-- Automation Assessment Section -->
 <section class="border-b border-outline-variant bg-surface-container-low px-gutter py-10 md:py-12">
     <div class="mx-auto max-w-4xl">
-        <form class="trust-card-no-hover space-y-8" id="automation-assessment-form">
+        <!-- Pre-assessment State -->
+        <article aria-live="polite" class="trust-card-no-hover" id="assessment-result" tabindex="-1">
+            <div class="mb-8">
+                <div class="mb-4 flex items-center gap-3">
+                    <div class="icon-tile mb-0 shrink-0"><span class="material-symbols-outlined text-primary" id="result-icon">insights</span></div>
+                    <p class="font-label text-label-sm uppercase tracking-wider text-primary" id="result-label">Start Assessment</p>
+                </div>
+                <h2 class="mb-3 font-headline text-headline-lg text-on-surface" id="result-heading">Complete the assessment to see your recommendation.</h2>
+                <p class="font-body text-body-md text-on-surface-variant" id="result-copy">Answer all five questions below to learn whether this workflow is ready for secure AI automation.</p>
+            </div>
+
+            <form class="space-y-8" id="automation-assessment-form">
             <fieldset>
                 <legend class="mb-4 font-headline text-headline-md text-on-surface"><span class="mr-2 font-label text-label-md text-primary">01</span> How often does the workflow repeat?</legend>
                 <div class="grid gap-3 sm:grid-cols-3">
@@ -61,19 +72,7 @@
             </fieldset>
 
             <button class="btn-primary w-full sm:w-auto" type="submit">See Our Recommendation</button>
-        </form>
-
-        <!-- Pre-assessment State -->
-        <article aria-live="polite" class="mt-6 rounded-xl border border-primary/30 bg-surface-container-lowest p-6 md:p-8" id="assessment-result" tabindex="-1">
-            <div class="flex items-start gap-4">
-                <div class="icon-tile mb-0 shrink-0"><span class="material-symbols-outlined text-primary" id="result-icon">insights</span></div>
-                <div>
-                    <p class="mb-2 font-label text-label-sm uppercase tracking-wider text-primary" id="result-label">Start Assessment</p>
-                    <h2 class="mb-3 font-headline text-headline-lg text-on-surface" id="result-heading">Complete the assessment to see your recommendation.</h2>
-                    <p class="mb-6 font-body text-body-md text-on-surface-variant" id="result-copy">Answer all five questions above to learn whether this workflow is ready for secure AI automation.</p>
-                    <a class="btn-primary" href="/contact.html">Discuss This Workflow</a>
-                </div>
-            </div>
+            </form>
         </article>
 
         <!-- Post-assessment State -->
