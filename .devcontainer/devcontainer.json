@@ -28,5 +28,5 @@
       "onAutoForward": "silent"
     }
   },
-  "postCreateCommand": "go mod download && npm install"
+  "postCreateCommand": "git config --global core.sshCommand /usr/local/bin/vscode-agent-ssh && go mod download && npm install"
 }

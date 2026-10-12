@@ -15,4 +15,7 @@ ARG USER_GID=$USER_UID
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID --create-home --shell /bin/bash $USERNAME
 
+COPY vscode-agent-ssh /usr/local/bin/vscode-agent-ssh
+RUN chmod 755 /usr/local/bin/vscode-agent-ssh
+
 WORKDIR /workspace
