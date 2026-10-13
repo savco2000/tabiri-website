@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config "../../../tailwind.config.js";
+@import "tailwindcss";
 
 @layer base {
 	.material-symbols-outlined {
@@ -34,7 +33,7 @@
 	}
 
 	.nav-toggle-button {
-		@apply inline-flex lg:hidden h-10 w-10 items-center justify-center rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container-low transition-colors focus-ring;
+		@apply inline-flex lg:hidden h-10 w-10 items-center justify-center rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container-low transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-offset-on-background;
 	}
 
 	.btn-primary {
