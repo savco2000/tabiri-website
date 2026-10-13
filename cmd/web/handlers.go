@@ -11,9 +11,12 @@ type PageData struct {
 	PageTitle            string
 	PageDescription      string
 	OpenGraphDescription string
+	CanonicalURL         string
+	OpenGraphImage       string
 	CurrentPage          string
 	CurrentYear          int
 	FormSubmitted        bool
+	LeadSource           string
 	ContactForm          ContactForm
 	PartnerContactForm   PartnerContactForm
 }
@@ -27,6 +30,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		PageTitle:            "Home - Secure AI-Powered Employees | Tabiri Analytics",
 		PageDescription:      "Tabiri Analytics builds secure AI employees that automate enterprise workflows while protecting sensitive data.",
 		OpenGraphDescription: "Deploy secure, agentic AI teammates for operations, service, and compliance-intensive environments.",
+		CanonicalURL:         "https://tabirianalytics.com/",
 		CurrentPage:          "home",
 		CurrentYear:          time.Now().Year(),
 	}
@@ -381,7 +385,7 @@ func (app *application) about(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) contact(w http.ResponseWriter, r *http.Request) {
-	app.renderContact(w, r, http.StatusOK, ContactForm{})
+	app.renderContact(w, r, http.StatusOK, contactFormFromQuery(r.URL.Query()))
 }
 
 func (app *application) partnerContact(w http.ResponseWriter, r *http.Request) {
@@ -425,6 +429,8 @@ func (app *application) automationAssessment(w http.ResponseWriter, r *http.Requ
 		PageTitle:            "Automation Readiness Assessment | Tabiri Analytics",
 		PageDescription:      "Take Tabiri Analytics' five-question assessment to see whether your business workflows are ready for secure AI automation.",
 		OpenGraphDescription: "Answer five quick questions to discover whether your business is a good candidate for secure AI automation.",
+		CanonicalURL:         "https://tabirianalytics.com/automation-assessment",
+		OpenGraphImage:       "https://tabirianalytics.com/static/images/automation-assessment-social.png",
 		CurrentPage:          "automation-assessment",
 		CurrentYear:          time.Now().Year(),
 	}

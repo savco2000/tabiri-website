@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Tabiri Automation Readiness Assessment</title>
+  <desc id="description">Find out whether a workflow is ready for secure AI automation in five questions.</desc>
+  <rect width="1200" height="630" fill="#f4f6fa"/>
+  <rect x="52" y="52" width="1096" height="526" rx="36" fill="#ffffff" stroke="#d7dae3" stroke-width="4"/>
+  <rect x="52" y="52" width="28" height="526" rx="14" fill="#1a45d2"/>
+  <text x="126" y="135" fill="#1a45d2" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" letter-spacing="3">TABIRI ANALYTICS</text>
+  <text x="126" y="245" fill="#131b2e" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="700">Is your workflow ready for</text>
+  <text x="126" y="320" fill="#1a45d2" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="700">secure AI automation?</text>
+  <text x="126" y="397" fill="#444655" font-family="Arial, Helvetica, sans-serif" font-size="30">Answer five questions. Get an immediate recommendation.</text>
+  <rect x="126" y="450" width="455" height="72" rx="12" fill="#1a45d2"/>
+  <text x="353.5" y="496" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle">TAKE THE 2-MINUTE ASSESSMENT</text>
+  <circle cx="1006" cy="475" r="70" fill="#e2e7ff"/>
+  <path d="M973 475l22 22 45-51" fill="none" stroke="#1a45d2" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+</svg>

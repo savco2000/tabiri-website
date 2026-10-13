@@ -26,6 +26,12 @@
             </div>
 
             <form class="space-y-8" id="automation-assessment-form">
+            <div class="space-y-2">
+                <label class="font-headline text-headline-md text-on-surface" for="assessment-workflow">Which workflow are you assessing?</label>
+                <p class="font-body text-body-sm text-on-surface-variant">Name one process, such as invoice reconciliation, customer onboarding, or compliance reporting.</p>
+                <input class="form-field-input" id="assessment-workflow" maxlength="200" name="workflow_name" placeholder="e.g. Monthly invoice reconciliation" required type="text">
+            </div>
+
             <fieldset>
                 <legend class="mb-4 font-headline text-headline-md text-on-surface"><span class="mr-2 font-label text-label-md text-primary">01</span> How often does the workflow repeat?</legend>
                 <div class="grid gap-3 sm:grid-cols-3">
@@ -71,19 +77,23 @@
                 </div>
             </fieldset>
 
-            <button class="btn-primary w-full sm:w-auto" type="submit">See Our Recommendation</button>
+            <button class="btn-primary w-full sm:w-auto" type="submit">See My Recommendation</button>
+            <p class="font-body text-body-sm text-on-surface-variant">No email address is required. Your answers stay in your browser unless you choose to discuss the result with us.</p>
             </form>
+            <noscript><p class="mt-6 rounded-xl border border-error/30 bg-surface-container-low p-4 text-body-sm text-error">Enable JavaScript to calculate your automation readiness recommendation.</p></noscript>
         </article>
 
         <!-- Post-assessment State -->
-        <article aria-live="polite" class="mt-6 rounded-xl border border-primary/30 bg-surface-container-lowest p-6 md:p-8" id="post-assessment-result" tabindex="-1">
+        <article aria-live="polite" class="mt-6 hidden rounded-xl border border-primary/30 bg-surface-container-lowest p-6 md:p-8" id="post-assessment-result" tabindex="-1">
             <div class="flex items-start gap-4">
-                <div class="icon-tile mb-0 shrink-0"><span class="material-symbols-outlined text-primary">rocket_launch</span></div>
-                <div>
-                    <p class="mb-2 font-label text-label-sm uppercase tracking-wider text-primary">Strong Automation Candidate</p>
-                    <h2 class="mb-3 font-headline text-headline-lg text-on-surface">This workflow is <span class="text-primary">ready for a closer look.</span></h2>
-                    <p class="mb-6 font-body text-body-md text-on-surface-variant">Your responses indicate that this workflow is frequent, repeatable, and supported by the right systems and human oversight. A secure Tabiri Digital Employee could reduce manual effort and return meaningful capacity to your team.</p>
-                    <a class="btn-primary" href="/contact.html">Discuss Your Results</a>
+                <div class="icon-tile mb-0 shrink-0"><span class="material-symbols-outlined text-primary" id="assessment-result-icon">insights</span></div>
+                <div class="min-w-0">
+                    <p class="mb-2 font-label text-label-sm uppercase tracking-wider text-primary" id="assessment-result-label"></p>
+                    <h2 class="mb-3 font-headline text-headline-lg text-on-surface"><span id="assessment-result-heading"></span> <span class="text-primary" id="assessment-result-heading-emphasis"></span></h2>
+                    <p class="mb-5 font-body text-body-md text-on-surface-variant" id="assessment-result-copy"></p>
+                    <h3 class="mb-3 font-headline text-headline-md text-on-surface">What shaped this recommendation</h3>
+                    <ul class="mb-6 list-disc space-y-2 pl-5 font-body text-body-sm text-on-surface-variant" id="assessment-result-factors"></ul>
+                    <a class="btn-primary" href="/contact" id="assessment-contact-cta">Discuss This Workflow</a>
                 </div>
             </div>
         </article>

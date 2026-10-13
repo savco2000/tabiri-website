@@ -2,8 +2,17 @@
 INSERT INTO contact_submissions (
     full_name,
     corporate_email,
-    workflow_bottleneck
-) VALUES (?, ?, ?)
+    workflow_bottleneck,
+    workflow_name,
+    assessment_result,
+    assessment_score,
+    assessment_answers,
+    utm_source,
+    utm_medium,
+    utm_campaign,
+    utm_content,
+    referrer
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 RETURNING *;
 
 -- name: CreatePartnerContactSubmission :one

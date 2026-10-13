@@ -24,7 +24,7 @@
                 
 
                 {{if .FormSubmitted}}
-                <div class="mb-6 flex items-start gap-4 rounded-xl border border-outline-variant bg-surface-container-low p-5" role="status">
+                <div class="mb-6 flex items-start gap-4 rounded-xl border border-outline-variant bg-surface-container-low p-5" data-lead-source="{{.LeadSource}}" id="contact-success" role="status">
                     <div class="icon-tile mb-0 shrink-0 bg-primary/10">
                         <span class="material-symbols-outlined text-primary">check_circle</span>
                     </div>
@@ -40,11 +40,35 @@
                             <span class="material-symbols-outlined text-primary">contact_support</span>
                         </div>
                         <div>
-                            <h2 class="font-headline text-headline-md text-on-surface">Talk to Our Commercial Team</h2>
-                            <p class="font-body text-body-sm text-on-surface-variant">Start a commercial readiness assessment for secure AI deployment in your organization.</p>
+                            <h2 class="font-headline text-headline-md text-on-surface">{{if .ContactForm.AssessmentResult}}Discuss Your Automation Assessment{{else}}Talk to Our Commercial Team{{end}}</h2>
+                            <p class="font-body text-body-sm text-on-surface-variant">{{if .ContactForm.AssessmentResult}}Your assessment context is attached, so you do not need to repeat your answers.{{else}}Start a commercial readiness assessment for secure AI deployment in your organization.{{end}}</p>
                         </div>
                     </div>
-                    <form action="/contact" class="space-y-6" method="post">
+                    {{if .ContactForm.Errors}}
+                    <div class="mb-6 rounded-xl border border-error/30 bg-surface-container-low p-4" role="alert">
+                        <p class="font-label text-label-sm text-error">Review the form and assessment details:</p>
+                        <ul class="mt-2 list-disc space-y-1 pl-5 text-body-sm text-error">
+                            {{range $message := .ContactForm.Errors}}<li>{{$message}}</li>{{end}}
+                        </ul>
+                    </div>
+                    {{end}}
+                    {{if .ContactForm.AssessmentResult}}
+                    <div class="mb-6 rounded-xl border border-primary/30 bg-surface-container-low p-5">
+                        <p class="font-label text-label-sm uppercase tracking-wider text-primary">Automation readiness result</p>
+                        <p class="mt-2 font-headline text-headline-md text-on-surface">{{.ContactForm.AssessmentLabel}} · {{.ContactForm.AssessmentScore}}/10</p>
+                        {{if .ContactForm.WorkflowName}}<p class="mt-1 font-body text-body-sm text-on-surface-variant">Workflow: {{.ContactForm.WorkflowName}}</p>{{end}}
+                    </div>
+                    {{end}}
+                    <form action="/contact" class="space-y-6" data-lead-source="{{.LeadSource}}" id="contact-form" method="post">
+                        <input name="workflow_name" type="hidden" value="{{.ContactForm.WorkflowName}}">
+                        <input name="assessment_result" type="hidden" value="{{.ContactForm.AssessmentResult}}">
+                        <input name="assessment_score" type="hidden" value="{{.ContactForm.AssessmentScore}}">
+                        <input name="assessment_answers" type="hidden" value="{{.ContactForm.AssessmentAnswers}}">
+                        <input name="utm_source" type="hidden" value="{{.ContactForm.UTMSource}}">
+                        <input name="utm_medium" type="hidden" value="{{.ContactForm.UTMMedium}}">
+                        <input name="utm_campaign" type="hidden" value="{{.ContactForm.UTMCampaign}}">
+                        <input name="utm_content" type="hidden" value="{{.ContactForm.UTMContent}}">
+                        <input name="referrer" type="hidden" value="{{.ContactForm.Referrer}}">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <label class="form-label" for="contact_full_name">Full Name</label>
@@ -59,7 +83,7 @@
                         </div>
 
                         <div class="space-y-2">
-                            <label class="form-label" for="contact_workflow_bottleneck">Workflow Bottleneck</label>
+                            <label class="form-label" for="contact_workflow_bottleneck">{{if .ContactForm.AssessmentResult}}Workflow or Additional Context{{else}}Workflow Bottleneck{{end}}</label>
                             <textarea class="form-field-input" id="contact_workflow_bottleneck" maxlength="5000" name="workflow_bottleneck" placeholder="Describe the manual process or backlog slowing your operations..." required rows="4">{{.ContactForm.WorkflowBottleneck}}</textarea>
                             {{with index .ContactForm.Errors "workflow_bottleneck"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                         </div>

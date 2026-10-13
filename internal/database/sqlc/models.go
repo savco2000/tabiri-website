@@ -9,6 +9,15 @@ type ContactSubmission struct {
 	FullName           string `json:"full_name"`
 	CorporateEmail     string `json:"corporate_email"`
 	WorkflowBottleneck string `json:"workflow_bottleneck"`
+	WorkflowName       string `json:"workflow_name"`
+	AssessmentResult   string `json:"assessment_result"`
+	AssessmentScore    string `json:"assessment_score"`
+	AssessmentAnswers  string `json:"assessment_answers"`
+	UtmSource          string `json:"utm_source"`
+	UtmMedium          string `json:"utm_medium"`
+	UtmCampaign        string `json:"utm_campaign"`
+	UtmContent         string `json:"utm_content"`
+	Referrer           string `json:"referrer"`
 	CreatedAt          string `json:"created_at"`
 }
 

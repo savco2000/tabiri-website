@@ -13,25 +13,65 @@ const createContactSubmission = `-- name: CreateContactSubmission :one
 INSERT INTO contact_submissions (
     full_name,
     corporate_email,
-    workflow_bottleneck
-) VALUES (?, ?, ?)
-RETURNING id, full_name, corporate_email, workflow_bottleneck, created_at
+    workflow_bottleneck,
+    workflow_name,
+    assessment_result,
+    assessment_score,
+    assessment_answers,
+    utm_source,
+    utm_medium,
+    utm_campaign,
+    utm_content,
+    referrer
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+RETURNING id, full_name, corporate_email, workflow_bottleneck, workflow_name, assessment_result, assessment_score, assessment_answers, utm_source, utm_medium, utm_campaign, utm_content, referrer, created_at
 `
 
 type CreateContactSubmissionParams struct {
 	FullName           string `json:"full_name"`
 	CorporateEmail     string `json:"corporate_email"`
 	WorkflowBottleneck string `json:"workflow_bottleneck"`
+	WorkflowName       string `json:"workflow_name"`
+	AssessmentResult   string `json:"assessment_result"`
+	AssessmentScore    string `json:"assessment_score"`
+	AssessmentAnswers  string `json:"assessment_answers"`
+	UtmSource          string `json:"utm_source"`
+	UtmMedium          string `json:"utm_medium"`
+	UtmCampaign        string `json:"utm_campaign"`
+	UtmContent         string `json:"utm_content"`
+	Referrer           string `json:"referrer"`
 }
 
 func (q *Queries) CreateContactSubmission(ctx context.Context, arg CreateContactSubmissionParams) (ContactSubmission, error) {
-	row := q.db.QueryRowContext(ctx, createContactSubmission, arg.FullName, arg.CorporateEmail, arg.WorkflowBottleneck)
+	row := q.db.QueryRowContext(ctx, createContactSubmission,
+		arg.FullName,
+		arg.CorporateEmail,
+		arg.WorkflowBottleneck,
+		arg.WorkflowName,
+		arg.AssessmentResult,
+		arg.AssessmentScore,
+		arg.AssessmentAnswers,
+		arg.UtmSource,
+		arg.UtmMedium,
+		arg.UtmCampaign,
+		arg.UtmContent,
+		arg.Referrer,
+	)
 	var i ContactSubmission
 	err := row.Scan(
 		&i.ID,
 		&i.FullName,
 		&i.CorporateEmail,
 		&i.WorkflowBottleneck,
+		&i.WorkflowName,
+		&i.AssessmentResult,
+		&i.AssessmentScore,
+		&i.AssessmentAnswers,
+		&i.UtmSource,
+		&i.UtmMedium,
+		&i.UtmCampaign,
+		&i.UtmContent,
+		&i.Referrer,
 		&i.CreatedAt,
 	)
 	return i, err

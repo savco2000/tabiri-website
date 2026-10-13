@@ -1737,6 +1737,10 @@ select {
   width: 1px;
 }
 
+.min-w-0 {
+  min-width: 0px;
+}
+
 .min-w-\[220px\] {
   min-width: 220px;
 }
@@ -1857,6 +1861,10 @@ select {
   scroll-margin-top: 7rem;
 }
 
+.list-disc {
+  list-style-type: disc;
+}
+
 .list-none {
   list-style-type: none;
 }
@@ -1943,6 +1951,12 @@ select {
 
 .gap-gutter {
   gap: 24px;
+}
+
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
@@ -2082,6 +2096,10 @@ select {
 
 .border-error\/20 {
   border-color: rgb(186 26 26 / 0.2);
+}
+
+.border-error\/30 {
+  border-color: rgb(186 26 26 / 0.3);
 }
 
 .border-node-green\/20 {
