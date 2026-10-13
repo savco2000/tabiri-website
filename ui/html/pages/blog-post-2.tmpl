@@ -1,0 +1,153 @@
+{{define "main"}}
+<article class="pb-12">
+    <section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
+        <div class="absolute inset-0 opacity-40"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="mb-6">
+                <a class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm uppercase tracking-wider text-primary transition-colors hover:bg-surface-container-lowest" href="/blog">
+                    <span class="material-symbols-outlined icon-size-sm">arrow_back</span>
+                    Back to Blog
+                </a>
+            </div>
+            <div class="mb-8 flex flex-wrap items-center gap-3 text-body-sm text-on-surface-variant">
+                <span class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 font-label text-label-sm uppercase tracking-wider text-primary">Cybersecurity</span>
+                <span>&bull;</span>
+                <time datetime="2026-09-25">September 25, 2026</time>
+                <span>&bull;</span>
+                <span>9 min read</span>
+            </div>
+            <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 max-w-4xl">Inside a regulated fintech's Agentic SecOps penetration test</h1>
+            <p class="font-body text-body-lg text-on-surface-variant max-w-3xl mb-8">
+                How we combined machine-speed coverage with human judgment to assess live payment infrastructure, expose material risk quickly, and give a regulated fintech a practical path to remediation.
+            </p>
+            <div class="flex items-center gap-4">
+                <img alt="Edwin Kairu" class="h-14 w-14 rounded-full object-cover ring-2 ring-primary/20" width="56" height="56" src="/static/images/edwin_kairu_headshot.avif">
+                <div>
+                    <p class="font-headline text-xl text-on-surface">Edwin Kairu</p>
+                    <p class="font-body text-body-sm text-on-surface-variant">Co-Founder and CEO, Tabiri Analytics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-gutter bg-surface-container-low">
+        <div class="max-w-4xl mx-auto">
+            <div class="overflow-hidden rounded-4xl border border-outline-variant bg-surface-container-low mb-10 shadow-sm">
+                <img alt="Secure digital payment infrastructure under assessment" class="w-full h-80 md:h-120 object-cover" width="1600" height="1067" src="/static/images/fintech-compliance.avif">
+            </div>
+
+            <div class="prose max-w-none">
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    A penetration test on a live payment platform has no room for theater. The environment moves money, connects third parties, and sits under regulatory scrutiny. Coverage matters, but so do restraint, evidence and the ability to turn a finding into a verified fix before it becomes an incident.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    I led Tabiri's technical work for a regulated fintech with that reality in mind. The engagement covered external and internal vulnerability assessment and penetration testing across a hybrid environment, authenticated payment workflows and the operational controls required by applicable cyber security guidance. We had a compressed regulatory timeline, a production system to protect and a broad attack surface to understand. That combination made it an ideal real-world deployment of our Agentic SecOps methodology.
+                </p>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">We began with boundaries, not scanners</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Good testing starts with disciplined scoping. Before we touched the environment, our teams aligned on the asset inventory, public endpoints, internal systems, partner-managed integrations, exclusions, network and data-flow diagrams, access methods and escalation paths. We also agreed on low-traffic testing windows and a notification process for any action that could affect availability.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Those controls were especially important because this was not a lab. The client's services were live. Every source address was coordinated, internal access was provisioned through an approved testing host and potentially disruptive activity remained under engineer control. Agentic does not mean unconstrained.
+                </p>
+
+                <div class="rounded-2xl border border-outline-variant bg-surface-container-low p-6 my-8">
+                    <p class="font-headline text-2xl md:text-headline-md text-primary mb-3">The operating principle</p>
+                    <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                        Let agents handle repeatable discovery, correlation and evidence structure. Keep scope, judgment, exploitation decisions, escalation and final validation in the hands of experienced security engineers.
+                    </p>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">External first, then authenticated internal depth</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    We started with the externally accessible attack surface while internal access was being finalized. That allowed reconnaissance and vulnerability detection to move in parallel with environment staging. Once approved access was ready, we deployed the orchestrator inside the client's network on a controlled Kali Linux testing VM and moved into authenticated internal assessment.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The combined view mattered. Public exposure alone rarely explains the full risk of a payment system. We correlated evidence across 31 service hostnames, every TCP port on the in-scope internal network and authenticated payment workflows. We examined service relationships and privilege boundaries rather than treating each scan result as an isolated alert.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">travel_explore</span></div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-primary">Coverage</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Agents sustained broad discovery across external, internal and authenticated surfaces without losing the relationship between assets.</p>
+                    </article>
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">history</span></div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-primary">Traceability</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">The testing agent maintained action history and structured evidence as work progressed, reducing reporting gaps and making review faster.</p>
+                    </article>
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">verified_user</span></div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-primary">Judgment</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Our engineers directed every action, challenged machine-generated hypotheses and manually validated material findings before escalation.</p>
+                    </article>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">The finding that changed the tempo</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Within the first two hours, the assessment exposed a critical cross-merchant authorization flaw. We will not publish the reproduction path or affected implementation details. What matters is the response loop: the evidence was reviewed by our engineers, communicated through the agreed escalation path, patched by the customer and retested by Tabiri the same day.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    That is the practical value of speed in security. A faster test is only useful when it shortens the time between exposure, understanding, remediation and proof. In this case, machine-assisted discovery and evidence handling gave the human teams more time to focus on impact and corrective action.
+                </p>
+
+                <blockquote class="my-10 border-l-4 border-primary bg-surface-container-low p-6 rounded-r-2xl">
+                    <p class="font-headline text-2xl md:text-headline-md text-primary leading-relaxed">Broader coverage, earlier warning of critical risk, same-day validation of a fix, a complete audit trail and more time to meet compliance obligations.</p>
+                </blockquote>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">How this differed from a traditional manual test</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    In a traditional engagement, skilled testers spend a significant share of the schedule launching tools, normalizing output, deduplicating observations, rebuilding context across systems and formatting evidence. Those tasks are necessary, but they compete with the work that most needs expertise: forming attack hypotheses, understanding business logic, deciding what is safe to test and determining whether a result is genuinely exploitable.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Our configured agent continuously executed approved assessment tooling, tracked what had been attempted, correlated results and organized findings as they emerged. The engineers remained in the loop for direction and review. This division of labor allowed us to deliver a prioritized resilience roadmap in 24 hours, up to 14 times faster than the comparable manual process, while assessing 100% of internal TCP ports in scope.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The customer benefit was not simply a shorter invoiceable timeline. The client received broader coverage, earlier notice of critical risk, same-day validation of a fix, a complete audit trail and more runway to address compliance obligations before its deadline.
+                </p>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">Technical evidence was only half the assessment</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Infrastructure testing can tell us where a control failed technically. It cannot, by itself, establish whether governance, authorization, staff processes or incident-response practices are mature. We therefore paired the VA/PT with an operational assessment covering governance, risk management, data protection, access management, security architecture and incident response.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    We brought both streams into one report. Validated technical findings, operational responses, remediation guidance and control evidence were mapped to applicable cyber security guidance and relevant PCI DSS requirements. The result was not a scanner export. It was a decision document for engineers, executives and compliance stakeholders.
+                </p>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">What I took away from the engagement</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Agentic SecOps is already useful in production but only when it is engineered around accountability. The strongest part of this engagement was not autonomous execution in isolation. It was the collaboration between the client's technology team, Tabiri's security engineers and a system that could maintain coverage and context at machine speed.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-10">
+                    That model changes what a penetration test can deliver. It makes comprehensive testing practical under tight deadlines, surfaces material risk earlier and preserves the human judgment required for live, regulated systems. For the client, it meant moving from uncertainty to a verified fix and a prioritized resilience roadmap in a day. For our team, it was further proof that the future of security operations is not human or agent. It is expert-led, agent-accelerated defense.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-gutter bg-surface-container-low border-t border-outline-variant" id="agentic-secops-cta">
+        <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
+            <div class="absolute inset-0 bg-linear-to-tr from-[#1a45d2]/5 to-transparent"></div>
+            <div class="relative z-10 max-w-5xl mx-auto">
+                <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Test at Machine Speed. Decide with Human Judgment.</p>
+                <h2 class="font-headline text-4xl md:text-display-lg text-center mb-4">Put <span class="text-primary">Agentic SecOps</span> to work on your attack surface</h2>
+                <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+                    Combine broad technical coverage, validated findings, and compliance-ready evidence in one engineer-led assessment.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a class="btn-primary" href="/contact">Plan your penetration test</a>
+                    <a class="btn-secondary" href="/penetration-testing">Explore the methodology</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+{{end}}

@@ -1,0 +1,131 @@
+{{define "main"}}
+<article class="pb-12">
+    <section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
+        <div class="absolute inset-0 opacity-40"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="mb-6">
+                <a class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm uppercase tracking-wider text-primary transition-colors hover:bg-surface-container-lowest" href="/blog">
+                    <span class="material-symbols-outlined icon-size-sm">arrow_back</span>
+                    Back to Blog
+                </a>
+            </div>
+            <div class="mb-8 flex flex-wrap items-center gap-3 text-body-sm text-on-surface-variant">
+                <span class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 font-label text-label-sm uppercase tracking-wider text-primary">AI Strategy</span>
+                <span>•</span>
+                <span>June 20, 2026</span>
+                <span>•</span>
+                <span>7 min read</span>
+            </div>
+            <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 max-w-4xl">Why secure AI teams outperform generic automation tools</h1>
+            <p class="font-body text-body-lg text-on-surface-variant max-w-3xl mb-8">
+                The difference between a useful AI workflow and an operational risk is not just model quality. It is governance, packaging, and the way work is isolated inside trusted environments.
+            </p>
+            <div class="flex items-center gap-4">
+                <img alt="Savannah O. Kadima" class="h-14 w-14 rounded-full object-cover ring-2 ring-primary/20" width="56" height="56" src="/static/images/savannah_kadima_headshot.avif">
+                <div>
+                    <p class="font-headline text-xl text-on-surface">Savannah O. Kadima</p>
+                    <p class="font-body text-body-sm text-on-surface-variant">Co-Founder and CTO, Tabiri Analytics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-gutter bg-surface-container-low">
+        <div class="max-w-4xl mx-auto">
+            <div class="overflow-hidden rounded-4xl border border-outline-variant bg-surface-container-low mb-10 shadow-sm">
+                <img alt="Office team reviewing AI workflows" class="w-full h-80 md:h-120 object-cover" src="/static/images/tabiri_office_environment.avif">
+            </div>
+
+            <div class="prose max-w-none">
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Most organizations do not fail at AI because the model is weak. They fail because the workflow is too open, too brittle, or too exposed to the wrong data sources. Yet many teams still equate automation success with a flashy demo. Real value appears only when the system is designed to support high-trust operations without compromising privacy or control.
+                </p>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">A generic automation tool can process tasks. A secure AI team can govern them.</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The difference is not sophistication in the abstract. It is operational structure. A secure AI teammate is built around a clear boundary: where it can access data, what decisions it must escalate, and what actions require human approval. That structure turns AI from a novelty into a trusted operating layer.
+                </p>
+
+                <div class="rounded-2xl border border-outline-variant bg-surface-container-low p-6 my-8">
+                    <p class="font-headline text-2xl md:text-headline-md text-primary mb-3">The hidden risk</p>
+                    <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                        When AI is allowed to pull from uncontrolled sources, train on sensitive data, or act without clear human oversight, it becomes a liability. The business does not just lose time; it loses trust, control, and sometimes compliance footing.
+                    </p>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">Three principles that separate trusted AI from risky AI</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0">
+                                <span class="material-symbols-outlined text-primary">lock</span>
+                            </div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Isolation</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">The AI should operate inside a governed environment where data access is intentional, limited, and auditable.</p>
+                    </article>
+
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0">
+                                <span class="material-symbols-outlined text-primary">gpp_good</span>
+                            </div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Human approval</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">High-impact actions should require a person to confirm the result, rather than trusting the system to act unchallenged.</p>
+                    </article>
+
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0">
+                                <span class="material-symbols-outlined text-primary">verified_user</span>
+                            </div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Traceability</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Every output should have a source trail, a policy check, and a clear path to review when something looks wrong.</p>
+                    </article>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">What this means in practice</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    In a well-built AI operating model, the digital worker handles repetitive intake, summarization, routing, and evidence gathering. Humans stay in charge of judgment, escalation, and final approval. This reduces labor costs without blurring accountability.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    In contrast, a generic automation tool often fails on edge cases, makes hidden assumptions, and scales chaos when the process grows. That is why high-performing teams focus first on system governance — then onto performance gains.
+                </p>
+
+                <blockquote class="my-10 border-l-4 border-primary bg-surface-container-low p-6 rounded-r-2xl">
+                    <p class="font-headline text-2xl md:text-headline-md text-on-surface leading-relaxed">“The fastest path to AI value is not more automation; it is more controlled automation.”</p>
+                </blockquote>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">The real win is trust</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Enterprise leaders are not looking for AI that can say yes to everything. They are looking for AI that can operate reliably in the messy middle of their actual workflows. The organizations that win are the ones that define risk boundaries before they define scale.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-10">
+                    Secure AI teams do not just automate work. They create confidence across teams, customers, and compliance stakeholders. That is why they outperform generic automation tools in real-world production environments.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-12 px-gutter bg-surface-container-low border-t border-outline-variant" id="trusted-ai-team-cta">
+        <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
+            <div class="absolute inset-0 bg-linear-to-tr from-[#1a45d2]/5 to-transparent"></div>
+            <div class="relative z-10 max-w-5xl mx-auto">
+                <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Turn Secure AI Principles Into Practice</p>
+                <h2 class="font-headline text-4xl md:text-display-lg lg:whitespace-nowrap text-center mb-4">Build an AI team <span class="text-primary">your organization can trust</h2>
+                <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+                    Turn governed workflows, human approval, and traceable decisions into secure AI operations that perform in the real world.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a class="btn-primary" href="/contact">Design your secure AI team</a>
+                    <a class="btn-secondary" href="/blog">Back to blog</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+{{end}}
