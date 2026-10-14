@@ -207,6 +207,33 @@ func TestContactSuccessIncludesWhatHappensNext(t *testing.T) {
 	}
 }
 
+func TestPartnerContactSuccessIncludesReviewTimeline(t *testing.T) {
+	app, _ := newTestApplication(t)
+	request := httptest.NewRequest(http.MethodGet, "/partner-contact?submitted=true", nil)
+	response := httptest.NewRecorder()
+
+	app.routes().ServeHTTP(response, request)
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	}
+	body := response.Body.String()
+	for _, expected := range []string{
+		"Thank you for applying",
+		"Review Timeline",
+		"Partner fit assessment",
+		"Architecture workshop",
+		"Pilot rollout plan",
+	} {
+		if !strings.Contains(body, expected) {
+			t.Errorf("response does not contain %q", expected)
+		}
+	}
+	if got := strings.Count(body, "Review Timeline"); got != 1 {
+		t.Errorf("Review Timeline appears %d times, want 1", got)
+	}
+}
+
 func TestPartnerContactSubmitPersistsSubmission(t *testing.T) {
 	app, db := newTestApplication(t)
 

@@ -21,14 +21,33 @@
     <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
         <article class="trust-card lg:col-span-2">
             {{if .FormSubmitted}}
-            <div class="mb-6 flex items-start gap-4 rounded-xl border border-outline-variant bg-surface-container-low p-5" role="status">
-                <div class="icon-tile mb-0 shrink-0 bg-primary/10">
-                    <span class="material-symbols-outlined text-primary">check_circle</span>
+            <div class="mb-6 rounded-xl border border-outline-variant bg-surface-container-low p-6 md:p-8" role="status">
+                <div class="flex items-start gap-4">
+                    <div class="icon-tile mb-0 shrink-0 bg-primary/10">
+                        <span class="material-symbols-outlined text-primary">check_circle</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline text-headline-md text-on-surface">Thank you for applying</h3>
+                        <p class="mt-2 font-body text-body-md text-on-surface-variant">Your partner application has been submitted successfully!</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="font-headline text-headline-sm text-on-surface">Thank you for applying</h3>
-                    <p class="mt-1 font-body text-body-sm text-on-surface-variant">Your partner application has been submitted successfully. Our partnerships team will review it and follow up with you.</p>
-                    <a class="btn-secondary mt-4 inline-flex" href="/">Return to Homepage</a>
+                <div class="mt-6 border-t border-outline-variant pt-6">
+                    <h4 class="font-headline text-headline-md text-on-surface">Review Timeline</h4>
+                    <ol class="mt-4 space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">1</span>
+                            <span class="pt-1 font-body text-body-sm text-on-surface-variant">Partner fit assessment</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">2</span>
+                            <span class="pt-1 font-body text-body-sm text-on-surface-variant">Architecture workshop</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">3</span>
+                            <span class="pt-1 font-body text-body-sm text-on-surface-variant">Pilot rollout plan</span>
+                        </li>
+                    </ol>
+                    <a class="btn-secondary mt-6 inline-flex" href="/">Return to Homepage</a>
                 </div>
             </div>
             {{else}}
@@ -113,6 +132,7 @@
                 <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Mon-Fri: 9am - 5pm EST</p>
             </article>
 
+            {{if not .FormSubmitted}}
             <article class="trust-card">
                 <div class="mb-4 flex items-center gap-3">
                     <div class="icon-tile mb-0">
@@ -126,6 +146,7 @@
                     <li class="font-body text-body-sm text-on-surface-variant">Step 3: Pilot rollout plan</li>
                 </ul>
             </article>
+            {{end}}
 
             <!--
             <article class="trust-card">
