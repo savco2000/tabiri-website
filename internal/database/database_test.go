@@ -49,4 +49,10 @@ func TestApplySchemaMigratesExistingContactTable(t *testing.T) {
 			t.Errorf("missing migrated column %q", name)
 		}
 	}
+	if !columns["created_date"] {
+		t.Error("missing migrated column \"created_date\"")
+	}
+	if columns["created_at"] {
+		t.Error("legacy column \"created_at\" should be renamed")
+	}
 }

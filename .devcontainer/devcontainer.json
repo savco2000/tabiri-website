@@ -17,6 +17,7 @@
         "golang.go",
         "bradlc.vscode-tailwindcss",
         "satrik.tailwind-highlight",
+        "qwtel.sqlite-viewer",
 	      "ms-vscode.makefile-tools"
       ]
     }

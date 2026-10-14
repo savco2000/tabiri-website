@@ -38,6 +38,12 @@ func ApplySchema(ctx context.Context, db *sql.DB) error {
 		return err
 	}
 
+	for _, table := range []string{"contact_submissions", "partner_contact_submissions"} {
+		if err := renameCreatedColumn(ctx, db, table); err != nil {
+			return err
+		}
+	}
+
 	columns := map[string]string{
 		"workflow_name":      "TEXT NOT NULL DEFAULT ''",
 		"assessment_result":  "TEXT NOT NULL DEFAULT ''",
@@ -67,6 +73,20 @@ func ApplySchema(ctx context.Context, db *sql.DB) error {
 		}
 	}
 
+	return nil
+}
+
+func renameCreatedColumn(ctx context.Context, db *sql.DB, table string) error {
+	columns, err := tableColumns(ctx, db, table)
+	if err != nil {
+		return err
+	}
+	if columns["created_date"] || !columns["created_at"] {
+		return nil
+	}
+	if _, err := db.ExecContext(ctx, "ALTER TABLE "+table+" RENAME COLUMN created_at TO created_date"); err != nil {
+		return fmt.Errorf("renaming %s.created_at: %w", table, err)
+	}
 	return nil
 }
 

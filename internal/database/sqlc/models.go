@@ -18,7 +18,7 @@ type ContactSubmission struct {
 	UtmCampaign        string `json:"utm_campaign"`
 	UtmContent         string `json:"utm_content"`
 	Referrer           string `json:"referrer"`
-	CreatedAt          string `json:"created_at"`
+	CreatedDate        string `json:"created_date"`
 }
 
 type PartnerContactSubmission struct {
@@ -28,5 +28,5 @@ type PartnerContactSubmission struct {
 	ClientVolume       string `json:"client_volume"`
 	PrimaryVertical    string `json:"primary_vertical"`
 	DeliveryConstraint string `json:"delivery_constraint"`
-	CreatedAt          string `json:"created_at"`
+	CreatedDate        string `json:"created_date"`
 }

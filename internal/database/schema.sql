@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
     utm_campaign TEXT NOT NULL DEFAULT '',
     utm_content TEXT NOT NULL DEFAULT '',
     referrer TEXT NOT NULL DEFAULT '',
-    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS partner_contact_submissions (
@@ -22,5 +22,5 @@ CREATE TABLE IF NOT EXISTS partner_contact_submissions (
     client_volume TEXT NOT NULL CHECK (client_volume IN ('1-10', '11-50', '50+')),
     primary_vertical TEXT NOT NULL,
     delivery_constraint TEXT NOT NULL,
-    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

@@ -24,7 +24,7 @@ INSERT INTO contact_submissions (
     utm_content,
     referrer
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-RETURNING id, full_name, corporate_email, workflow_bottleneck, workflow_name, assessment_result, assessment_score, assessment_answers, utm_source, utm_medium, utm_campaign, utm_content, referrer, created_at
+RETURNING id, full_name, corporate_email, workflow_bottleneck, workflow_name, assessment_result, assessment_score, assessment_answers, utm_source, utm_medium, utm_campaign, utm_content, referrer, created_date
 `
 
 type CreateContactSubmissionParams struct {
@@ -72,7 +72,7 @@ func (q *Queries) CreateContactSubmission(ctx context.Context, arg CreateContact
 		&i.UtmCampaign,
 		&i.UtmContent,
 		&i.Referrer,
-		&i.CreatedAt,
+		&i.CreatedDate,
 	)
 	return i, err
 }
@@ -85,7 +85,7 @@ INSERT INTO partner_contact_submissions (
     primary_vertical,
     delivery_constraint
 ) VALUES (?, ?, ?, ?, ?)
-RETURNING id, agency_name, corporate_email, client_volume, primary_vertical, delivery_constraint, created_at
+RETURNING id, agency_name, corporate_email, client_volume, primary_vertical, delivery_constraint, created_date
 `
 
 type CreatePartnerContactSubmissionParams struct {
@@ -112,7 +112,7 @@ func (q *Queries) CreatePartnerContactSubmission(ctx context.Context, arg Create
 		&i.ClientVolume,
 		&i.PrimaryVertical,
 		&i.DeliveryConstraint,
-		&i.CreatedAt,
+		&i.CreatedDate,
 	)
 	return i, err
 }
