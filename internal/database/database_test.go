@@ -44,6 +44,10 @@ func TestApplySchemaMigratesExistingContactTable(t *testing.T) {
 		"utm_campaign",
 		"utm_content",
 		"referrer",
+		"spam_status",
+		"spam_reasons",
+		"lead_status",
+		"turnstile_verified_at",
 	} {
 		if !columns[name] {
 			t.Errorf("missing migrated column %q", name)
@@ -54,5 +58,58 @@ func TestApplySchemaMigratesExistingContactTable(t *testing.T) {
 	}
 	if columns["created_at"] {
 		t.Error("legacy column \"created_at\" should be renamed")
+	}
+
+	var spamStatus, spamReasons, leadStatus, verifiedAt string
+	_, err = db.Exec(`
+		INSERT INTO contact_submissions (
+			full_name,
+			corporate_email,
+			workflow_bottleneck
+		) VALUES ('Legacy User', 'legacy@example.com', 'Legacy workflow')
+	`)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = db.QueryRow(`
+		SELECT spam_status, spam_reasons, lead_status, turnstile_verified_at
+		FROM contact_submissions
+	`).Scan(&spamStatus, &spamReasons, &leadStatus, &verifiedAt)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if spamStatus != "review" || spamReasons != "[]" || leadStatus != "new" || verifiedAt != "" {
+		t.Fatalf(
+			"unexpected migrated defaults: spam_status=%q spam_reasons=%q lead_status=%q verified_at=%q",
+			spamStatus,
+			spamReasons,
+			leadStatus,
+			verifiedAt,
+		)
+	}
+}
+
+func TestLeadStatusConstraints(t *testing.T) {
+	db, err := Open(":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		db.Close()
+	})
+	if err := ApplySchema(context.Background(), db); err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = db.Exec(`
+		INSERT INTO contact_submissions (
+			full_name,
+			corporate_email,
+			workflow_bottleneck,
+			spam_status
+		) VALUES ('Invalid User', 'invalid@example.com', 'Invalid workflow', 'unknown')
+	`)
+	if err == nil {
+		t.Fatal("expected invalid spam_status to violate the schema constraint")
 	}
 }

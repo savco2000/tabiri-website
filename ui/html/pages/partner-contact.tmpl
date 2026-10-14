@@ -62,6 +62,11 @@
                 </div>
 
                 <form action="/partner-contact" class="space-y-6" method="post">
+                <input name="form_proof" type="hidden" value="{{.FormProof}}">
+                <div aria-hidden="true" class="form-honeypot" hidden>
+                    <label for="partner_website">Leave this field blank</label>
+                    <input autocomplete="off" id="partner_website" name="website" tabindex="-1" type="text">
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
                         <label class="form-label" for="partner_agency_name">Agency Name</label>
@@ -99,6 +104,10 @@
                     {{with index .PartnerContactForm.Errors "delivery_constraint"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                 </div>
 
+                    <div class="space-y-2">
+                        <div class="cf-turnstile" data-action="partner_contact_submit" data-sitekey="{{.TurnstileSiteKey}}" data-size="flexible"></div>
+                        {{with index .PartnerContactForm.Errors "verification"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                    </div>
                     <button class="btn-primary w-full" type="submit">Request Partner Review</button>
                 </form>
 

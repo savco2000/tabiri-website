@@ -44,7 +44,7 @@ func ApplySchema(ctx context.Context, db *sql.DB) error {
 		}
 	}
 
-	columns := map[string]string{
+	contactColumns := map[string]string{
 		"workflow_name":      "TEXT NOT NULL DEFAULT ''",
 		"assessment_result":  "TEXT NOT NULL DEFAULT ''",
 		"assessment_score":   "TEXT NOT NULL DEFAULT ''",
@@ -60,7 +60,7 @@ func ApplySchema(ctx context.Context, db *sql.DB) error {
 	if err != nil {
 		return err
 	}
-	for name, definition := range columns {
+	for name, definition := range contactColumns {
 		if existing[name] {
 			continue
 		}
@@ -70,6 +70,32 @@ func ApplySchema(ctx context.Context, db *sql.DB) error {
 			definition,
 		)); err != nil {
 			return fmt.Errorf("adding contact_submissions.%s: %w", name, err)
+		}
+	}
+
+	leadColumns := map[string]string{
+		"spam_status":           "TEXT NOT NULL DEFAULT 'review' CHECK (spam_status IN ('accepted', 'review', 'rejected'))",
+		"spam_reasons":          "TEXT NOT NULL DEFAULT '[]'",
+		"lead_status":           "TEXT NOT NULL DEFAULT 'new' CHECK (lead_status IN ('new', 'contacted', 'qualified', 'disqualified', 'archived'))",
+		"turnstile_verified_at": "TEXT NOT NULL DEFAULT ''",
+	}
+	for _, table := range []string{"contact_submissions", "partner_contact_submissions"} {
+		existing, err := tableColumns(ctx, db, table)
+		if err != nil {
+			return err
+		}
+		for name, definition := range leadColumns {
+			if existing[name] {
+				continue
+			}
+			if _, err := db.ExecContext(ctx, fmt.Sprintf(
+				"ALTER TABLE %s ADD COLUMN %s %s",
+				table,
+				name,
+				definition,
+			)); err != nil {
+				return fmt.Errorf("adding %s.%s: %w", table, name, err)
+			}
 		}
 	}
 

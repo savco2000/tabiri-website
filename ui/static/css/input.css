@@ -54,6 +54,14 @@
 		@apply w-full rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3.5 text-on-surface outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:opacity-60 disabled:cursor-not-allowed;
 	}
 
+	.form-honeypot {
+		position: absolute;
+		left: -10000px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+	}
+
 	.trust-card {
 		@apply p-8 rounded-xl bg-white/80 backdrop-blur-md border border-primary-fixed-dim/30 hover:shadow-xl transition-shadow duration-300 hover:border-primary dark:bg-on-background/70;
 	}

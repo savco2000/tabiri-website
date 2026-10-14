@@ -12,6 +12,12 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
     utm_campaign TEXT NOT NULL DEFAULT '',
     utm_content TEXT NOT NULL DEFAULT '',
     referrer TEXT NOT NULL DEFAULT '',
+    spam_status TEXT NOT NULL DEFAULT 'review'
+        CHECK (spam_status IN ('accepted', 'review', 'rejected')),
+    spam_reasons TEXT NOT NULL DEFAULT '[]',
+    lead_status TEXT NOT NULL DEFAULT 'new'
+        CHECK (lead_status IN ('new', 'contacted', 'qualified', 'disqualified', 'archived')),
+    turnstile_verified_at TEXT NOT NULL DEFAULT '',
     created_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -22,5 +28,11 @@ CREATE TABLE IF NOT EXISTS partner_contact_submissions (
     client_volume TEXT NOT NULL CHECK (client_volume IN ('1-10', '11-50', '50+')),
     primary_vertical TEXT NOT NULL,
     delivery_constraint TEXT NOT NULL,
+    spam_status TEXT NOT NULL DEFAULT 'review'
+        CHECK (spam_status IN ('accepted', 'review', 'rejected')),
+    spam_reasons TEXT NOT NULL DEFAULT '[]',
+    lead_status TEXT NOT NULL DEFAULT 'new'
+        CHECK (lead_status IN ('new', 'contacted', 'qualified', 'disqualified', 'archived')),
+    turnstile_verified_at TEXT NOT NULL DEFAULT '',
     created_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

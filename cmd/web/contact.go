@@ -32,9 +32,60 @@ type ContactForm struct {
 	Errors             map[string]string
 }
 
+func contactFormFromPost(values url.Values) ContactForm {
+	return ContactForm{
+		FullName:           strings.TrimSpace(values.Get("full_name")),
+		CorporateEmail:     strings.TrimSpace(values.Get("corporate_email")),
+		WorkflowBottleneck: strings.TrimSpace(values.Get("workflow_bottleneck")),
+		WorkflowName:       strings.TrimSpace(values.Get("workflow_name")),
+		AssessmentResult:   strings.TrimSpace(values.Get("assessment_result")),
+		AssessmentScore:    strings.TrimSpace(values.Get("assessment_score")),
+		AssessmentAnswers:  strings.TrimSpace(values.Get("assessment_answers")),
+		UTMSource:          strings.TrimSpace(values.Get("utm_source")),
+		UTMMedium:          strings.TrimSpace(values.Get("utm_medium")),
+		UTMCampaign:        strings.TrimSpace(values.Get("utm_campaign")),
+		UTMContent:         strings.TrimSpace(values.Get("utm_content")),
+		Referrer:           strings.TrimSpace(values.Get("referrer")),
+		Errors:             make(map[string]string),
+	}
+}
+
+func partnerContactFormFromPost(values url.Values) PartnerContactForm {
+	return PartnerContactForm{
+		AgencyName:         strings.TrimSpace(values.Get("agency_name")),
+		CorporateEmail:     strings.TrimSpace(values.Get("corporate_email")),
+		ClientVolume:       strings.TrimSpace(values.Get("client_volume")),
+		PrimaryVertical:    strings.TrimSpace(values.Get("primary_vertical")),
+		DeliveryConstraint: strings.TrimSpace(values.Get("delivery_constraint")),
+		Errors:             make(map[string]string),
+	}
+}
+
 type assessmentAnswer struct {
 	Score int    `json:"score"`
 	Label string `json:"label"`
+}
+
+func (app *application) renderContactProtectionError(
+	w http.ResponseWriter,
+	r *http.Request,
+	status int,
+	message string,
+) {
+	form := contactFormFromPost(r.PostForm)
+	form.Errors["verification"] = message
+	app.renderContact(w, r, status, form)
+}
+
+func (app *application) renderPartnerContactProtectionError(
+	w http.ResponseWriter,
+	r *http.Request,
+	status int,
+	message string,
+) {
+	form := partnerContactFormFromPost(r.PostForm)
+	form.Errors["verification"] = message
+	app.renderPartnerContact(w, r, status, form)
 }
 
 type PartnerContactForm struct {
@@ -47,27 +98,12 @@ type PartnerContactForm struct {
 }
 
 func (app *application) contactSubmit(w http.ResponseWriter, r *http.Request) {
-	r.Body = http.MaxBytesReader(w, r.Body, maxFormBodyBytes)
-	if err := r.ParseForm(); err != nil {
-		app.clientError(w, http.StatusBadRequest)
+	if _, err := requireLeadVerification(r.Context()); err != nil {
+		app.serverError(w, r, err)
 		return
 	}
 
-	form := ContactForm{
-		FullName:           strings.TrimSpace(r.PostForm.Get("full_name")),
-		CorporateEmail:     strings.TrimSpace(r.PostForm.Get("corporate_email")),
-		WorkflowBottleneck: strings.TrimSpace(r.PostForm.Get("workflow_bottleneck")),
-		WorkflowName:       strings.TrimSpace(r.PostForm.Get("workflow_name")),
-		AssessmentResult:   strings.TrimSpace(r.PostForm.Get("assessment_result")),
-		AssessmentScore:    strings.TrimSpace(r.PostForm.Get("assessment_score")),
-		AssessmentAnswers:  strings.TrimSpace(r.PostForm.Get("assessment_answers")),
-		UTMSource:          strings.TrimSpace(r.PostForm.Get("utm_source")),
-		UTMMedium:          strings.TrimSpace(r.PostForm.Get("utm_medium")),
-		UTMCampaign:        strings.TrimSpace(r.PostForm.Get("utm_campaign")),
-		UTMContent:         strings.TrimSpace(r.PostForm.Get("utm_content")),
-		Referrer:           strings.TrimSpace(r.PostForm.Get("referrer")),
-		Errors:             make(map[string]string),
-	}
+	form := contactFormFromPost(r.PostForm)
 	form.validate()
 
 	if len(form.Errors) > 0 {
@@ -88,6 +124,9 @@ func (app *application) contactSubmit(w http.ResponseWriter, r *http.Request) {
 		UtmCampaign:        form.UTMCampaign,
 		UtmContent:         form.UTMContent,
 		Referrer:           form.Referrer,
+		SpamStatus:         string(spamStatusAccepted),
+		SpamReasons:        "[]",
+		LeadStatus:         string(leadStatusNew),
 	})
 	if err != nil {
 		app.serverError(w, r, err)
@@ -102,20 +141,12 @@ func (app *application) contactSubmit(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) partnerContactSubmit(w http.ResponseWriter, r *http.Request) {
-	r.Body = http.MaxBytesReader(w, r.Body, maxFormBodyBytes)
-	if err := r.ParseForm(); err != nil {
-		app.clientError(w, http.StatusBadRequest)
+	if _, err := requireLeadVerification(r.Context()); err != nil {
+		app.serverError(w, r, err)
 		return
 	}
 
-	form := PartnerContactForm{
-		AgencyName:         strings.TrimSpace(r.PostForm.Get("agency_name")),
-		CorporateEmail:     strings.TrimSpace(r.PostForm.Get("corporate_email")),
-		ClientVolume:       strings.TrimSpace(r.PostForm.Get("client_volume")),
-		PrimaryVertical:    strings.TrimSpace(r.PostForm.Get("primary_vertical")),
-		DeliveryConstraint: strings.TrimSpace(r.PostForm.Get("delivery_constraint")),
-		Errors:             make(map[string]string),
-	}
+	form := partnerContactFormFromPost(r.PostForm)
 	form.validate()
 
 	if len(form.Errors) > 0 {
@@ -129,6 +160,9 @@ func (app *application) partnerContactSubmit(w http.ResponseWriter, r *http.Requ
 		ClientVolume:       form.ClientVolume,
 		PrimaryVertical:    form.PrimaryVertical,
 		DeliveryConstraint: form.DeliveryConstraint,
+		SpamStatus:         string(spamStatusAccepted),
+		SpamReasons:        "[]",
+		LeadStatus:         string(leadStatusNew),
 	})
 	if err != nil {
 		app.serverError(w, r, err)
@@ -268,6 +302,15 @@ func validateEmail(errors map[string]string, email string) {
 }
 
 func (app *application) renderContact(w http.ResponseWriter, r *http.Request, status int, form ContactForm) {
+	formProof := ""
+	if r.URL.Query().Get("submitted") != "true" {
+		var err error
+		formProof, err = app.formProof.Create("contact")
+		if err != nil {
+			app.serverError(w, r, err)
+			return
+		}
+	}
 	data := PageData{
 		PageTitle:            "Commercial Contact | Tabiri Analytics",
 		PageDescription:      "Contact Tabiri's commercial team to plan secure AI deployment, workflow modernization, and data-protected operations for your organization.",
@@ -278,6 +321,8 @@ func (app *application) renderContact(w http.ResponseWriter, r *http.Request, st
 		FormSubmitted:        r.URL.Query().Get("submitted") == "true",
 		LeadSource:           contactLeadSource(r.URL.Query().Get("lead_source"), form),
 		ContactForm:          form,
+		TurnstileSiteKey:     app.cfg.turnstileSiteKey,
+		FormProof:            formProof,
 	}
 	app.renderContactTemplate(w, r, status, data, "./ui/html/pages/contact.tmpl")
 }
@@ -311,6 +356,15 @@ func contactFormFromQuery(query url.Values) ContactForm {
 }
 
 func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Request, status int, form PartnerContactForm) {
+	formProof := ""
+	if r.URL.Query().Get("submitted") != "true" {
+		var err error
+		formProof, err = app.formProof.Create("partner_contact")
+		if err != nil {
+			app.serverError(w, r, err)
+			return
+		}
+	}
 	data := PageData{
 		PageTitle:            "Partner Contact | Channel Partner Application | Tabiri",
 		PageDescription:      "Apply to become a Tabiri Analytics channel partner and co-deliver secure AI solutions for enterprise and public-sector clients.",
@@ -319,6 +373,8 @@ func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Requ
 		CurrentYear:          time.Now().Year(),
 		FormSubmitted:        r.URL.Query().Get("submitted") == "true",
 		PartnerContactForm:   form,
+		TurnstileSiteKey:     app.cfg.turnstileSiteKey,
+		FormProof:            formProof,
 	}
 	app.renderContactTemplate(w, r, status, data, "./ui/html/pages/partner-contact.tmpl")
 }

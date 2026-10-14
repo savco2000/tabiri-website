@@ -5,28 +5,36 @@
 package database
 
 type ContactSubmission struct {
-	ID                 int64  `json:"id"`
-	FullName           string `json:"full_name"`
-	CorporateEmail     string `json:"corporate_email"`
-	WorkflowBottleneck string `json:"workflow_bottleneck"`
-	WorkflowName       string `json:"workflow_name"`
-	AssessmentResult   string `json:"assessment_result"`
-	AssessmentScore    string `json:"assessment_score"`
-	AssessmentAnswers  string `json:"assessment_answers"`
-	UtmSource          string `json:"utm_source"`
-	UtmMedium          string `json:"utm_medium"`
-	UtmCampaign        string `json:"utm_campaign"`
-	UtmContent         string `json:"utm_content"`
-	Referrer           string `json:"referrer"`
-	CreatedDate        string `json:"created_date"`
+	ID                  int64  `json:"id"`
+	FullName            string `json:"full_name"`
+	CorporateEmail      string `json:"corporate_email"`
+	WorkflowBottleneck  string `json:"workflow_bottleneck"`
+	WorkflowName        string `json:"workflow_name"`
+	AssessmentResult    string `json:"assessment_result"`
+	AssessmentScore     string `json:"assessment_score"`
+	AssessmentAnswers   string `json:"assessment_answers"`
+	UtmSource           string `json:"utm_source"`
+	UtmMedium           string `json:"utm_medium"`
+	UtmCampaign         string `json:"utm_campaign"`
+	UtmContent          string `json:"utm_content"`
+	Referrer            string `json:"referrer"`
+	SpamStatus          string `json:"spam_status"`
+	SpamReasons         string `json:"spam_reasons"`
+	LeadStatus          string `json:"lead_status"`
+	TurnstileVerifiedAt string `json:"turnstile_verified_at"`
+	CreatedDate         string `json:"created_date"`
 }
 
 type PartnerContactSubmission struct {
-	ID                 int64  `json:"id"`
-	AgencyName         string `json:"agency_name"`
-	CorporateEmail     string `json:"corporate_email"`
-	ClientVolume       string `json:"client_volume"`
-	PrimaryVertical    string `json:"primary_vertical"`
-	DeliveryConstraint string `json:"delivery_constraint"`
-	CreatedDate        string `json:"created_date"`
+	ID                  int64  `json:"id"`
+	AgencyName          string `json:"agency_name"`
+	CorporateEmail      string `json:"corporate_email"`
+	ClientVolume        string `json:"client_volume"`
+	PrimaryVertical     string `json:"primary_vertical"`
+	DeliveryConstraint  string `json:"delivery_constraint"`
+	SpamStatus          string `json:"spam_status"`
+	SpamReasons         string `json:"spam_reasons"`
+	LeadStatus          string `json:"lead_status"`
+	TurnstileVerifiedAt string `json:"turnstile_verified_at"`
+	CreatedDate         string `json:"created_date"`
 }

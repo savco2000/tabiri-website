@@ -11,8 +11,12 @@ INSERT INTO contact_submissions (
     utm_medium,
     utm_campaign,
     utm_content,
-    referrer
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    referrer,
+    spam_status,
+    spam_reasons,
+    lead_status,
+    turnstile_verified_at
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
 RETURNING *;
 
 -- name: CreatePartnerContactSubmission :one
@@ -21,6 +25,10 @@ INSERT INTO partner_contact_submissions (
     corporate_email,
     client_volume,
     primary_vertical,
-    delivery_constraint
-) VALUES (?, ?, ?, ?, ?)
+    delivery_constraint,
+    spam_status,
+    spam_reasons,
+    lead_status,
+    turnstile_verified_at
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
 RETURNING *;

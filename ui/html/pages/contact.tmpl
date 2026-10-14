@@ -77,6 +77,11 @@
                     </div>
                     {{end}}
                     <form action="/contact" class="space-y-6" data-lead-source="{{.LeadSource}}" id="contact-form" method="post">
+                        <input name="form_proof" type="hidden" value="{{.FormProof}}">
+                        <div aria-hidden="true" class="form-honeypot" hidden>
+                            <label for="contact_website">Leave this field blank</label>
+                            <input autocomplete="off" id="contact_website" name="website" tabindex="-1" type="text">
+                        </div>
                         <input name="workflow_name" type="hidden" value="{{.ContactForm.WorkflowName}}">
                         <input name="assessment_result" type="hidden" value="{{.ContactForm.AssessmentResult}}">
                         <input name="assessment_score" type="hidden" value="{{.ContactForm.AssessmentScore}}">
@@ -105,6 +110,10 @@
                             {{with index .ContactForm.Errors "workflow_bottleneck"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                         </div>
 
+                        <div class="space-y-2">
+                            <div class="cf-turnstile" data-action="contact_submit" data-sitekey="{{.TurnstileSiteKey}}" data-size="flexible"></div>
+                            {{with index .ContactForm.Errors "verification"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                        </div>
                         <button class="btn-primary w-full" type="submit">Submit</button>
                     </form>
                     <div class="mt-8 pt-6 border-t border-outline-variant flex flex-col sm:flex-row gap-4 sm:gap-8">

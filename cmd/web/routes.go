@@ -27,9 +27,25 @@ func (app *application) routes() *http.ServeMux {
 	mux.HandleFunc("GET /blog/{id}", app.blogPost)
 	mux.HandleFunc("GET /about", app.about)
 	mux.HandleFunc("GET /contact", app.contact)
-	mux.HandleFunc("POST /contact", app.contactSubmit)
+	mux.Handle(
+		"POST /contact",
+		app.protectLeadSubmission(
+			"contact",
+			"contact_submit",
+			app.renderContactProtectionError,
+			http.HandlerFunc(app.contactSubmit),
+		),
+	)
 	mux.HandleFunc("GET /partner-contact", app.partnerContact)
-	mux.HandleFunc("POST /partner-contact", app.partnerContactSubmit)
+	mux.Handle(
+		"POST /partner-contact",
+		app.protectLeadSubmission(
+			"partner_contact",
+			"partner_contact_submit",
+			app.renderPartnerContactProtectionError,
+			http.HandlerFunc(app.partnerContactSubmit),
+		),
+	)
 	mux.HandleFunc("GET /newsletter", app.newsletter)
 	mux.HandleFunc("GET /automation-assessment", app.automationAssessment)
 	mux.HandleFunc("GET /", app.notFound)

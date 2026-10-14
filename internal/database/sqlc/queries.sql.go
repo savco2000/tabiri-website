@@ -22,9 +22,13 @@ INSERT INTO contact_submissions (
     utm_medium,
     utm_campaign,
     utm_content,
-    referrer
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-RETURNING id, full_name, corporate_email, workflow_bottleneck, workflow_name, assessment_result, assessment_score, assessment_answers, utm_source, utm_medium, utm_campaign, utm_content, referrer, created_date
+    referrer,
+    spam_status,
+    spam_reasons,
+    lead_status,
+    turnstile_verified_at
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+RETURNING id, full_name, corporate_email, workflow_bottleneck, workflow_name, assessment_result, assessment_score, assessment_answers, utm_source, utm_medium, utm_campaign, utm_content, referrer, spam_status, spam_reasons, lead_status, turnstile_verified_at, created_date
 `
 
 type CreateContactSubmissionParams struct {
@@ -40,6 +44,9 @@ type CreateContactSubmissionParams struct {
 	UtmCampaign        string `json:"utm_campaign"`
 	UtmContent         string `json:"utm_content"`
 	Referrer           string `json:"referrer"`
+	SpamStatus         string `json:"spam_status"`
+	SpamReasons        string `json:"spam_reasons"`
+	LeadStatus         string `json:"lead_status"`
 }
 
 func (q *Queries) CreateContactSubmission(ctx context.Context, arg CreateContactSubmissionParams) (ContactSubmission, error) {
@@ -56,6 +63,9 @@ func (q *Queries) CreateContactSubmission(ctx context.Context, arg CreateContact
 		arg.UtmCampaign,
 		arg.UtmContent,
 		arg.Referrer,
+		arg.SpamStatus,
+		arg.SpamReasons,
+		arg.LeadStatus,
 	)
 	var i ContactSubmission
 	err := row.Scan(
@@ -72,6 +82,10 @@ func (q *Queries) CreateContactSubmission(ctx context.Context, arg CreateContact
 		&i.UtmCampaign,
 		&i.UtmContent,
 		&i.Referrer,
+		&i.SpamStatus,
+		&i.SpamReasons,
+		&i.LeadStatus,
+		&i.TurnstileVerifiedAt,
 		&i.CreatedDate,
 	)
 	return i, err
@@ -83,9 +97,13 @@ INSERT INTO partner_contact_submissions (
     corporate_email,
     client_volume,
     primary_vertical,
-    delivery_constraint
-) VALUES (?, ?, ?, ?, ?)
-RETURNING id, agency_name, corporate_email, client_volume, primary_vertical, delivery_constraint, created_date
+    delivery_constraint,
+    spam_status,
+    spam_reasons,
+    lead_status,
+    turnstile_verified_at
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+RETURNING id, agency_name, corporate_email, client_volume, primary_vertical, delivery_constraint, spam_status, spam_reasons, lead_status, turnstile_verified_at, created_date
 `
 
 type CreatePartnerContactSubmissionParams struct {
@@ -94,6 +112,9 @@ type CreatePartnerContactSubmissionParams struct {
 	ClientVolume       string `json:"client_volume"`
 	PrimaryVertical    string `json:"primary_vertical"`
 	DeliveryConstraint string `json:"delivery_constraint"`
+	SpamStatus         string `json:"spam_status"`
+	SpamReasons        string `json:"spam_reasons"`
+	LeadStatus         string `json:"lead_status"`
 }
 
 func (q *Queries) CreatePartnerContactSubmission(ctx context.Context, arg CreatePartnerContactSubmissionParams) (PartnerContactSubmission, error) {
@@ -103,6 +124,9 @@ func (q *Queries) CreatePartnerContactSubmission(ctx context.Context, arg Create
 		arg.ClientVolume,
 		arg.PrimaryVertical,
 		arg.DeliveryConstraint,
+		arg.SpamStatus,
+		arg.SpamReasons,
+		arg.LeadStatus,
 	)
 	var i PartnerContactSubmission
 	err := row.Scan(
@@ -112,6 +136,10 @@ func (q *Queries) CreatePartnerContactSubmission(ctx context.Context, arg Create
 		&i.ClientVolume,
 		&i.PrimaryVertical,
 		&i.DeliveryConstraint,
+		&i.SpamStatus,
+		&i.SpamReasons,
+		&i.LeadStatus,
+		&i.TurnstileVerifiedAt,
 		&i.CreatedDate,
 	)
 	return i, err

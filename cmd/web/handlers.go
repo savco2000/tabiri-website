@@ -19,6 +19,8 @@ type PageData struct {
 	LeadSource           string
 	ContactForm          ContactForm
 	PartnerContactForm   PartnerContactForm
+	TurnstileSiteKey     string
+	FormProof            string
 }
 
 // Change the signature of the home handler so it is defined as a method against

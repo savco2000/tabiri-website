@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"html/template"
 	"io"
@@ -10,6 +11,7 @@ import (
 	"net/url"
 	"strings"
 	"testing"
+	"time"
 
 	"website.tabirianalytics.com/internal/database"
 	sqlc "website.tabirianalytics.com/internal/database/sqlc"
@@ -45,16 +47,26 @@ func TestContactSubmitPersistsSubmission(t *testing.T) {
 		t.Fatalf("got redirect %q, want %q", location, "/contact?submitted=true")
 	}
 
-	var fullName, email, bottleneck string
+	var fullName, email, bottleneck, spamStatus, spamReasons, leadStatus, verifiedAt string
 	err := db.QueryRow(`
-		SELECT full_name, corporate_email, workflow_bottleneck
+		SELECT full_name, corporate_email, workflow_bottleneck,
+		       spam_status, spam_reasons, lead_status, turnstile_verified_at
 		FROM contact_submissions
-	`).Scan(&fullName, &email, &bottleneck)
+	`).Scan(&fullName, &email, &bottleneck, &spamStatus, &spamReasons, &leadStatus, &verifiedAt)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if fullName != "Jane Doe" || email != "jane@example.com" || bottleneck != "Manual invoice reconciliation" {
 		t.Fatalf("stored unexpected submission: %q, %q, %q", fullName, email, bottleneck)
+	}
+	if spamStatus != "accepted" || spamReasons != "[]" || leadStatus != "new" || verifiedAt == "" {
+		t.Fatalf(
+			"stored unexpected lead screening state: %q, %q, %q, %q",
+			spamStatus,
+			spamReasons,
+			leadStatus,
+			verifiedAt,
+		)
 	}
 }
 
@@ -254,10 +266,22 @@ func TestPartnerContactSubmitPersistsSubmission(t *testing.T) {
 	}
 
 	var agencyName, email, clientVolume, primaryVertical, deliveryConstraint string
+	var spamStatus, spamReasons, leadStatus, verifiedAt string
 	err := db.QueryRow(`
-		SELECT agency_name, corporate_email, client_volume, primary_vertical, delivery_constraint
+		SELECT agency_name, corporate_email, client_volume, primary_vertical, delivery_constraint,
+		       spam_status, spam_reasons, lead_status, turnstile_verified_at
 		FROM partner_contact_submissions
-	`).Scan(&agencyName, &email, &clientVolume, &primaryVertical, &deliveryConstraint)
+	`).Scan(
+		&agencyName,
+		&email,
+		&clientVolume,
+		&primaryVertical,
+		&deliveryConstraint,
+		&spamStatus,
+		&spamReasons,
+		&leadStatus,
+		&verifiedAt,
+	)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -274,6 +298,120 @@ func TestPartnerContactSubmitPersistsSubmission(t *testing.T) {
 			primaryVertical,
 			deliveryConstraint,
 		)
+	}
+	if spamStatus != "accepted" || spamReasons != "[]" || leadStatus != "new" || verifiedAt == "" {
+		t.Fatalf(
+			"stored unexpected lead screening state: %q, %q, %q, %q",
+			spamStatus,
+			spamReasons,
+			leadStatus,
+			verifiedAt,
+		)
+	}
+}
+
+func TestContactSubmitRejectsHoneypotWithoutPersisting(t *testing.T) {
+	app, db := newTestApplication(t)
+	form := url.Values{
+		"full_name":           {"Spam Bot"},
+		"corporate_email":     {"spam@example.com"},
+		"workflow_bottleneck": {"Buy now"},
+		"website":             {"https://spam.example"},
+	}
+	response := submitForm(app, "/contact", form)
+
+	if response.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusUnprocessableEntity)
+	}
+	assertSubmissionCount(t, db, "contact_submissions", 0)
+}
+
+func TestPartnerContactSubmitRejectsTurnstileFailureWithoutPersisting(t *testing.T) {
+	app, db := newTestApplication(t)
+	app.turnstile = failingTurnstileVerifier{err: errTurnstileRejected}
+	form := url.Values{
+		"agency_name":         {"Spam Partners"},
+		"corporate_email":     {"spam@example.com"},
+		"client_volume":       {"11-50"},
+		"primary_vertical":    {"Spam"},
+		"delivery_constraint": {"Buy now"},
+	}
+	response := submitForm(app, "/partner-contact", form)
+
+	if response.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusUnprocessableEntity)
+	}
+	assertSubmissionCount(t, db, "partner_contact_submissions", 0)
+}
+
+func TestContactSubmitSurfacesTurnstileOutageWithoutPersisting(t *testing.T) {
+	app, db := newTestApplication(t)
+	app.turnstile = failingTurnstileVerifier{err: errTurnstileUnavailable}
+	form := url.Values{
+		"full_name":           {"Jane Doe"},
+		"corporate_email":     {"jane@example.com"},
+		"workflow_bottleneck": {"Manual invoice reconciliation"},
+	}
+	response := submitForm(app, "/contact", form)
+
+	if response.Code != http.StatusServiceUnavailable {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusServiceUnavailable)
+	}
+	if !strings.Contains(response.Body.String(), verificationUnavailableMessage) {
+		t.Fatalf("response does not contain verification outage message")
+	}
+	assertSubmissionCount(t, db, "contact_submissions", 0)
+}
+
+func TestContactPageIncludesProtectionFields(t *testing.T) {
+	app, _ := newTestApplication(t)
+	app.cfg.turnstileSecretKey = "test-secret-key"
+	request := httptest.NewRequest(http.MethodGet, "/contact", nil)
+	response := httptest.NewRecorder()
+
+	app.routes().ServeHTTP(response, request)
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	}
+	body := response.Body.String()
+	for _, expected := range []string{
+		`name="form_proof"`,
+		`name="website"`,
+		`class="form-honeypot" hidden`,
+		`data-action="contact_submit"`,
+		`data-sitekey="test-site-key"`,
+		`https://challenges.cloudflare.com/turnstile/v0/api.js`,
+	} {
+		if !strings.Contains(body, expected) {
+			t.Errorf("response does not contain %q", expected)
+		}
+	}
+	if strings.Contains(body, "test-secret-key") {
+		t.Error("response contains the Turnstile secret")
+	}
+}
+
+func TestPartnerContactPageIncludesProtectionFields(t *testing.T) {
+	app, _ := newTestApplication(t)
+	request := httptest.NewRequest(http.MethodGet, "/partner-contact", nil)
+	response := httptest.NewRecorder()
+
+	app.routes().ServeHTTP(response, request)
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	}
+	body := response.Body.String()
+	for _, expected := range []string{
+		`name="form_proof"`,
+		`name="website"`,
+		`data-action="partner_contact_submit"`,
+		`data-sitekey="test-site-key"`,
+	} {
+		if !strings.Contains(body, expected) {
+			t.Errorf("response does not contain %q", expected)
+		}
 	}
 }
 
@@ -320,18 +458,69 @@ func newTestApplication(t *testing.T) (*application, *sql.DB) {
 		t.Fatal(err)
 	}
 
+	signer := newFormProofSigner([]byte("01234567890123456789012345678901"))
+	signer.minAge = 0
 	return &application{
-		logger:  slog.New(slog.NewTextHandler(io.Discard, nil)),
-		cfg:     &config{staticDir: "./ui/static"},
-		queries: sqlc.New(db),
+		logger:    slog.New(slog.NewTextHandler(io.Discard, nil)),
+		cfg:       &config{staticDir: "./ui/static", turnstileSiteKey: "test-site-key"},
+		queries:   sqlc.New(db),
+		turnstile: acceptingTurnstileVerifier{},
+		formProof: signer,
 	}, db
 }
 
 func submitForm(app *application, target string, form url.Values) *httptest.ResponseRecorder {
+	formName := "contact"
+	if target == "/partner-contact" {
+		formName = "partner_contact"
+	}
+	proof, err := app.formProof.Create(formName)
+	if err != nil {
+		panic(err)
+	}
+	form.Set("form_proof", proof)
+	form.Set("cf-turnstile-response", "test-token")
 	request := httptest.NewRequest(http.MethodPost, target, strings.NewReader(form.Encode()))
 	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	response := httptest.NewRecorder()
 
 	app.routes().ServeHTTP(response, request)
 	return response
+}
+
+type acceptingTurnstileVerifier struct{}
+
+func (acceptingTurnstileVerifier) Verify(
+	_ context.Context,
+	_ string,
+	action string,
+) (turnstileVerification, error) {
+	return turnstileVerification{
+		Hostname:    "example.test",
+		Action:      action,
+		ChallengeAt: time.Now(),
+	}, nil
+}
+
+type failingTurnstileVerifier struct {
+	err error
+}
+
+func (v failingTurnstileVerifier) Verify(
+	_ context.Context,
+	_ string,
+	_ string,
+) (turnstileVerification, error) {
+	return turnstileVerification{}, v.err
+}
+
+func assertSubmissionCount(t *testing.T, db *sql.DB, table string, want int) {
+	t.Helper()
+	var count int
+	if err := db.QueryRow("SELECT COUNT(*) FROM " + table).Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+	if count != want {
+		t.Fatalf("got %d submissions in %s, want %d", count, table, want)
+	}
 }
