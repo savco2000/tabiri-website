@@ -21,17 +21,34 @@
     <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
         <div class="lg:col-span-2">
             <article class="trust-card">
-                
-
                 {{if .FormSubmitted}}
-                <div class="mb-6 flex items-start gap-4 rounded-xl border border-outline-variant bg-surface-container-low p-5" data-lead-source="{{.LeadSource}}" id="contact-success" role="status">
-                    <div class="icon-tile mb-0 shrink-0 bg-primary/10">
-                        <span class="material-symbols-outlined text-primary">check_circle</span>
+                <div class="mb-6 rounded-xl border border-outline-variant bg-surface-container-low p-6 md:p-8" data-lead-source="{{.LeadSource}}" id="contact-success" role="status">
+                    <div class="flex items-start gap-4">
+                        <div class="icon-tile mb-0 shrink-0 bg-primary/10">
+                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline text-headline-md text-on-surface">Thank you for contacting us</h3>
+                            <p class="mt-2 font-body text-body-md text-on-surface-variant">Your response has been submitted successfully!</p>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="font-headline text-headline-sm text-on-surface">Thank you for contacting us</h3>
-                        <p class="mt-1 font-body text-body-sm text-on-surface-variant">Your response has been submitted successfully. Our commercial team will review it and follow up with you.</p>
-                        <a class="btn-secondary mt-4 inline-flex" href="/">Return to Homepage</a>
+                    <div class="mt-6 border-t border-outline-variant pt-6">
+                        <h4 class="font-headline text-headline-md text-on-surface">What Happens Next</h4>
+                        <ol class="mt-4 space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">1</span>
+                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">We review your workflow bottleneck and current operating constraints.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">2</span>
+                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">We recommend the right digital associate or automation pathway.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">3</span>
+                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">We scope a secure deployment plan tailored to your environment.</span>
+                            </li>
+                        </ol>
+                        <a class="btn-secondary mt-6 inline-flex" href="/">Return to Homepage</a>
                     </div>
                 </div>
                 {{else}}
@@ -119,20 +136,6 @@
                     <h2 class="font-headline text-headline-md text-on-surface">Availability</h2>
                 </div>
                 <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Mon-Fri: 9am - 5pm EST</p>
-            </article>
-
-            <article class="trust-card">
-                <div class="mb-5 flex items-center gap-3">
-                    <div class="icon-tile mb-0">
-                        <span class="material-symbols-outlined text-primary">bolt</span>
-                    </div>
-                    <h2 class="font-headline text-headline-md text-on-surface">What Happens Next</h2>
-                </div>
-                <ul class="space-y-3">
-                    <li class="font-body text-body-sm text-on-surface-variant">We review your workflow bottleneck and current operating constraints.</li>
-                    <li class="font-body text-body-sm text-on-surface-variant">We recommend the right digital associate or automation pathway.</li>
-                    <li class="font-body text-body-sm text-on-surface-variant">We scope a secure deployment plan tailored to your environment.</li>
-                </ul>
             </article>
         </div>
     </div>

@@ -180,6 +180,33 @@ func TestContactPrefillsAssessmentContext(t *testing.T) {
 	}
 }
 
+func TestContactSuccessIncludesWhatHappensNext(t *testing.T) {
+	app, _ := newTestApplication(t)
+	request := httptest.NewRequest(http.MethodGet, "/contact?submitted=true", nil)
+	response := httptest.NewRecorder()
+
+	app.routes().ServeHTTP(response, request)
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	}
+	body := response.Body.String()
+	for _, expected := range []string{
+		"Thank you for contacting us",
+		"What Happens Next",
+		"We review your workflow bottleneck and current operating constraints.",
+		"We recommend the right digital associate or automation pathway.",
+		"We scope a secure deployment plan tailored to your environment.",
+	} {
+		if !strings.Contains(body, expected) {
+			t.Errorf("response does not contain %q", expected)
+		}
+	}
+	if got := strings.Count(body, "What Happens Next"); got != 1 {
+		t.Errorf("What Happens Next appears %d times, want 1", got)
+	}
+}
+
 func TestPartnerContactSubmitPersistsSubmission(t *testing.T) {
 	app, db := newTestApplication(t)
 
