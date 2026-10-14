@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"net/http/httptest"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -11,12 +12,12 @@ import (
 func TestBlogPostTemplatesParse(t *testing.T) {
 	t.Chdir("../..")
 
-	for slug, post := range blogPosts {
+	for _, slug := range blogPostSlugs(t) {
 		t.Run(slug, func(t *testing.T) {
 			_, err := template.ParseFiles(
 				"./ui/html/base.tmpl",
 				"./ui/html/partials/nav.tmpl",
-				post.Template,
+				filepath.Join(blogContentDir, slug+".tmpl"),
 				"./ui/html/partials/footer.tmpl",
 			)
 			if err != nil {
@@ -29,7 +30,7 @@ func TestBlogPostTemplatesParse(t *testing.T) {
 func TestBlogPostRendersForEverySlug(t *testing.T) {
 	app, _ := newTestApplication(t)
 
-	for slug, post := range blogPosts {
+	for _, slug := range blogPostSlugs(t) {
 		t.Run(slug, func(t *testing.T) {
 			response := getPage(app, "/blog/"+slug)
 
@@ -43,8 +44,8 @@ func TestBlogPostRendersForEverySlug(t *testing.T) {
 			if !strings.Contains(body, canonical) {
 				t.Errorf("response does not contain canonical URL %q", canonical)
 			}
-			if !strings.Contains(body, post.OpenGraphImage) {
-				t.Errorf("response does not contain Open Graph image %q", post.OpenGraphImage)
+			if !strings.Contains(body, `<meta property="og:image" content="https://`) {
+				t.Error("response does not contain an absolute Open Graph image")
 			}
 			// Relative asset paths resolve against /blog/ and would 404.
 			if strings.Contains(body, `src="./`) {
@@ -66,7 +67,7 @@ func TestBlogListingLinksToEveryPost(t *testing.T) {
 	}
 
 	body := response.Body.String()
-	for slug := range blogPosts {
+	for _, slug := range blogPostSlugs(t) {
 		link := "href=\"/blog/" + slug + "\""
 		if !strings.Contains(body, link) {
 			t.Errorf("blog listing does not link to %q", link)
@@ -90,4 +91,22 @@ func getPage(app *application, target string) *httptest.ResponseRecorder {
 
 	app.routes().ServeHTTP(response, request)
 	return response
+}
+
+func blogPostSlugs(t *testing.T) []string {
+	t.Helper()
+
+	paths, err := filepath.Glob(filepath.Join(blogContentDir, "*.tmpl"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(paths) == 0 {
+		t.Fatal("no blog content templates found")
+	}
+
+	slugs := make([]string, 0, len(paths))
+	for _, path := range paths {
+		slugs = append(slugs, strings.TrimSuffix(filepath.Base(path), ".tmpl"))
+	}
+	return slugs
 }

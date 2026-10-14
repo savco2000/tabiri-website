@@ -1,5 +1,7 @@
 @config "../../../tailwind.config.js";
 @import "tailwindcss";
+@source "../../../ui/html/**/*.tmpl";
+@source "../../../content/blog/**/*.tmpl";
 
 @layer base {
 	.material-symbols-outlined {
