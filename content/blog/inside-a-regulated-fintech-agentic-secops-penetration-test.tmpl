@@ -9,7 +9,7 @@
         <div class="absolute inset-0 opacity-40"></div>
         <div class="max-w-4xl mx-auto relative z-10">
             <div class="mb-6">
-                <a class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm uppercase tracking-wider text-primary transition-colors hover:bg-surface-container-lowest" href="/blog">
+                <a class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm uppercase tracking-wider text-primary transition-colors hover:bg-surface-container-lowest" href="/blog.html">
                     <span class="material-symbols-outlined icon-size-sm">arrow_back</span>
                     Back to Blog
                 </a>
@@ -98,7 +98,7 @@
 
                 <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">The finding that changed the tempo</h2>
                 <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
-                    Within the first two hours, the assessment exposed a critical cross-merchant authorization flaw. We will not publish the reproduction path or affected implementation details. What matters is the response loop: the evidence was reviewed by our engineers, communicated through the agreed escalation path, patched by the customer and retested by Tabiri the same day.
+                    Within the first two hours, the assessment exposed a critical cross-merchant authorization flaw using a Broken Object Level Authorization testing approach that I would not have considered despite 20 years of penetration-testing experience. We will not publish the reproduction path or affected implementation details. What matters is the response loop: the evidence was reviewed by our engineers, communicated through the agreed escalation path, patched by the customer and retested by Tabiri the same day.
                 </p>
                 <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
                     That is the practical value of speed in security. A faster test is only useful when it shortens the time between exposure, understanding, remediation and proof. In this case, machine-assisted discovery and evidence handling gave the human teams more time to focus on impact and corrective action.
@@ -111,6 +111,9 @@
                 <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">How this differed from a traditional manual test</h2>
                 <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
                     In a traditional engagement, skilled testers spend a significant share of the schedule launching tools, normalizing output, deduplicating observations, rebuilding context across systems and formatting evidence. Those tasks are necessary, but they compete with the work that most needs expertise: forming attack hypotheses, understanding business logic, deciding what is safe to test and determining whether a result is genuinely exploitable.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    A comparable manual penetration test would typically have required one senior consultant, two junior consultants and a manager. With the Agentic SecOps approach, I was able to direct the core assessment while serving as both the sole senior engineer and the engagement manager, while two junior consultants independently verified the agents' findings rather than performing the primary discovery work.
                 </p>
                 <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
                     Our configured agent continuously executed approved assessment tooling, tracked what had been attempted, correlated results and organized findings as they emerged. The engineers remained in the loop for direction and review. This division of labor allowed us to deliver a prioritized resilience roadmap in 24 hours, up to 14 times faster than the comparable manual process, while assessing 100% of internal TCP ports in scope.
@@ -148,8 +151,8 @@
                     Combine broad technical coverage, validated findings, and compliance-ready evidence in one engineer-led assessment.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <a class="btn-primary" href="/contact">Plan your penetration test</a>
-                    <a class="btn-secondary" href="/penetration-testing">Explore the methodology</a>
+                    <a class="btn-primary" href="/contact.html">Plan your penetration test</a>
+                    <a class="btn-secondary" href="/penetration-testing.html">Explore the methodology</a>
                 </div>
             </div>
         </div>
