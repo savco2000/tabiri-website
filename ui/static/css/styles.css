@@ -48,6 +48,7 @@
     --blur-sm: 8px;
     --blur-md: 12px;
     --blur-3xl: 64px;
+    --aspect-video: 16 / 9;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -455,6 +456,9 @@
   .aspect-square {
     aspect-ratio: 1 / 1;
   }
+  .aspect-video {
+    aspect-ratio: var(--aspect-video);
+  }
   .h-1 {
     height: calc(var(--spacing) * 1);
   }
@@ -508,6 +512,9 @@
   }
   .h-full {
     height: 100%;
+  }
+  .min-h-80 {
+    min-height: calc(var(--spacing) * 80);
   }
   .min-h-\[280px\] {
     min-height: 280px;
@@ -935,6 +942,9 @@
   }
   .bg-accent\/10 {
     background-color: color-mix(in oklab, #B33A18 10%, transparent);
+  }
+  .bg-black {
+    background-color: var(--color-black);
   }
   .bg-blue-600 {
     background-color: var(--color-blue-600);
@@ -1806,6 +1816,11 @@
   .md\:h-120 {
     @media (width >= 48rem) {
       height: calc(var(--spacing) * 120);
+    }
+  }
+  .md\:min-h-100 {
+    @media (width >= 48rem) {
+      min-height: calc(var(--spacing) * 100);
     }
   }
   .md\:min-h-\[360px\] {
