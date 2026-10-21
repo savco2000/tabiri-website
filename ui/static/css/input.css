@@ -26,10 +26,6 @@
 		@apply font-label text-label-md text-primary border-b-2 border-primary pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:text-white dark:border-white;
 	}
 
-	.nav-dropdown-trigger.nav-dropdown-trigger-active {
-		@apply bg-surface-container-low text-primary hover:bg-surface-container-low hover:text-primary dark:text-white dark:hover:text-white;
-	}
-
 	.nav-cta {
 		@apply inline-flex items-center justify-center bg-primary-container text-white px-5 py-2 rounded-lg font-label text-label-md hover:opacity-90 transition-opacity active:scale-95 duration-150 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
 	}
@@ -115,5 +111,11 @@
 			transition: none;
 			transform: none;
 		}
+	}
+}
+
+@layer utilities {
+	.nav-dropdown-trigger.nav-dropdown-trigger-active {
+		@apply bg-surface-container-low text-primary hover:bg-surface-container-low hover:text-primary dark:text-white dark:hover:text-white;
 	}
 }
