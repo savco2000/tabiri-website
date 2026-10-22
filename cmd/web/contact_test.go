@@ -310,6 +310,63 @@ func TestPartnerContactSubmitPersistsSubmission(t *testing.T) {
 	}
 }
 
+func TestNewsletterSubmitPersistsSubscription(t *testing.T) {
+	app, db := newTestApplication(t)
+
+	form := url.Values{
+		"first_name": {"Jane"},
+		"email":      {"jane@example.com"},
+		"consent":    {"on"},
+	}
+	response := submitForm(app, "/newsletter", form)
+
+	if response.Code != http.StatusSeeOther {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusSeeOther)
+	}
+	if location := response.Header().Get("Location"); location != "/newsletter?submitted=true" {
+		t.Fatalf("got redirect %q, want %q", location, "/newsletter?submitted=true")
+	}
+
+	var firstName, email, spamStatus, spamReasons, leadStatus, verifiedAt string
+	var consentGiven int
+	err := db.QueryRow(`
+		SELECT first_name, email, consent_given, spam_status, spam_reasons, lead_status, turnstile_verified_at
+		FROM newsletter_subscriptions
+	`).Scan(&firstName, &email, &consentGiven, &spamStatus, &spamReasons, &leadStatus, &verifiedAt)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if firstName != "Jane" || email != "jane@example.com" || consentGiven != 1 {
+		t.Fatalf("stored unexpected subscription: %q, %q, %d", firstName, email, consentGiven)
+	}
+	if spamStatus != "accepted" || spamReasons != "[]" || leadStatus != "new" || verifiedAt == "" {
+		t.Fatalf(
+			"stored unexpected lead screening state: %q, %q, %q, %q",
+			spamStatus,
+			spamReasons,
+			leadStatus,
+			verifiedAt,
+		)
+	}
+}
+
+func TestNewsletterSubmitRequiresConsent(t *testing.T) {
+	app, db := newTestApplication(t)
+
+	response := submitForm(app, "/newsletter", url.Values{
+		"first_name": {"Jane"},
+		"email":      {"jane@example.com"},
+	})
+
+	if response.Code != http.StatusUnprocessableEntity {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusUnprocessableEntity)
+	}
+	if !strings.Contains(response.Body.String(), "Agree to receive the newsletter before subscribing.") {
+		t.Fatal("response does not contain consent validation error")
+	}
+	assertSubmissionCount(t, db, "newsletter_subscriptions", 0)
+}
+
 func TestContactSubmitRejectsHoneypotWithoutPersisting(t *testing.T) {
 	app, db := newTestApplication(t)
 	form := url.Values{
@@ -415,6 +472,49 @@ func TestPartnerContactPageIncludesProtectionFields(t *testing.T) {
 	}
 }
 
+func TestNewsletterPageIncludesProtectionFields(t *testing.T) {
+	app, _ := newTestApplication(t)
+	request := httptest.NewRequest(http.MethodGet, "/newsletter", nil)
+	response := httptest.NewRecorder()
+
+	app.routes().ServeHTTP(response, request)
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	}
+	body := response.Body.String()
+	for _, expected := range []string{
+		`action="/newsletter"`,
+		`name="form_proof"`,
+		`name="website"`,
+		`data-action="newsletter_submit"`,
+		`data-sitekey="test-site-key"`,
+	} {
+		if !strings.Contains(body, expected) {
+			t.Errorf("response does not contain %q", expected)
+		}
+	}
+}
+
+func TestNewsletterSuccessReplacesForm(t *testing.T) {
+	app, _ := newTestApplication(t)
+	request := httptest.NewRequest(http.MethodGet, "/newsletter?submitted=true", nil)
+	response := httptest.NewRecorder()
+
+	app.routes().ServeHTTP(response, request)
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	}
+	body := response.Body.String()
+	if !strings.Contains(body, "Thank you for subscribing") {
+		t.Fatal("response does not contain subscription success message")
+	}
+	if strings.Contains(body, `action="/newsletter"`) {
+		t.Fatal("response still contains newsletter form after submission")
+	}
+}
+
 func TestContactFormValidation(t *testing.T) {
 	form := ContactForm{Errors: make(map[string]string)}
 	form.validate()
@@ -485,8 +585,11 @@ func newTestApplication(t *testing.T) (*application, *sql.DB) {
 
 func submitForm(app *application, target string, form url.Values) *httptest.ResponseRecorder {
 	formName := "contact"
-	if target == "/partner-contact" {
+	switch target {
+	case "/partner-contact":
 		formName = "partner_contact"
+	case "/newsletter":
+		formName = "newsletter"
 	}
 	proof, err := app.formProof.Create(formName)
 	if err != nil {

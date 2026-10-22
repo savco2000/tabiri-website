@@ -36,3 +36,17 @@ CREATE TABLE IF NOT EXISTS partner_contact_submissions (
     turnstile_verified_at TEXT NOT NULL DEFAULT '',
     created_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS newsletter_subscriptions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL DEFAULT '',
+    email TEXT NOT NULL,
+    consent_given INTEGER NOT NULL CHECK (consent_given = 1),
+    spam_status TEXT NOT NULL DEFAULT 'review'
+        CHECK (spam_status IN ('accepted', 'review', 'rejected')),
+    spam_reasons TEXT NOT NULL DEFAULT '[]',
+    lead_status TEXT NOT NULL DEFAULT 'new'
+        CHECK (lead_status IN ('new', 'contacted', 'qualified', 'disqualified', 'archived')),
+    turnstile_verified_at TEXT NOT NULL DEFAULT '',
+    created_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

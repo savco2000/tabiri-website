@@ -19,6 +19,20 @@
 <section class="py-12 md:py-16 bg-surface-container-low border-b border-outline-variant" id="subscribe">
     <div class="max-w-6xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
         <article class="trust-card lg:col-span-3">
+            {{if .FormSubmitted}}
+            <div class="rounded-xl border border-outline-variant bg-surface-container-low p-6 md:p-8" id="newsletter-success" role="status">
+                <div class="flex items-start gap-4">
+                    <div class="icon-tile mb-0 shrink-0 bg-primary/10">
+                        <span class="material-symbols-outlined text-primary">check_circle</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline text-headline-md text-on-surface">Thank you for subscribing</h3>
+                        <p class="mt-2 font-body text-body-md text-on-surface-variant">You have successfully joined the Tabiri newsletter.</p>
+                    </div>
+                </div>
+                <a class="btn-secondary mt-6 inline-flex" href="/">Return to Homepage</a>
+            </div>
+            {{else}}
             <div class="mb-8 flex items-center gap-4">
                 <div class="icon-tile mb-0 shrink-0">
                     <span class="material-symbols-outlined text-primary">mark_email_unread</span>
@@ -29,27 +43,40 @@
                 </div>
             </div>
 
-            <form class="space-y-6">
+            <form action="/newsletter" class="space-y-6" method="post">
+                <input name="form_proof" type="hidden" value="{{.FormProof}}">
+                <div aria-hidden="true" class="form-honeypot" hidden>
+                    <label for="newsletter_website">Leave this field blank</label>
+                    <input autocomplete="off" id="newsletter_website" name="website" tabindex="-1" type="text">
+                </div>
                 <div class="space-y-2">
                     <label class="form-label" for="newsletter_first_name">First Name</label>
-                    <input autocomplete="given-name" class="form-field-input" id="newsletter_first_name" name="first_name" placeholder="Your first name" type="text">
+                    <input autocomplete="given-name" class="form-field-input" id="newsletter_first_name" maxlength="200" name="first_name" placeholder="Your first name" type="text" value="{{.NewsletterForm.FirstName}}">
+                    {{with index .NewsletterForm.Errors "first_name"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                 </div>
 
                 <div class="space-y-2">
                     <label class="form-label" for="newsletter_email">Email Address</label>
-                    <input autocomplete="email" class="form-field-input" id="newsletter_email" name="email" placeholder="you@company.com" required type="email">
+                    <input autocomplete="email" class="form-field-input" id="newsletter_email" maxlength="320" name="email" placeholder="you@company.com" required type="email" value="{{.NewsletterForm.Email}}">
+                    {{with index .NewsletterForm.Errors "email"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                 </div>
 
                 <label class="flex items-start gap-3 text-body-sm text-on-surface-variant" for="newsletter_consent">
-                    <input class="mt-1 rounded border-outline-variant text-primary focus:ring-primary" id="newsletter_consent" name="consent" required type="checkbox">
+                    <input class="mt-1 rounded border-outline-variant text-primary focus:ring-primary" id="newsletter_consent" name="consent" required type="checkbox"{{if .NewsletterForm.Consent}} checked{{end}}>
                     <span>I agree to receive the Tabiri newsletter by email. I can unsubscribe at any time.</span>
                 </label>
+                {{with index .NewsletterForm.Errors "consent"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
 
+                <div class="space-y-2">
+                    <div class="cf-turnstile" data-action="newsletter_submit" data-sitekey="{{.TurnstileSiteKey}}" data-size="flexible"></div>
+                    {{with index .NewsletterForm.Errors "verification"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                </div>
                 <button class="btn-primary w-full" type="submit">
                     <span class="material-symbols-outlined mr-2 icon-size-sm">send</span>
                     Subscribe
                 </button>
             </form>
+            {{end}}
         </article>
 
         <aside class="lg:col-span-2 pt-2" aria-labelledby="newsletter-benefits-title">

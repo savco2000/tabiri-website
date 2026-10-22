@@ -19,6 +19,18 @@ INSERT INTO contact_submissions (
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
 RETURNING *;
 
+-- name: CreateNewsletterSubscription :one
+INSERT INTO newsletter_subscriptions (
+    first_name,
+    email,
+    consent_given,
+    spam_status,
+    spam_reasons,
+    lead_status,
+    turnstile_verified_at
+) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+RETURNING *;
+
 -- name: CreatePartnerContactSubmission :one
 INSERT INTO partner_contact_submissions (
     agency_name,

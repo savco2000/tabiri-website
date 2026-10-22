@@ -25,6 +25,18 @@ type ContactSubmission struct {
 	CreatedDate         string `json:"created_date"`
 }
 
+type NewsletterSubscription struct {
+	ID                  int64  `json:"id"`
+	FirstName           string `json:"first_name"`
+	Email               string `json:"email"`
+	ConsentGiven        int64  `json:"consent_given"`
+	SpamStatus          string `json:"spam_status"`
+	SpamReasons         string `json:"spam_reasons"`
+	LeadStatus          string `json:"lead_status"`
+	TurnstileVerifiedAt string `json:"turnstile_verified_at"`
+	CreatedDate         string `json:"created_date"`
+}
+
 type PartnerContactSubmission struct {
 	ID                  int64  `json:"id"`
 	AgencyName          string `json:"agency_name"`

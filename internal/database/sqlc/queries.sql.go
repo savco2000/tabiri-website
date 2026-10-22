@@ -91,6 +91,52 @@ func (q *Queries) CreateContactSubmission(ctx context.Context, arg CreateContact
 	return i, err
 }
 
+const createNewsletterSubscription = `-- name: CreateNewsletterSubscription :one
+INSERT INTO newsletter_subscriptions (
+    first_name,
+    email,
+    consent_given,
+    spam_status,
+    spam_reasons,
+    lead_status,
+    turnstile_verified_at
+) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+RETURNING id, first_name, email, consent_given, spam_status, spam_reasons, lead_status, turnstile_verified_at, created_date
+`
+
+type CreateNewsletterSubscriptionParams struct {
+	FirstName    string `json:"first_name"`
+	Email        string `json:"email"`
+	ConsentGiven int64  `json:"consent_given"`
+	SpamStatus   string `json:"spam_status"`
+	SpamReasons  string `json:"spam_reasons"`
+	LeadStatus   string `json:"lead_status"`
+}
+
+func (q *Queries) CreateNewsletterSubscription(ctx context.Context, arg CreateNewsletterSubscriptionParams) (NewsletterSubscription, error) {
+	row := q.db.QueryRowContext(ctx, createNewsletterSubscription,
+		arg.FirstName,
+		arg.Email,
+		arg.ConsentGiven,
+		arg.SpamStatus,
+		arg.SpamReasons,
+		arg.LeadStatus,
+	)
+	var i NewsletterSubscription
+	err := row.Scan(
+		&i.ID,
+		&i.FirstName,
+		&i.Email,
+		&i.ConsentGiven,
+		&i.SpamStatus,
+		&i.SpamReasons,
+		&i.LeadStatus,
+		&i.TurnstileVerifiedAt,
+		&i.CreatedDate,
+	)
+	return i, err
+}
+
 const createPartnerContactSubmission = `-- name: CreatePartnerContactSubmission :one
 INSERT INTO partner_contact_submissions (
     agency_name,

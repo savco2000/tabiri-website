@@ -47,6 +47,15 @@ func (app *application) routes() http.Handler {
 		),
 	)
 	mux.HandleFunc("GET /newsletter", app.newsletter)
+	mux.Handle(
+		"POST /newsletter",
+		app.protectLeadSubmission(
+			"newsletter",
+			"newsletter_submit",
+			app.renderNewsletterProtectionError,
+			http.HandlerFunc(app.newsletterSubmit),
+		),
+	)
 	mux.HandleFunc("GET /automation-assessment", app.automationAssessment)
 	mux.HandleFunc("GET /", app.notFound)
 

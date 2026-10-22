@@ -47,6 +47,7 @@ type migration struct {
 var migrations = []migration{
 	{version: 1, apply: createCurrentSchema},
 	{version: 2, apply: migrateLegacyLeadSchema},
+	{version: 3, apply: createNewsletterSubscriptions},
 }
 
 func ApplySchema(ctx context.Context, db *sql.DB) error {
@@ -146,6 +147,27 @@ func migrateLegacyLeadSchema(ctx context.Context, tx *sql.Tx) error {
 		if err := addMissingColumns(ctx, tx, table, leadColumns); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+func createNewsletterSubscriptions(ctx context.Context, tx *sql.Tx) error {
+	if _, err := tx.ExecContext(ctx, `
+		CREATE TABLE IF NOT EXISTS newsletter_subscriptions (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			first_name TEXT NOT NULL DEFAULT '',
+			email TEXT NOT NULL,
+			consent_given INTEGER NOT NULL CHECK (consent_given = 1),
+			spam_status TEXT NOT NULL DEFAULT 'review'
+				CHECK (spam_status IN ('accepted', 'review', 'rejected')),
+			spam_reasons TEXT NOT NULL DEFAULT '[]',
+			lead_status TEXT NOT NULL DEFAULT 'new'
+				CHECK (lead_status IN ('new', 'contacted', 'qualified', 'disqualified', 'archived')),
+			turnstile_verified_at TEXT NOT NULL DEFAULT '',
+			created_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+		)
+	`); err != nil {
+		return fmt.Errorf("create newsletter subscriptions table: %w", err)
 	}
 	return nil
 }

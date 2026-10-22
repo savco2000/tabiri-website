@@ -96,6 +96,33 @@ type PartnerContactForm struct {
 	Errors             map[string]string
 }
 
+type NewsletterForm struct {
+	FirstName string
+	Email     string
+	Consent   bool
+	Errors    map[string]string
+}
+
+func newsletterFormFromPost(values url.Values) NewsletterForm {
+	return NewsletterForm{
+		FirstName: strings.TrimSpace(values.Get("first_name")),
+		Email:     strings.TrimSpace(values.Get("email")),
+		Consent:   values.Get("consent") == "on",
+		Errors:    make(map[string]string),
+	}
+}
+
+func (app *application) renderNewsletterProtectionError(
+	w http.ResponseWriter,
+	r *http.Request,
+	status int,
+	message string,
+) {
+	form := newsletterFormFromPost(r.PostForm)
+	form.Errors["verification"] = message
+	app.renderNewsletter(w, r, status, form)
+}
+
 func (app *application) contactSubmit(w http.ResponseWriter, r *http.Request) {
 	if _, err := requireLeadVerification(r.Context()); err != nil {
 		app.serverError(w, r, err)
@@ -191,6 +218,47 @@ func (app *application) partnerContactSubmit(w http.ResponseWriter, r *http.Requ
 	)
 
 	http.Redirect(w, r, "/partner-contact?submitted=true", http.StatusSeeOther)
+}
+
+func (app *application) newsletterSubmit(w http.ResponseWriter, r *http.Request) {
+	if _, err := requireLeadVerification(r.Context()); err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+
+	form := newsletterFormFromPost(r.PostForm)
+	form.validate()
+
+	if len(form.Errors) > 0 {
+		app.renderNewsletter(w, r, http.StatusUnprocessableEntity, form)
+		return
+	}
+
+	err := app.databaseOperation(r.Context(), "create_newsletter_subscription", func(ctx context.Context) error {
+		_, err := app.queries.CreateNewsletterSubscription(ctx, sqlc.CreateNewsletterSubscriptionParams{
+			FirstName:    form.FirstName,
+			Email:        form.Email,
+			ConsentGiven: 1,
+			SpamStatus:   string(spamStatusAccepted),
+			SpamReasons:  "[]",
+			LeadStatus:   string(leadStatusNew),
+		})
+		return err
+	})
+	if err != nil {
+		app.serverError(w, r, err)
+		return
+	}
+	app.telemetry.recordLeadOutcome(r.Context(), "newsletter", "accepted")
+	app.logger.InfoContext(
+		r.Context(),
+		"lead submission accepted",
+		"event", "lead.submission.accepted",
+		"form", "newsletter",
+		"request_id", requestIDFromContext(r.Context()),
+	)
+
+	http.Redirect(w, r, "/newsletter?submitted=true", http.StatusSeeOther)
 }
 
 func (form *ContactForm) validate() {
@@ -292,6 +360,14 @@ func (form *PartnerContactForm) validate() {
 	}
 }
 
+func (form *NewsletterForm) validate() {
+	validateOptionalLength(form.Errors, "first_name", form.FirstName, 200)
+	validateEmailField(form.Errors, "email", form.Email, "Enter your email address.")
+	if !form.Consent {
+		form.Errors["consent"] = "Agree to receive the newsletter before subscribing."
+	}
+}
+
 func validateRequiredLength(errors map[string]string, field, value, requiredMessage string, maxLength int) {
 	if value == "" {
 		errors[field] = requiredMessage
@@ -307,18 +383,22 @@ func validateOptionalLength(errors map[string]string, field, value string, maxLe
 }
 
 func validateEmail(errors map[string]string, email string) {
+	validateEmailField(errors, "corporate_email", email, "Enter your corporate email.")
+}
+
+func validateEmailField(errors map[string]string, field, email, requiredMessage string) {
 	if email == "" {
-		errors["corporate_email"] = "Enter your corporate email."
+		errors[field] = requiredMessage
 		return
 	}
 	if len(email) > 320 {
-		errors["corporate_email"] = "Enter a valid email address."
+		errors[field] = "Enter a valid email address."
 		return
 	}
 
 	address, err := mail.ParseAddress(email)
 	if err != nil || address.Address != email {
-		errors["corporate_email"] = "Enter a valid email address."
+		errors[field] = "Enter a valid email address."
 	}
 }
 
@@ -398,6 +478,31 @@ func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Requ
 		FormProof:            formProof,
 	}
 	app.renderContactTemplate(w, r, status, data, "./ui/html/pages/partner-contact.tmpl")
+}
+
+func (app *application) renderNewsletter(w http.ResponseWriter, r *http.Request, status int, form NewsletterForm) {
+	formProof := ""
+	if r.URL.Query().Get("submitted") != "true" {
+		var err error
+		formProof, err = app.formProof.Create("newsletter")
+		if err != nil {
+			app.serverError(w, r, err)
+			return
+		}
+	}
+	data := PageData{
+		PageTitle:            "Newsletter | Tabiri Analytics",
+		PageDescription:      "Get practical analysis on secure AI adoption, governance, operations, and digital workforce design from Tabiri Analytics.",
+		OpenGraphDescription: "Practical ideas for leading secure AI adoption, delivered to your inbox.",
+		CanonicalURL:         "https://tabirianalytics.com/newsletter",
+		CurrentPage:          "newsletter",
+		CurrentYear:          app.now().Year(),
+		FormSubmitted:        r.URL.Query().Get("submitted") == "true",
+		NewsletterForm:       form,
+		TurnstileSiteKey:     app.cfg.turnstileSiteKey,
+		FormProof:            formProof,
+	}
+	app.renderContactTemplate(w, r, status, data, "./ui/html/pages/newsletter.tmpl")
 }
 
 func (app *application) renderContactTemplate(w http.ResponseWriter, r *http.Request, status int, data PageData, page string) {

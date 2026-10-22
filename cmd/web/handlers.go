@@ -16,6 +16,7 @@ type PageData struct {
 	LeadSource           string
 	ContactForm          ContactForm
 	PartnerContactForm   PartnerContactForm
+	NewsletterForm       NewsletterForm
 	TurnstileSiteKey     string
 	FormProof            string
 }
@@ -220,7 +221,7 @@ func (app *application) partnerContact(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) newsletter(w http.ResponseWriter, r *http.Request) {
-	app.renderNamedPage(w, r, "newsletter", http.StatusOK)
+	app.renderNewsletter(w, r, http.StatusOK, NewsletterForm{})
 }
 
 func (app *application) automationAssessment(w http.ResponseWriter, r *http.Request) {
