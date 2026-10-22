@@ -29,5 +29,5 @@
       "onAutoForward": "silent"
     }
   },
-  "postCreateCommand": "git config --global core.sshCommand /usr/local/bin/vscode-agent-ssh && git config --local user.name \"Savannah O. Kadima\" && git config --local user.email \"savannah.kadima@tabirianalytics.com\" && go mod download && npm ci"
+  "postCreateCommand": "git config --global core.sshCommand /usr/local/bin/vscode-agent-ssh && git config --local user.name \"Savannah O. Kadima\" && git config --local user.email \"savannah.kadima@tabirianalytics.com\" && go install github.com/sqlc-dev/sqlc/cmd/sqlc@v1.30.0 && go mod download && npm ci"
 }
