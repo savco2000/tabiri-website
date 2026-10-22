@@ -26,6 +26,9 @@ func (app *application) routes() http.Handler {
 	mux.HandleFunc("GET /blog", app.blog)
 	mux.HandleFunc("GET /blog/{id}", app.blogPost)
 	mux.HandleFunc("GET /about", app.about)
+	mux.HandleFunc("GET /privacy-policy", app.privacyPolicy)
+	mux.HandleFunc("GET /terms-of-service", app.termsOfService)
+	mux.HandleFunc("GET /security-disclosure", app.securityDisclosure)
 	mux.HandleFunc("GET /contact", app.contact)
 	mux.Handle(
 		"POST /contact",

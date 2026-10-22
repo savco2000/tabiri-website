@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="description" content="{{.PageDescription}}">
-    <link rel="canonical" href="{{if .CanonicalURL}}{{.CanonicalURL}}{{else}}https://tabirianalytics.com/{{end}}">
+    {{if .CanonicalURL}}<link rel="canonical" href="{{.CanonicalURL}}">{{end}}
     <meta property="og:title" content="{{.PageTitle}}">
     <meta property="og:description" content="{{.OpenGraphDescription}}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{if .CanonicalURL}}{{.CanonicalURL}}{{else}}https://tabirianalytics.com/{{end}}">
+    {{if .CanonicalURL}}<meta property="og:url" content="{{.CanonicalURL}}">{{end}}
     {{if .OpenGraphImage}}<meta property="og:image" content="{{.OpenGraphImage}}">{{end}}
     <meta name="twitter:card" content="{{if .OpenGraphImage}}summary_large_image{{else}}summary{{end}}">
     <meta name="twitter:title" content="{{.PageTitle}}">
@@ -24,11 +24,6 @@
     <link href="/static/css/styles.css" rel="stylesheet">
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-white">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH3CMBPJ"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    
     {{template "nav" .}}
 
     <main class="pt-24 md:pt-28" id="index-main">
@@ -36,6 +31,27 @@
     </main>
 
     {{template "footer" .}}    
+
+    <section
+        id="analytics-consent"
+        class="fixed inset-x-4 bottom-4 z-[100] mx-auto max-w-3xl rounded-xl border border-outline-variant bg-surface-container-lowest p-5 shadow-2xl md:inset-x-6 md:bottom-6"
+        role="region"
+        aria-label="Analytics preferences"
+        aria-live="polite"
+        hidden>
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="max-w-xl">
+                <h2 class="font-headline text-headline-sm text-on-background">Your privacy choices</h2>
+                <p class="mt-2 text-body-sm text-on-surface-variant">
+                    With your permission, we use Google Tag Manager for analytics. You can accept or reject analytics, and change your choice at any time. Read our <a class="text-primary underline" href="/privacy-policy">draft Privacy Policy</a>.
+                </p>
+            </div>
+            <div class="flex shrink-0 flex-wrap gap-3">
+                <button class="btn-secondary" id="reject-analytics" type="button">Reject analytics</button>
+                <button class="btn-primary" id="accept-analytics" type="button">Accept analytics</button>
+            </div>
+        </div>
+    </section>
 
     <!-- Scroll Up Button -->
     <button 
@@ -47,11 +63,11 @@
         </svg>
     </button>
 
-    <script src="/static/js/analytics.js"></script>
     <script src="/static/js/mobile-nav.js"></script>
     <script src="/static/js/scroll-up.js"></script>
     <script src="/static/js/dropdown-nav.js"></script>
     <script src="/static/js/automation-funnel.js"></script>
+    <script src="/static/js/analytics.js"></script>
     {{if .TurnstileSiteKey}}<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>{{end}}
 </body>
 </html>

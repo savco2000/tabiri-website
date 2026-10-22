@@ -45,6 +45,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Digital Employees for Enterprise Automation | Tabiri Analytics",
 		description:          "Return capacity to your team with secure Digital Employees that handle repetitive workflows under human oversight, policy guardrails, and auditable controls.",
 		openGraphDescription: "Deploy secure, agentic AI teammates for operations, service, and compliance-intensive environments.",
+		canonicalURL:         "https://tabirianalytics.com/digital-employees",
 		currentPage:          "digital-employees",
 	},
 	"operational-assessment": {
@@ -52,6 +53,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Operational Assessment | Tabiri Analytics",
 		description:          "Turn cybersecurity uncertainty into a prioritized improvement roadmap with an adaptive operational assessment across six essential security domains.",
 		openGraphDescription: "Turn structured responses across six cybersecurity domains into a clear view of operational maturity with Tabiri Analytics Management Systems.",
+		canonicalURL:         "https://tabirianalytics.com/operational-assessment",
 		currentPage:          "operational-assessment",
 	},
 	"penetration-testing": {
@@ -59,6 +61,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Penetration Testing Services | Tabiri Analytics",
 		description:          "Find exploitable weaknesses faster with engineer-led, agent-assisted penetration testing, validated findings, same-day escalation, and compliance-ready evidence.",
 		openGraphDescription: "Get evidence-backed findings, practical remediation guidance, and compliance-ready reporting from an engineer-led penetration test.",
+		canonicalURL:         "https://tabirianalytics.com/penetration-testing",
 		currentPage:          "penetration-testing",
 	},
 	"managed-cybersecurity-services": {
@@ -66,6 +69,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Managed Cybersecurity Services | Tabiri Analytics",
 		description:          "Protect networks and endpoints with 24/7 telemetry, AI-assisted threat triage, controlled containment, and engineer-led managed cybersecurity services.",
 		openGraphDescription: "Turn continuous security telemetry into prioritized investigation, controlled response, and evidence your team can act on.",
+		canonicalURL:         "https://tabirianalytics.com/managed-cybersecurity-services",
 		currentPage:          "managed-cybersecurity-services",
 	},
 	"cybersecurity-insurance": {
@@ -73,6 +77,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Cybersecurity Insurance | Tabiri Analytics",
 		description:          "Prepare for cyber insurance with Tabiri's penetration testing, continuous monitoring, and practical risk remediation services.",
 		openGraphDescription: "Combine cyber risk transfer with evidence-led security testing and continuous monitoring designed to reduce the likelihood and impact of a breach.",
+		canonicalURL:         "https://tabirianalytics.com/cybersecurity-insurance",
 		currentPage:          "cybersecurity-insurance",
 	},
 	"data-protection": {
@@ -80,6 +85,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Data Protection | Tabiri Analytics",
 		description:          "Explore Tabiri's sovereign data architecture, isolated compute, and encryption model for secure enterprise AI operations.",
 		openGraphDescription: "See how Tabiri protects sensitive data with private nodes, strict isolation, and enterprise-grade controls.",
+		canonicalURL:         "https://tabirianalytics.com/data-protection",
 		currentPage:          "data-protection",
 	},
 	"case-studies": {
@@ -87,6 +93,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Case Studies | Secure AI Outcomes | Tabiri Analytics",
 		description:          "Explore real-world Tabiri deployments delivering secure AI automation and cybersecurity outcomes across legal, financial, and high-trust operations.",
 		openGraphDescription: "See measurable results from secure AI deployments and engineer-led cybersecurity engagements in high-trust environments.",
+		canonicalURL:         "https://tabirianalytics.com/case-studies",
 		currentPage:          "case-studies",
 	},
 	"channel-partners": {
@@ -94,6 +101,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Channel Partner Program | Tabiri Analytics",
 		description:          "Join Tabiri's channel partner program to deliver secure AI automation services at scale.",
 		openGraphDescription: "Apply to become a regional partner and co-deliver sovereign AI solutions for enterprise clients.",
+		canonicalURL:         "https://tabirianalytics.com/channel-partners",
 		currentPage:          "channel-partners",
 	},
 	"capability-statement": {
@@ -101,6 +109,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Capability Statement | Tabiri Analytics",
 		description:          "Review Tabiri Analytics capabilities in secure AI automation, cyber operations, and compliance-focused delivery.",
 		openGraphDescription: "Explore core competencies, past performance, and differentiators for secure AI and cybersecurity services.",
+		canonicalURL:         "https://tabirianalytics.com/capability-statement",
 		currentPage:          "capability-statement",
 	},
 	"blog": {
@@ -108,6 +117,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "Blog | Tabiri Analytics",
 		description:          "Read the latest insights and updates from Tabiri Analytics on secure AI automation, cyber operations, and compliance-focused delivery.",
 		openGraphDescription: "Stay informed with expert articles, case studies, and news from Tabiri Analytics on secure AI and cybersecurity services.",
+		canonicalURL:         "https://tabirianalytics.com/blog",
 		currentPage:          "blog",
 	},
 	"about": {
@@ -115,6 +125,7 @@ var pageSpecs = map[string]pageSpec{
 		title:                "About Us | Tabiri Analytics",
 		description:          "Meet the Tabiri Analytics team building secure, sovereign AI systems for high-trust enterprise and public-sector environments.",
 		openGraphDescription: "Learn about the engineers and operators behind Tabiri's secure AI automation platform.",
+		canonicalURL:         "https://tabirianalytics.com/about",
 		currentPage:          "about",
 	},
 	"contact": {
@@ -138,6 +149,30 @@ var pageSpecs = map[string]pageSpec{
 		canonicalURL:         "https://tabirianalytics.com/automation-assessment",
 		openGraphImage:       "https://tabirianalytics.com/static/images/automation-assessment-social.png",
 		currentPage:          "automation-assessment",
+	},
+	"privacy-policy": {
+		template:             "privacy-policy",
+		title:                "Privacy Policy (Draft) | Tabiri Analytics",
+		description:          "Draft privacy policy for the Tabiri Analytics website. This draft requires review and approval before publication.",
+		openGraphDescription: "Draft privacy policy for the Tabiri Analytics website.",
+		canonicalURL:         "https://tabirianalytics.com/privacy-policy",
+		currentPage:          "privacy-policy",
+	},
+	"terms-of-service": {
+		template:             "terms-of-service",
+		title:                "Terms of Service (Draft) | Tabiri Analytics",
+		description:          "Draft terms of service for the Tabiri Analytics website. This draft requires review and approval before publication.",
+		openGraphDescription: "Draft terms of service for the Tabiri Analytics website.",
+		canonicalURL:         "https://tabirianalytics.com/terms-of-service",
+		currentPage:          "terms-of-service",
+	},
+	"security-disclosure": {
+		template:             "security-disclosure",
+		title:                "Security Disclosure (Draft) | Tabiri Analytics",
+		description:          "Draft vulnerability disclosure guidance for the Tabiri Analytics website. This draft requires review and approval before publication.",
+		openGraphDescription: "Draft security disclosure guidance for the Tabiri Analytics website.",
+		canonicalURL:         "https://tabirianalytics.com/security-disclosure",
+		currentPage:          "security-disclosure",
 	},
 	"not-found": {
 		template:             "404",
@@ -226,6 +261,18 @@ func (app *application) newsletter(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) automationAssessment(w http.ResponseWriter, r *http.Request) {
 	app.renderNamedPage(w, r, "automation-assessment", http.StatusOK)
+}
+
+func (app *application) privacyPolicy(w http.ResponseWriter, r *http.Request) {
+	app.renderNamedPage(w, r, "privacy-policy", http.StatusOK)
+}
+
+func (app *application) termsOfService(w http.ResponseWriter, r *http.Request) {
+	app.renderNamedPage(w, r, "terms-of-service", http.StatusOK)
+}
+
+func (app *application) securityDisclosure(w http.ResponseWriter, r *http.Request) {
+	app.renderNamedPage(w, r, "security-disclosure", http.StatusOK)
 }
 
 func (app *application) notFound(w http.ResponseWriter, r *http.Request) {

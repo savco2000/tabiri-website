@@ -470,6 +470,7 @@ func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Requ
 		PageTitle:            "Partner Contact | Channel Partner Application | Tabiri",
 		PageDescription:      "Apply to become a Tabiri Analytics channel partner and co-deliver secure AI solutions for enterprise and public-sector clients.",
 		OpenGraphDescription: "Submit your channel partner application and tell us how your team delivers secure AI outcomes at scale.",
+		CanonicalURL:         "https://tabirianalytics.com/partner-contact",
 		CurrentPage:          "partner-contact",
 		CurrentYear:          app.now().Year(),
 		FormSubmitted:        r.URL.Query().Get("submitted") == "true",
