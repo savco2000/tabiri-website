@@ -55,29 +55,38 @@ func (app *application) protectLeadSubmission(
 		}
 
 		if strings.TrimSpace(r.PostForm.Get("website")) != "" {
-			app.logger.Warn("lead submission rejected", "form", formName, "reason", "honeypot")
+			app.recordLeadRejection(r, formName, "honeypot")
 			renderError(w, r, http.StatusUnprocessableEntity, verificationFailureMessage)
 			return
 		}
 		if err := app.formProof.Verify(r.PostForm.Get("form_proof"), formName); err != nil {
-			app.logger.Warn("lead submission rejected", "form", formName, "reason", "form_proof")
+			app.recordLeadRejection(r, formName, "form_proof")
 			renderError(w, r, http.StatusUnprocessableEntity, verificationFailureMessage)
 			return
 		}
 
 		token := strings.TrimSpace(r.PostForm.Get("cf-turnstile-response"))
 		if token == "" {
+			app.recordLeadRejection(r, formName, "turnstile_token_missing")
 			renderError(w, r, http.StatusUnprocessableEntity, verificationFailureMessage)
 			return
 		}
 		verification, err := app.turnstile.Verify(r.Context(), token, action)
 		if err != nil {
 			if errors.Is(err, errTurnstileRejected) {
-				app.logger.Warn("lead submission rejected", "form", formName, "reason", "turnstile")
+				app.recordLeadRejection(r, formName, "turnstile")
 				renderError(w, r, http.StatusUnprocessableEntity, verificationFailureMessage)
 				return
 			}
-			app.logger.Error("turnstile verification unavailable", "form", formName, "error", err)
+			app.telemetry.recordLeadOutcome(r.Context(), formName, "verification_unavailable")
+			app.logger.ErrorContext(
+				r.Context(),
+				"turnstile verification unavailable",
+				"event", "lead.verification.unavailable",
+				"form", formName,
+				"error", err,
+				"request_id", requestIDFromContext(r.Context()),
+			)
 			renderError(w, r, http.StatusServiceUnavailable, verificationUnavailableMessage)
 			return
 		}
@@ -88,6 +97,18 @@ func (app *application) protectLeadSubmission(
 		})
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
+}
+
+func (app *application) recordLeadRejection(r *http.Request, form, reason string) {
+	app.telemetry.recordLeadOutcome(r.Context(), form, "rejected_"+reason)
+	app.logger.WarnContext(
+		r.Context(),
+		"lead submission rejected",
+		"event", "lead.submission.rejected",
+		"form", form,
+		"reason", reason,
+		"request_id", requestIDFromContext(r.Context()),
+	)
 }
 
 func requireLeadVerification(ctx context.Context) (leadVerification, error) {

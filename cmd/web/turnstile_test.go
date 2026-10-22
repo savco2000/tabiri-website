@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -201,5 +202,25 @@ func TestTurnstileHTTPVerifierSurfacesProviderFailures(t *testing.T) {
 				t.Fatalf("got %v, want errTurnstileUnavailable", err)
 			}
 		})
+	}
+}
+
+func TestTurnstileHTTPVerifierPreservesCancellation(t *testing.T) {
+	verifier := newTurnstileHTTPVerifier(
+		"secret-key",
+		"https://example.invalid",
+		map[string]struct{}{"www.tabirianalytics.com": {}},
+		false,
+	)
+	ctx, cancel := context.WithCancel(t.Context())
+	cancel()
+
+	_, err := verifier.Verify(ctx, "submitted-token", "contact_submit")
+
+	if !errors.Is(err, errTurnstileUnavailable) {
+		t.Fatalf("got %v, want errTurnstileUnavailable", err)
+	}
+	if !errors.Is(err, context.Canceled) {
+		t.Fatalf("got %v, want context cancellation preserved", err)
 	}
 }

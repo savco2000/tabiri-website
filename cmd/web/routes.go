@@ -6,7 +6,7 @@ import (
 )
 
 // The routes() method returns a servemux containing our application routes.
-func (app *application) routes() *http.ServeMux {
+func (app *application) routes() http.Handler {
 	mux := http.NewServeMux()
 
 	fileServer := http.FileServer(neuteredFileSystem{http.Dir(app.cfg.staticDir)})
@@ -50,7 +50,12 @@ func (app *application) routes() *http.ServeMux {
 	mux.HandleFunc("GET /automation-assessment", app.automationAssessment)
 	mux.HandleFunc("GET /", app.notFound)
 
-	return mux
+	dispatch := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_, pattern := mux.Handler(r)
+		r.Pattern = pattern
+		mux.ServeHTTP(w, r)
+	})
+	return app.middleware(dispatch)
 }
 
 type neuteredFileSystem struct {

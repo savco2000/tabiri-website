@@ -1,15 +1,14 @@
 package main
 
 import (
-	"bytes"
+	"context"
 	"encoding/json"
-	"html/template"
 	"net/http"
 	"net/mail"
 	"net/url"
+	"path/filepath"
 	"strconv"
 	"strings"
-	"time"
 
 	sqlc "website.tabirianalytics.com/internal/database/sqlc"
 )
@@ -111,27 +110,38 @@ func (app *application) contactSubmit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := app.queries.CreateContactSubmission(r.Context(), sqlc.CreateContactSubmissionParams{
-		FullName:           form.FullName,
-		CorporateEmail:     form.CorporateEmail,
-		WorkflowBottleneck: form.WorkflowBottleneck,
-		WorkflowName:       form.WorkflowName,
-		AssessmentResult:   form.AssessmentResult,
-		AssessmentScore:    form.AssessmentScore,
-		AssessmentAnswers:  form.AssessmentAnswers,
-		UtmSource:          form.UTMSource,
-		UtmMedium:          form.UTMMedium,
-		UtmCampaign:        form.UTMCampaign,
-		UtmContent:         form.UTMContent,
-		Referrer:           form.Referrer,
-		SpamStatus:         string(spamStatusAccepted),
-		SpamReasons:        "[]",
-		LeadStatus:         string(leadStatusNew),
+	err := app.databaseOperation(r.Context(), "create_contact_submission", func(ctx context.Context) error {
+		_, err := app.queries.CreateContactSubmission(ctx, sqlc.CreateContactSubmissionParams{
+			FullName:           form.FullName,
+			CorporateEmail:     form.CorporateEmail,
+			WorkflowBottleneck: form.WorkflowBottleneck,
+			WorkflowName:       form.WorkflowName,
+			AssessmentResult:   form.AssessmentResult,
+			AssessmentScore:    form.AssessmentScore,
+			AssessmentAnswers:  form.AssessmentAnswers,
+			UtmSource:          form.UTMSource,
+			UtmMedium:          form.UTMMedium,
+			UtmCampaign:        form.UTMCampaign,
+			UtmContent:         form.UTMContent,
+			Referrer:           form.Referrer,
+			SpamStatus:         string(spamStatusAccepted),
+			SpamReasons:        "[]",
+			LeadStatus:         string(leadStatusNew),
+		})
+		return err
 	})
 	if err != nil {
 		app.serverError(w, r, err)
 		return
 	}
+	app.telemetry.recordLeadOutcome(r.Context(), "contact", "accepted")
+	app.logger.InfoContext(
+		r.Context(),
+		"lead submission accepted",
+		"event", "lead.submission.accepted",
+		"form", "contact",
+		"request_id", requestIDFromContext(r.Context()),
+	)
 
 	redirect := "/contact?submitted=true"
 	if form.AssessmentResult != "" {
@@ -154,20 +164,31 @@ func (app *application) partnerContactSubmit(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	_, err := app.queries.CreatePartnerContactSubmission(r.Context(), sqlc.CreatePartnerContactSubmissionParams{
-		AgencyName:         form.AgencyName,
-		CorporateEmail:     form.CorporateEmail,
-		ClientVolume:       form.ClientVolume,
-		PrimaryVertical:    form.PrimaryVertical,
-		DeliveryConstraint: form.DeliveryConstraint,
-		SpamStatus:         string(spamStatusAccepted),
-		SpamReasons:        "[]",
-		LeadStatus:         string(leadStatusNew),
+	err := app.databaseOperation(r.Context(), "create_partner_contact_submission", func(ctx context.Context) error {
+		_, err := app.queries.CreatePartnerContactSubmission(ctx, sqlc.CreatePartnerContactSubmissionParams{
+			AgencyName:         form.AgencyName,
+			CorporateEmail:     form.CorporateEmail,
+			ClientVolume:       form.ClientVolume,
+			PrimaryVertical:    form.PrimaryVertical,
+			DeliveryConstraint: form.DeliveryConstraint,
+			SpamStatus:         string(spamStatusAccepted),
+			SpamReasons:        "[]",
+			LeadStatus:         string(leadStatusNew),
+		})
+		return err
 	})
 	if err != nil {
 		app.serverError(w, r, err)
 		return
 	}
+	app.telemetry.recordLeadOutcome(r.Context(), "partner_contact", "accepted")
+	app.logger.InfoContext(
+		r.Context(),
+		"lead submission accepted",
+		"event", "lead.submission.accepted",
+		"form", "partner_contact",
+		"request_id", requestIDFromContext(r.Context()),
+	)
 
 	http.Redirect(w, r, "/partner-contact?submitted=true", http.StatusSeeOther)
 }
@@ -317,7 +338,7 @@ func (app *application) renderContact(w http.ResponseWriter, r *http.Request, st
 		OpenGraphDescription: "Connect with Tabiri's commercial team to evaluate secure AI solutions for business operations.",
 		CanonicalURL:         "https://tabirianalytics.com/contact",
 		CurrentPage:          "contact",
-		CurrentYear:          time.Now().Year(),
+		CurrentYear:          app.now().Year(),
 		FormSubmitted:        r.URL.Query().Get("submitted") == "true",
 		LeadSource:           contactLeadSource(r.URL.Query().Get("lead_source"), form),
 		ContactForm:          form,
@@ -370,7 +391,7 @@ func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Requ
 		PageDescription:      "Apply to become a Tabiri Analytics channel partner and co-deliver secure AI solutions for enterprise and public-sector clients.",
 		OpenGraphDescription: "Submit your channel partner application and tell us how your team delivers secure AI outcomes at scale.",
 		CurrentPage:          "partner-contact",
-		CurrentYear:          time.Now().Year(),
+		CurrentYear:          app.now().Year(),
 		FormSubmitted:        r.URL.Query().Get("submitted") == "true",
 		PartnerContactForm:   form,
 		TurnstileSiteKey:     app.cfg.turnstileSiteKey,
@@ -380,28 +401,6 @@ func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Requ
 }
 
 func (app *application) renderContactTemplate(w http.ResponseWriter, r *http.Request, status int, data PageData, page string) {
-	w.Header().Add("Server", "Go")
-
-	files := []string{
-		"./ui/html/base.tmpl",
-		"./ui/html/partials/nav.tmpl",
-		page,
-		"./ui/html/partials/footer.tmpl",
-	}
-
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.serverError(w, r, err)
-		return
-	}
-	var buf bytes.Buffer
-	if err := ts.ExecuteTemplate(&buf, "base", data); err != nil {
-		app.serverError(w, r, err)
-		return
-	}
-
-	w.WriteHeader(status)
-	if _, err := buf.WriteTo(w); err != nil {
-		app.logger.Error(err.Error(), "method", r.Method, "uri", r.URL.RequestURI())
-	}
+	name := trimTemplateExtension(filepath.Base(page))
+	app.render(w, r, status, name, data)
 }

@@ -5,11 +5,8 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"os"
-	"path/filepath"
 	"regexp"
 	"strings"
-	"time"
 )
 
 const blogContentDir = "./content/blog"
@@ -23,21 +20,9 @@ func (app *application) blogPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	contentPath := filepath.Join(blogContentDir, slug+".tmpl")
-	files := []string{
-		"./ui/html/base.tmpl",
-		"./ui/html/partials/nav.tmpl",
-		contentPath,
-		"./ui/html/partials/footer.tmpl",
-	}
-
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		if os.IsNotExist(err) {
-			app.notFound(w, r)
-			return
-		}
-		app.serverError(w, r, err)
+	ts, ok := app.templates.blogs[slug]
+	if !ok {
+		app.notFound(w, r)
 		return
 	}
 
@@ -69,12 +54,17 @@ func (app *application) blogPost(w http.ResponseWriter, r *http.Request) {
 		CanonicalURL:         "https://tabirianalytics.com/blog/" + slug,
 		OpenGraphImage:       openGraphImage,
 		CurrentPage:          "blog",
-		CurrentYear:          time.Now().Year(),
+		CurrentYear:          app.now().Year(),
 	}
 
-	w.Header().Add("Server", "Go")
-	if err := ts.ExecuteTemplate(w, "base", data); err != nil {
-		app.serverError(w, r, err)
+	output, err := executeTemplate(ts, data)
+	if err != nil {
+		app.serverError(w, r, fmt.Errorf("render blog template %q: %w", slug, err))
+		return
+	}
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	if _, err := w.Write(output); err != nil {
+		app.logger.ErrorContext(r.Context(), "write response", "error", err)
 	}
 }
 

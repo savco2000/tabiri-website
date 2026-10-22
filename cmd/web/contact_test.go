@@ -460,12 +460,26 @@ func newTestApplication(t *testing.T) (*application, *sql.DB) {
 
 	signer := newFormProofSigner([]byte("01234567890123456789012345678901"))
 	signer.minAge = 0
+	templates, err := newTemplateCache()
+	if err != nil {
+		t.Fatal(err)
+	}
+	telemetry, err := newTelemetry(t.Context(), &config{environment: "test"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		telemetry.shutdown(context.Background())
+	})
 	return &application{
 		logger:    slog.New(slog.NewTextHandler(io.Discard, nil)),
 		cfg:       &config{staticDir: "./ui/static", turnstileSiteKey: "test-site-key"},
 		queries:   sqlc.New(db),
 		turnstile: acceptingTurnstileVerifier{},
 		formProof: signer,
+		templates: templates,
+		telemetry: telemetry,
+		now:       time.Now,
 	}, db
 }
 

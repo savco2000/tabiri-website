@@ -94,6 +94,7 @@ func TestLeadStatusConstraints(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	t.Cleanup(func() {
 		db.Close()
 	})
@@ -111,5 +112,29 @@ func TestLeadStatusConstraints(t *testing.T) {
 	`)
 	if err == nil {
 		t.Fatal("expected invalid spam_status to violate the schema constraint")
+	}
+}
+
+func TestApplySchemaRecordsMigrationsIdempotently(t *testing.T) {
+	db, err := Open(":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		db.Close()
+	})
+
+	for range 2 {
+		if err := ApplySchema(t.Context(), db); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	var count int
+	if err := db.QueryRow("SELECT COUNT(*) FROM schema_migrations").Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+	if count != len(migrations) {
+		t.Fatalf("got %d migration records, want %d", count, len(migrations))
 	}
 }

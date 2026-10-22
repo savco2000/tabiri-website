@@ -59,10 +59,23 @@ func TestDevelopmentUsesInvisibleTurnstileTestKey(t *testing.T) {
 	if err := loadLeadProtectionConfig(&cfg); err != nil {
 		t.Fatal(err)
 	}
+
 	if cfg.turnstileSiteKey != testTurnstileSiteKey {
 		t.Fatalf("got site key %q, want invisible test key", cfg.turnstileSiteKey)
 	}
 	if !cfg.turnstileTestMode {
 		t.Fatal("expected Turnstile test mode to be enabled")
+	}
+}
+
+func TestLoadConfigRejectsInvalidTimeoutAndSampling(t *testing.T) {
+	t.Setenv("APP_ENV", "development")
+	t.Setenv("OTEL_TRACES_SAMPLER_ARG", "")
+
+	if _, err := loadConfig([]string{"-read-timeout=0s"}); err == nil {
+		t.Fatal("expected zero timeout to be rejected")
+	}
+	if _, err := loadConfig([]string{"-trace-sample-ratio=1.1"}); err == nil {
+		t.Fatal("expected invalid trace sample ratio to be rejected")
 	}
 }
