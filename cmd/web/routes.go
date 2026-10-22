@@ -13,6 +13,11 @@ func (app *application) routes() http.Handler {
 	mux.Handle("GET /static", http.NotFoundHandler())
 	mux.Handle("GET /static/", http.StripPrefix("/static", fileServer))
 
+	mux.Handle("GET /robots.txt", app.discoveryFile("robots.txt", "text/plain; charset=utf-8", "public, max-age=3600"))
+	mux.Handle("GET /sitemap.xml", app.discoveryFile("sitemap.xml", "application/xml; charset=utf-8", "public, max-age=3600"))
+	mux.Handle("GET /.well-known/security.txt", app.discoveryFile(".well-known/security.txt", "text/plain; charset=utf-8", "public, max-age=3600"))
+	mux.Handle("GET /healthz", app.discoveryFile("healthz", "text/plain; charset=utf-8", "no-store"))
+
 	mux.HandleFunc("GET /{$}", app.home)
 	mux.HandleFunc("GET /digital-employees", app.digitalEmployees)
 	mux.HandleFunc("GET /operational-assessment", app.operationalAssessment)

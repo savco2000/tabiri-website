@@ -7,6 +7,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 )
@@ -27,6 +28,7 @@ func TestMiddlewareAddsRequestAndSecurityHeaders(t *testing.T) {
 		"X-Frame-Options",
 		"Referrer-Policy",
 		"Permissions-Policy",
+		"Content-Security-Policy",
 	} {
 		if response.Header().Get(header) == "" {
 			t.Errorf("missing security header %s", header)
@@ -34,6 +36,78 @@ func TestMiddlewareAddsRequestAndSecurityHeaders(t *testing.T) {
 	}
 	if response.Header().Get("Server") != "" {
 		t.Error("response discloses the server implementation")
+	}
+}
+
+func TestHSTSOnlyInProductionBehindHTTPSLoadBalancer(t *testing.T) {
+	app, _ := newTestApplication(t)
+	for _, environment := range []string{"development", "production"} {
+		app.cfg.environment = environment
+		// The proxy connects to the app over HTTP after terminating TLS.
+		response := getPage(app, "/")
+		got := response.Header().Get("Strict-Transport-Security")
+		if environment == "production" && got != "max-age=31536000" {
+			t.Errorf("production HSTS = %q", got)
+		}
+		if environment == "development" && got != "" {
+			t.Errorf("development must not force HTTPS: %q", got)
+		}
+	}
+}
+
+func TestCSPRestrictsScriptsAndAllowsExistingIntegrations(t *testing.T) {
+	app, _ := newTestApplication(t)
+	for _, path := range []string{"/", "/contact", "/managed-cybersecurity-services", "/static/js/analytics.js", "/missing"} {
+		csp := getPage(app, path).Header().Get("Content-Security-Policy")
+		if csp != contentSecurityPolicy {
+			t.Errorf("%s: unexpected CSP %q", path, csp)
+		}
+	}
+	directives := map[string]string{}
+	for _, directive := range strings.Split(contentSecurityPolicy, "; ") {
+		name, value, _ := strings.Cut(directive, " ")
+		directives[name] = value
+	}
+	for _, name := range []string{"script-src", "connect-src", "frame-src"} {
+		if !strings.Contains(directives[name], "https://challenges.cloudflare.com") {
+			t.Errorf("%s must allow Turnstile", name)
+		}
+	}
+	if strings.Contains(directives["script-src"], "'unsafe-inline'") ||
+		strings.Contains(directives["script-src"], "'unsafe-eval'") {
+		t.Error("CSP must not allow inline or evaluated scripts")
+	}
+	for _, test := range []struct{ name, source string }{
+		{"script-src", "https://www.googletagmanager.com"},
+		{"connect-src", "https://*.google-analytics.com"},
+		{"frame-src", "https://www.youtube-nocookie.com"},
+		{"style-src", "'unsafe-inline'"},
+	} {
+		if !strings.Contains(directives[test.name], test.source) {
+			t.Errorf("%s must allow %s", test.name, test.source)
+		}
+	}
+	for _, test := range []struct{ name, value string }{
+		{"default-src", "'self'"},
+		{"object-src", "'none'"},
+		{"frame-ancestors", "'none'"},
+		{"base-uri", "'self'"},
+		{"form-action", "'self'"},
+	} {
+		if directives[test.name] != test.value {
+			t.Errorf("%s = %q, want %q", test.name, directives[test.name], test.value)
+		}
+	}
+}
+
+func TestDocumentedBucketCSPMatchesApp(t *testing.T) {
+	t.Chdir("../..")
+	document, err := os.ReadFile("DEPLOYMENT.md")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(document), `--custom-response-header="Content-Security-Policy: `+contentSecurityPolicy+`"`) {
+		t.Error("documented backend-bucket CSP differs from the app policy")
 	}
 }
 

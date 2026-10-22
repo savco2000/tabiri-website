@@ -22,6 +22,9 @@ type requestIDContextKey struct{}
 
 var validRequestID = regexp.MustCompile(`^[A-Za-z0-9_-]{1,128}$`)
 
+// Inline styles are used by the SVG diagram and several templates; scripts stay external.
+const contentSecurityPolicy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; connect-src 'self' https://challenges.cloudflare.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.google.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://www.googletagmanager.com"
+
 func (app *application) middleware(next http.Handler) http.Handler {
 	return app.requestID(
 		app.securityHeaders(
@@ -55,6 +58,11 @@ func (app *application) securityHeaders(next http.Handler) http.Handler {
 		w.Header().Set("X-Frame-Options", "DENY")
 		w.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
 		w.Header().Set("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+		w.Header().Set("Content-Security-Policy", contentSecurityPolicy)
+		// Production HTTPS terminates at the load balancer, not at this server.
+		if app.cfg.environment == "production" {
+			w.Header().Set("Strict-Transport-Security", "max-age=31536000")
+		}
 		next.ServeHTTP(w, r)
 	})
 }
