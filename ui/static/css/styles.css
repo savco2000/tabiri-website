@@ -215,6 +215,9 @@
   .invisible {
     visibility: hidden;
   }
+  .visible {
+    visibility: visible;
+  }
   .absolute {
     position: absolute;
   }
@@ -527,11 +530,11 @@
   .h-full {
     height: 100%;
   }
+  .min-h-70 {
+    min-height: calc(var(--spacing) * 70);
+  }
   .min-h-80 {
     min-height: calc(var(--spacing) * 80);
-  }
-  .min-h-\[280px\] {
-    min-height: 280px;
   }
   .min-h-\[320px\] {
     min-height: 320px;

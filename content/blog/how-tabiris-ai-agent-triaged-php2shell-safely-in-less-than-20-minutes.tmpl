@@ -1,0 +1,162 @@
+{{define "page-title"}}How Tabiri's AI agent triaged PHP2Shell safely in less than 20 minutes | Tabiri Analytics{{end}}
+{{define "page-description"}}Edwin Kairu explains how an AI-assisted penetration-testing workflow turned a new PHP security advisory into safe, targeted checks for rapid human review.{{end}}
+{{define "open-graph-description"}}How an authorized AI-assisted assessment translated a new PHP advisory into non-exploit checks and a focused, reviewable lead in about twenty minutes.{{end}}
+{{define "open-graph-image"}}https://tabirianalytics.com/static/images/php2shell-triage.avif{{end}}
+
+{{define "main"}}
+<article class="pb-12">
+    <section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
+        <div class="absolute inset-0 opacity-40"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="mb-6">
+                <a class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm uppercase tracking-wider text-primary transition-colors hover:bg-surface-container-lowest" href="/blog">
+                    <span class="material-symbols-outlined icon-size-sm">arrow_back</span>
+                    Back to Blog
+                </a>
+            </div>
+            <div class="mb-8 flex flex-wrap items-center gap-3 text-body-sm text-on-surface-variant">
+                <span class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 font-label text-label-sm uppercase tracking-wider text-primary">Cybersecurity</span>
+                <span>&bull;</span>
+                <time datetime="2026-10-22">October 22, 2026</time>
+                <span>&bull;</span>
+                <span>7 min read</span>
+            </div>
+            <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 max-w-4xl">How Tabiri's AI agent triaged PHP2Shell safely in less than 20 minutes</h1>
+            <p class="font-body text-body-lg text-on-surface-variant max-w-3xl mb-8">
+                How we translated a newly disclosed PHP vulnerability into targeted, non-exploit checks and gave engineers a focused lead for human review in about twenty minutes.
+            </p>
+            <div class="flex items-center gap-4">
+                <img alt="Edwin Kairu" class="h-14 w-14 rounded-full object-cover ring-2 ring-primary/20" width="56" height="56" src="/static/images/edwin_kairu_headshot.avif">
+                <div>
+                    <p class="font-headline text-xl text-on-surface">Edwin Kairu</p>
+                    <p class="font-body text-body-sm text-on-surface-variant">Co-Founder and CEO, Tabiri Analytics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-gutter bg-surface-container-low">
+        <div class="max-w-4xl mx-auto">
+            <div class="overflow-hidden rounded-4xl border border-outline-variant bg-surface-container-low mb-10 shadow-sm">
+                <img alt="AI-assisted PHP vulnerability triage with safe checks and human validation" class="w-full h-auto" width="1600" height="1067" src="/static/images/php2shell-agentic-triage.avif">
+            </div>
+
+            <div class="prose max-w-none">
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    A new vulnerability advisory can arrive before every security tool in an organization is ready to recognize it. When that happens, defenders still need a quick way to identify which systems might be affected. In one authorized assessment, our AI-assisted penetration-testing workflow helped us turn a new PHP advisory into targeted, non-exploit checks and identify a likely PHP-backed application in about twenty minutes.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The important result was an early lead for human review, not an automatic declaration that a server was exploitable. That distinction matters whenever speed and uncertainty arrive together.
+                </p>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">We started with the advisory, not an exploit</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    In October 2026, the PHP security team disclosed two critical vulnerabilities, CVE-2026-109618 and CVE-2026-109619, collectively discussed as PHP2Shell. They affect PHP's handling of request memory and internal state. An unauthenticated attacker may be able to reach remote code execution on affected PHP installations, so the PHP team issued fixed releases for supported branches and recommended updating promptly.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    We had a small, authorized environment to assess, with several systems exposing web interfaces. The rules did not permit exploitation, brute force or post-exploitation. Our goal was narrower: identify likely PHP services quickly, gather safe evidence and tell the responsible engineers where to verify and remediate.
+                </p>
+
+                <div class="rounded-2xl border border-outline-variant bg-surface-container-low p-6 my-8">
+                    <p class="font-headline text-2xl md:text-headline-md text-primary mb-3">The boundary that mattered</p>
+                    <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                        The agent could translate advisory details into repeatable probes and collect evidence. It could not declare a system vulnerable. Version verification, risk judgment and remediation remained human responsibilities.
+                    </p>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">Turning a new bug into a practical check</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Ordinary network discovery gave us the first map of open web services. But a web server banner is not the same thing as a PHP version. One service advertised Apache while its responses did not disclose a PHP version. A scanner looking only for a visible version string could therefore lack enough information to make a confident version-based match.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Our agent-assisted workflow combined service discovery with checks derived from the advisory's request-handling details. It looked for PHP-style paths and application behavior, examined session-related response signals and sent a carefully scoped multipart request containing the upload-progress field discussed in the advisory. It repeated the candidate check across the other web-facing systems to separate likely PHP surfaces from unrelated applications.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">policy</span></div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-primary">Scope</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">The authorized rules excluded exploitation and kept every probe focused on identifying likely PHP-backed services.</p>
+                    </article>
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">manage_search</span></div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-primary">Correlate</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">The agent combined discovery, application behavior and advisory-specific signals instead of relying on a single banner.</p>
+                    </article>
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">fact_check</span></div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-primary">Validate</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Engineers received a focused lead, then retained responsibility for confirming the PHP build, patch status and actual risk.</p>
+                    </article>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">A probe is evidence, not proof</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The multipart request returned an application-level response, including a CSRF rejection in one test. That helped show that the request reached the application and informed our fingerprinting. It did not prove that a vulnerable PHP runtime was installed, that the relevant internal condition was present or that code execution was possible.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The saved evidence identified one likely PHP-backed application among ten targets in roughly twenty minutes. We escalated the candidate and took it out of service while its PHP build and patch status could be checked. For a fast triage exercise, that was the right outcome: a broad advisory became a specific, reviewable lead without any attempt to weaponize the issue.
+                </p>
+
+                <blockquote class="my-10 border-l-4 border-primary bg-surface-container-low p-6 rounded-r-2xl">
+                    <p class="font-headline text-2xl md:text-headline-md text-primary leading-relaxed">"The value was not an automatic verdict. It was a fast, evidence-backed path to the next human decision."</p>
+                </blockquote>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">What the agent contributed</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Conventional vulnerability scanners are valuable when their checks cover the software and versions in an environment, and when the right feeds, credentials and scan settings are in place. On a newly disclosed issue, however, defenders can face a gap between an advisory and the checks available in their own scanner workflow. The agent helped us bridge that gap by converting technical clues into small web-level tests and applying them consistently across candidate services.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    This does not mean AI replaces OpenVAS, Nessus or other established scanners. Greenbone reported that its Enterprise Feed included PHP version checks beginning October 21, with further agent-based checks described on October 22. Whether those checks are present and active in any deployment depends on its feed, configuration and scan method. The narrower lesson is that a locally available agent can help investigate an emerging issue while a team verifies what its existing tools can detect.
+                </p>
+
+                <div class="rounded-2xl border border-outline-variant bg-surface-container-low p-6 my-8">
+                    <p class="font-headline text-2xl md:text-headline-md text-primary mb-3">What remains human</p>
+                    <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                        People authorize the scope, interpret incomplete signals, confirm the installed software, assess business risk and decide how to remediate. Agentic testing accelerates the evidence-gathering loop; it does not remove accountability from it.
+                    </p>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">The takeaway</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    To me, the practical value of an AI penetration-testing agent is not that it knows every vulnerability in advance. It is that, when given an authorized scope and a credible advisory, it can help translate technical details into repeatable safe checks, run them across relevant systems and organize the evidence for people to validate.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-10">
+                    Established scanners remain essential, and their feeds should stay current. Agentic testing adds another capability: when a new risk is not yet producing an actionable result in a local scanning workflow, it helps engineers ask targeted questions of systems they are responsible for, then leaves final judgment and remediation where they belong - with humans.
+                </p>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">References</h2>
+                <ul class="mb-10 space-y-3 font-body text-body-md text-on-surface-variant" style="list-style: disc; padding-left: 1.5rem;">
+                    <li><a class="text-primary hover:underline" href="https://www.php.net/archive/2026.php#2026-10-21-5" rel="noopener noreferrer" target="_blank">PHP security advisory and fixed releases</a></li>
+                    <li><a class="text-primary hover:underline" href="https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w" rel="noopener noreferrer" target="_blank">CVE-2026-109618: RCE via out-of-memory corruption</a></li>
+                    <li><a class="text-primary hover:underline" href="https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp" rel="noopener noreferrer" target="_blank">CVE-2026-109619: RCE via stale global state</a></li>
+                    <li><a class="text-primary hover:underline" href="https://www.greenbone.net/en/blog/php2shell-remote-code-execution-cve-2026-109618-cve-2026-109619/" rel="noopener noreferrer" target="_blank">Greenbone's PHP2Shell update and scanner-feed coverage</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-gutter bg-surface-container-low border-t border-outline-variant" id="agentic-pentesting-cta">
+        <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
+            <div class="absolute inset-0 bg-linear-to-tr from-[#1a45d2]/5 to-transparent"></div>
+            <div class="relative z-10 max-w-5xl mx-auto">
+                <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Safe Checks. Faster Triage. Human Judgment.</p>
+                <h2 class="font-headline text-4xl md:text-display-lg text-center mb-4">Respond faster to <span class="text-primary">emerging vulnerabilities</span></h2>
+                <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+                    Turn credible advisories into bounded, repeatable checks while experienced engineers retain control of validation and remediation.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a class="btn-primary" href="/contact">Plan your assessment</a>
+                    <a class="btn-secondary" href="/penetration-testing">Explore penetration testing</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+{{end}}
