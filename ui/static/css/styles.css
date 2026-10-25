@@ -1865,14 +1865,14 @@
       height: calc(var(--spacing) * 120);
     }
   }
+  .md\:min-h-90 {
+    @media (width >= 48rem) {
+      min-height: calc(var(--spacing) * 90);
+    }
+  }
   .md\:min-h-100 {
     @media (width >= 48rem) {
       min-height: calc(var(--spacing) * 100);
-    }
-  }
-  .md\:min-h-\[360px\] {
-    @media (width >= 48rem) {
-      min-height: 360px;
     }
   }
   .md\:min-h-\[400px\] {

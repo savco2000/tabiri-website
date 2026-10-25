@@ -1,0 +1,161 @@
+{{define "page-title"}}One Brotli error, five leads: how Tabiri's AI agent traced Node2Shell risk | Tabiri Analytics{{end}}
+{{define "page-description"}}Edwin Kairu explains how Tabiri's AI penetration-testing agent used safe Brotli request checks to map potential Node2Shell exposure across ten authorized systems.{{end}}
+{{define "open-graph-description"}}How a decoder-specific error helped Tabiri's AI agent identify five Node.js application surfaces for focused human review without exploiting Node2Shell.{{end}}
+{{define "open-graph-image"}}https://tabirianalytics.com/assets/images/node2shell-brotli-triage.avif{{end}}
+
+{{define "main"}}
+<article class="pb-12">
+    <section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
+        <div class="absolute inset-0 opacity-40"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="mb-6">
+                <a class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm uppercase tracking-wider text-primary transition-colors hover:bg-surface-container-lowest" href="/blog.html">
+                    <span class="material-symbols-outlined icon-size-sm">arrow_back</span>
+                    Back to Blog
+                </a>
+            </div>
+            <div class="mb-8 flex flex-wrap items-center gap-3 text-body-sm text-on-surface-variant">
+                <span class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 font-label text-label-sm uppercase tracking-wider text-primary">Cybersecurity</span>
+                <span>&bull;</span>
+                <time datetime="2026-10-24">October 24, 2026</time>
+                <span>&bull;</span>
+                <span>7 min read</span>
+            </div>
+            <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 max-w-4xl">One Brotli error, five leads: how Tabiri's AI agent traced Node2Shell risk</h1>
+            <p class="font-body text-body-lg text-on-surface-variant max-w-3xl mb-8">
+                How we turned a newly disclosed decoder flaw into safe behavioral checks, mapped the services that reached risky code, and kept the final verdict in human hands.
+            </p>
+            <div class="flex items-center gap-4">
+                <img alt="Edwin Kairu" class="h-14 w-14 rounded-full object-cover ring-2 ring-primary/20" width="56" height="56" src="/static/images/edwin_kairu_headshot.avif">
+                <div>
+                    <p class="font-headline text-xl text-on-surface">Edwin Kairu</p>
+                    <p class="font-body text-body-sm text-on-surface-variant">Co-Founder and CEO, Tabiri Analytics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-gutter bg-surface-container-low">
+        <div class="max-w-4xl mx-auto">
+            <div class="overflow-hidden rounded-4xl border border-outline-variant bg-surface-container-low mb-10 shadow-sm">
+                <img alt="AI-assisted Node2Shell triage tracing Brotli-compressed requests through Node.js services" class="w-full h-auto" width="1600" height="1067" src="/static/images/node2shell-brotli-triage.avif">
+            </div>
+
+            <div class="prose max-w-none">
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    A security advisory tells you what may be wrong. It does not tell you which services actually handle the risky input or whether that path is reachable. When a new Brotli decoder flaw was disclosed, we asked Tabiri's AI penetration-testing agent to turn the advisory into safe checks for a small, authorized environment.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The agent did not exploit the flaw. It helped us determine where application endpoints appeared to pass incoming Brotli-compressed requests to a decoder and where the evidence remained uncertain. A reachable decoder is a useful lead, but it is not proof of a vulnerable version or successful code execution.
+                </p>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">The risk was in decoding requests, not compressing responses</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    CVE-2026-111497, sometimes called Node2Shell, is an out-of-bounds write in the Google Brotli decoder. Node.js includes this decoder in <code>node:zlib</code>, so a service that decompresses attacker-controlled Brotli data may expose the decoder to the flaw. Node.js published fixed releases for the affected lines: 22.23.4, 24.22.1 and 26.12.1. Organizations still need to verify the appropriate fix for their runtime or vendor package.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    One detail can easily misdirect an initial check. <code>Accept-Encoding: br</code> asks a server to compress its response with Brotli. That proves a response-compression capability. The risk we needed to examine was different: whether the server accepts a request marked <code>Content-Encoding: br</code> and decompresses the body before handling it.
+                </p>
+
+                <div class="rounded-2xl border border-outline-variant bg-surface-container-low p-6 my-8">
+                    <p class="font-headline text-2xl md:text-headline-md text-primary mb-3">The question that mattered</p>
+                    <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                        Does this endpoint decode untrusted Brotli request data, and what safe response behavior would show that the request reached a decoder?
+                    </p>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">Teaching the check what to look for</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    We gave the agent the advisory and asked it to devise non-exploit checks for authorized web interfaces. It first fingerprinted likely runtimes and application surfaces. It noted whether responses negotiated Brotli compression, but treated that as context rather than evidence of inbound decoding.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The agent then sent both a valid, ordinary Brotli-compressed request body and a malformed test body to selected POST endpoints using <code>Content-Encoding: br</code>. It compared the responses for decoder-specific errors or signs that decoded content reached application-level validation, repeated the check across relevant services and separated Node.js paths from other runtimes.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">travel_explore</span></div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-primary">Fingerprint</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Identify likely runtimes, web surfaces and response-compression behavior without treating a banner as proof.</p>
+                    </article>
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">manage_search</span></div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-primary">Compare</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Send safe valid and malformed Brotli bodies, then compare how each endpoint processes the requests.</p>
+                    </article>
+                    <article class="trust-card-no-hover group transition-colors">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">account_tree</span></div>
+                            <h3 class="font-headline text-2xl md:text-headline-md text-primary">Map</h3>
+                        </div>
+                        <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Group strong signals, potential exposure and ambiguous behavior into a reviewable investigation map.</p>
+                    </article>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">One error exposed the path into Node.js</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Across ten systems, one Node.js Express service returned the strongest signal: a malformed Brotli request produced an error stack naming <code>BrotliDecoder</code> in <code>node:zlib</code>. That was direct evidence that an incoming request reached Node.js's Brotli decoder.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Several other Node.js dashboard and API surfaces returned application-level JSON errors after receiving Brotli-encoded input. Those responses were consistent with decoding before the application rejected the content. A Python service responded identically to valid and malformed requests, so the report marked it ambiguous and called for package and middleware verification rather than forcing a conclusion.
+                </p>
+
+                <blockquote class="my-10 border-l-4 border-primary bg-surface-container-low p-6 rounded-r-2xl">
+                    <p class="font-headline text-2xl md:text-headline-md text-primary leading-relaxed">"The stack trace did not prove Node2Shell was exploitable. It proved exactly where engineers needed to look next."</p>
+                </blockquote>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mt-10 mb-4">Five leads are not five confirmed vulnerabilities</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The result was a focused map for deeper investigation: five Node.js application surfaces treated as potential exposure and one Python service needing additional review. Other endpoints either used different stacks or produced no evidence of a reachable Node.js Brotli decoder. That is materially more useful than a broad advisory, but it is not proof that every listed runtime used an affected build.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    Response behavior cannot establish the installed Node.js or Brotli version, identify every bundled library or prove that memory corruption is exploitable in a service. Our evidence did not include exact runtime or package versions for every system, and no exploit was run. Engineers still need to inspect the actual packages, account for vendor backports, apply the appropriate fixed release and verify the patch.
+                </p>
+
+                <div class="rounded-2xl border border-outline-variant bg-surface-container-low p-6 my-8">
+                    <p class="font-headline text-2xl md:text-headline-md text-primary mb-3">Evidence has a boundary</p>
+                    <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                        A decoder-specific response can demonstrate a reachable data path. Only runtime inventory, package verification and remediation testing can establish whether that path contains the vulnerable code and whether the fix is complete.
+                    </p>
+                </div>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-primary mt-10 mb-4">What the agent changed was the speed of the question</h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">
+                    The useful part was translation. Instead of waiting for a scanner signature to match a disclosed CVE, the agent turned the advisory's mechanism into a specific question: does this endpoint decode untrusted Brotli request data, and what response would demonstrate that? It then asked that question consistently across a mixed environment while preserving an explicit uncertain category.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-10">
+                    This approach complements conventional scanners; it does not replace them. A scanner can identify a vulnerable runtime when it has the right feed, version data, credentials and scan path. A behavioral check helps when those conditions are missing or when reachability is the key question. In both cases, people set the scope, interpret the evidence, decide whether to isolate or patch and verify that the fix worked.
+                </p>
+
+                <h2 class="font-headline text-3xl md:text-headline-lg text-primary mt-10 mb-4">References</h2>
+                <ul class="mb-10 space-y-3 font-body text-body-md text-on-surface-variant" style="list-style: disc; padding-left: 1.5rem;">
+                    <li><a class="text-primary hover:underline" href="https://nodejs.org/en/blog/vulnerability/october-2026-security-releases" rel="noopener noreferrer" target="_blank">Node.js security releases, October 21, 2026</a></li>
+                    <li><a class="text-primary hover:underline" href="https://www.cve.org/CVERecord?id=CVE-2026-111497" rel="noopener noreferrer" target="_blank">CVE-2026-111497 record</a></li>
+                    <li><a class="text-primary hover:underline" href="https://github.com/advisories/GHSA-9v8h-qqgm-4m35" rel="noopener noreferrer" target="_blank">Google Brotli security advisory</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-gutter bg-surface-container-low border-t border-outline-variant" id="agentic-pentesting-cta">
+        <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
+            <div class="absolute inset-0 bg-linear-to-tr from-[#1a45d2]/5 to-transparent"></div>
+            <div class="relative z-10 max-w-5xl mx-auto">
+                <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Safe Checks. Faster Triage. Human Judgment.</p>
+                <h2 class="font-headline text-4xl md:text-display-lg text-center mb-4">Respond faster to <span class="text-primary">emerging vulnerabilities</span></h2>
+                <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+                    Turn credible advisories into bounded, repeatable checks while experienced engineers retain control of validation and remediation.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a class="btn-primary" href="/contact.html">Plan your assessment</a>
+                    <a class="btn-secondary" href="/penetration-testing.html">Explore penetration testing</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+{{end}}
