@@ -6,6 +6,9 @@
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode"
+    },
+    "ghcr.io/devcontainers/features/terraform:1": {
+      "version": "latest"
     }
   },
   "remoteUser": "vscode",
