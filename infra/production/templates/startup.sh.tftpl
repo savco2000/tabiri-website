@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get update
+apt-get install -y ca-certificates curl gnupg
+
+if ! command -v gcloud >/dev/null 2>&1; then
+  curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg |
+    gpg --dearmor --yes -o /usr/share/keyrings/cloud.google.gpg
+  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
+    >/etc/apt/sources.list.d/google-cloud-sdk.list
+  apt-get update
+  apt-get install -y google-cloud-cli
+fi
+
+if ! id tabiri >/dev/null 2>&1; then
+  useradd --system --home-dir /opt/tabiri --shell /usr/sbin/nologin tabiri
+fi
+
+mkdir -p /opt/tabiri /var/lib/tabiri /etc/tabiri
+
+data_device="/dev/disk/by-id/google-tabiri-web-data"
+if ! blkid "$data_device" >/dev/null 2>&1; then
+  mkfs.ext4 -m 0 -F "$data_device"
+fi
+
+data_uuid="$(blkid -s UUID -o value "$data_device")"
+if ! grep -q "UUID=$${data_uuid} /var/lib/tabiri " /etc/fstab; then
+  echo "UUID=$${data_uuid} /var/lib/tabiri ext4 defaults,nofail 0 2" >>/etc/fstab
+fi
+if ! mountpoint -q /var/lib/tabiri; then
+  mount /var/lib/tabiri
+fi
+chown tabiri:tabiri /var/lib/tabiri
+
+gcloud storage cp \
+  "gs://${release_bucket_name}/${release_object}" \
+  /tmp/tabiri-release.tgz
+
+echo "${release_sha256}  /tmp/tabiri-release.tgz" | sha256sum --check -
+
+release_id="$(sha256sum /tmp/tabiri-release.tgz | cut -d' ' -f1)"
+release_dir="/opt/tabiri/releases/$${release_id}"
+mkdir -p "$${release_dir}"
+if [[ ! -x "$${release_dir}/tabiri-web" ]]; then
+  tar -xzf /tmp/tabiri-release.tgz -C "$${release_dir}"
+  chown -R root:root "$${release_dir}"
+  chmod 0755 "$${release_dir}/tabiri-web"
+fi
+ln -sfn "$${release_dir}" /opt/tabiri/current
+
+turnstile_secret="$(
+  gcloud secrets versions access latest \
+    --project="${project_id}" \
+    --secret="tabiri-turnstile-secret"
+)"
+form_hmac_key="$(
+  gcloud secrets versions access latest \
+    --project="${project_id}" \
+    --secret="tabiri-form-hmac-key"
+)"
+
+install -m 0600 -o root -g root /dev/null /etc/tabiri/tabiri.env
+cat >/etc/tabiri/tabiri.env <<EOF
+APP_ENV=production
+TURNSTILE_SITE_KEY=${turnstile_site_key}
+TURNSTILE_SECRET_KEY=$${turnstile_secret}
+TURNSTILE_ALLOWED_HOSTNAMES=${turnstile_allowed_hostnames}
+FORM_HMAC_KEY=$${form_hmac_key}
+OTEL_TRACES_SAMPLER_ARG=0.1
+EOF
+unset turnstile_secret form_hmac_key
+
+cat >/etc/systemd/system/tabiri-web.service <<'EOF'
+[Unit]
+Description=Tabiri Analytics website
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=tabiri
+Group=tabiri
+WorkingDirectory=/opt/tabiri/current
+EnvironmentFile=/etc/tabiri/tabiri.env
+ExecStart=/opt/tabiri/current/tabiri-web -addr=:4000 -static-dir=/opt/tabiri/current/ui/static -db-path=/var/lib/tabiri/tabiri.db -log-level=info
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/tabiri
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable tabiri-web
+systemctl restart tabiri-web

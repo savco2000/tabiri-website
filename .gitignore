@@ -28,3 +28,14 @@ client_source/
 *.db
 *.db-shm
 *.db-wal
+
+# Terraform local state and generated plans
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+terraform.tfvars
+*.auto.tfvars
+!terraform.tfvars.example

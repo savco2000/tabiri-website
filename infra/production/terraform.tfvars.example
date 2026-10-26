@@ -1,0 +1,12 @@
+project_id          = "tabiri-public-sites"
+region              = "us-east1"
+zone                = "us-east1-b"
+release_bucket_name = "tabiri-public-sites-releases"
+
+# Leave false until the release archive and both secret versions exist.
+deploy_application = false
+
+# Set these before changing deploy_application to true.
+release_object     = "releases/tabiri-web.tar.gz"
+release_sha256     = ""
+turnstile_site_key = ""

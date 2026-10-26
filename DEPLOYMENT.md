@@ -1,5 +1,51 @@
 # Deployment and edge configuration
 
+## Terraform rollout
+
+Terraform configuration lives under `infra/`. The rollout is intentionally
+staged: `infra/production` creates a separate application backend but only reads
+the existing `tabirianalytics-map` URL map and `tabirianalytics-backend` backend
+bucket. It does not change live routing.
+
+Zonal resources use `us-east1-b`; regional resources use its parent region,
+`us-east1`.
+
+First initialize and apply the state bucket:
+
+```bash
+terraform -chdir=infra/bootstrap init
+terraform -chdir=infra/bootstrap plan -out=bootstrap.tfplan
+terraform -chdir=infra/bootstrap apply bootstrap.tfplan
+```
+
+Then initialize and review the production foundation:
+
+```bash
+terraform -chdir=infra/production init
+terraform -chdir=infra/production plan -out=production.tfplan
+```
+
+The default `deploy_application = false` creates the isolated network, runtime
+identity, private release bucket, Secret Manager containers, persistent SQLite
+disk, snapshot schedule, health check, and empty application backend. It does
+not create the VM.
+
+Before enabling the VM:
+
+1. Upload a versioned release archive containing `tabiri-web`, `ui/`, and
+   `content/` to the private release bucket.
+2. Add versions to `tabiri-turnstile-secret` and `tabiri-form-hmac-key`.
+3. Set the production Turnstile site key, release object, and SHA-256 checksum
+   in an untracked `terraform.tfvars`.
+4. Set `deploy_application = true`.
+5. Review and apply a new plan.
+6. Confirm that `tabiri-web-backend` is healthy.
+
+Do not route production traffic until the existing URL map has been imported
+into Terraform, its full configuration has been reconciled to a no-change plan,
+and a separate cutover plan has been approved. The current URL map routes both
+`tabirianalytics.com` and `www.tabirianalytics.com` to the static backend bucket.
+
 ## Hosting boundary
 
 The existing production site uses the `tabiri-public-sites` project,
