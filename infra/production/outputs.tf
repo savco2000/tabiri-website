@@ -22,9 +22,10 @@ output "secret_names" {
 }
 
 output "existing_routing" {
-  description = "Read-only confirmation of the current production routing target."
+  description = "Production edge resources managed by Terraform."
   value = {
     backend_bucket = data.google_compute_backend_bucket.existing_static_site.self_link
-    url_map        = "projects/${var.project_id}/global/urlMaps/tabirianalytics-map"
+    https_proxy    = google_compute_target_https_proxy.production.self_link
+    url_map        = google_compute_url_map.production.self_link
   }
 }

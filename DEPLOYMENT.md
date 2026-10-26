@@ -3,9 +3,10 @@
 ## Terraform rollout
 
 Terraform configuration lives under `infra/`. The rollout is intentionally
-staged: `infra/production` creates a separate application backend but only reads
-the existing `tabirianalytics-map` URL map and `tabirianalytics-backend` backend
-bucket. It does not change live routing.
+staged: `infra/production` provisions the application foundation and VM before
+routing traffic. Terraform now manages the imported `tabirianalytics-map` URL
+map and `tabirianalytics-proxy` HTTPS proxy in addition to the application
+backend and dual-host managed certificate.
 
 Zonal resources use `us-east1-b`; regional resources use its parent region,
 `us-east1`.
@@ -41,25 +42,29 @@ Before enabling the VM:
 5. Review and apply a new plan.
 6. Confirm that `tabiri-web-backend` is healthy.
 
-Do not route production traffic until the existing URL map has been imported
-into Terraform, its full configuration has been reconciled to a no-change plan,
-and a separate cutover plan has been approved. The current URL map routes both
-`tabirianalytics.com` and `www.tabirianalytics.com` to the static backend bucket.
+Production routes `tabirianalytics.com` to `tabiri-web-backend`.
+`www.tabirianalytics.com` terminates TLS with the same managed certificate and
+permanently redirects to the apex hostname while preserving paths and query
+strings. When switching away from a CDN-enabled backend bucket, invalidate the
+URL map cache and wait for cached paths to reach the application before
+retiring rollback resources.
 
 ## Hosting boundary
 
-The existing production site uses the `tabiri-public-sites` project,
-`tabirianalytics-backend` backend bucket, `www.tabirianalytics.com` Cloud Storage
-bucket, and `tabirianalytics-map` HTTPS load balancer URL map. TLS terminates at
-the load balancer.
+The production site uses the `tabiri-public-sites` project, a Compute Engine VM
+in `us-east1-b`, the `tabiri-web-backend` backend service, and the
+`tabirianalytics-map` HTTPS load balancer URL map. TLS terminates at the load
+balancer. The legacy `tabirianalytics-backend` backend bucket and
+`www.tabirianalytics.com` Cloud Storage bucket remain available as rollback
+resources but are not on the active route.
 
 Cloud Storage serves files, not Go handlers or Go templates. This repository's
 contact, partner-contact, and newsletter POST handlers, signed form proofs, and
 Turnstile verification need a running Go backend. Uploading templates or rendering
 forms once does **not** provide working form submissions. A production Go
 deployment also needs persistent SQLite storage; an ephemeral instance filesystem
-is not sufficient. This change does not provision a backend or export the site
-as static HTML.
+is not sufficient. Terraform attaches the `tabiri-web-data` persistent disk for
+the database and schedules daily snapshots.
 
 ## Discovery files and health
 
