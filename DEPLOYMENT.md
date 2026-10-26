@@ -49,6 +49,12 @@ strings. When switching away from a CDN-enabled backend bucket, invalidate the
 URL map cache and wait for cached paths to reach the application before
 retiring rollback resources.
 
+The apex URL map returns `302 Found` for legacy `.html` page and blog-post URLs
+that predate the current extensionless routes. These exact-path edge redirects
+preserve query strings, including social campaign parameters. They can be
+retired from the `apex-application` path matcher without deploying the
+application binary.
+
 ## Hosting boundary
 
 The production site uses the `tabiri-public-sites` project, a Compute Engine VM
