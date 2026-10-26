@@ -34,9 +34,9 @@ type pageSpec struct {
 var pageSpecs = map[string]pageSpec{
 	"home": {
 		template:             "home",
-		title:                "Home - Secure AI-Powered Employees | Tabiri Analytics",
-		description:          "Tabiri Analytics builds secure AI employees that automate enterprise workflows while protecting sensitive data.",
-		openGraphDescription: "Deploy secure, agentic AI teammates for operations, service, and compliance-intensive environments.",
+		title:                "Secure AI-Powered Digital Employees | Tabiri Analytics",
+		description:          "Tabiri Analytics builds secure AI-powered Digital Employees that automate enterprise workflows while protecting sensitive data.",
+		openGraphDescription: "Deploy secure AI-powered Digital Employees for operations, service, and compliance-intensive environments while keeping people in control.",
 		canonicalURL:         "https://tabirianalytics.com/",
 		currentPage:          "home",
 	},

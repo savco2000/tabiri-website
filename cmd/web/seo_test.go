@@ -53,6 +53,20 @@ func TestPublicPagesHavePageSpecificCanonicalURLs(t *testing.T) {
 	}
 }
 
+func TestHomepageHasRelevantSocialMetadata(t *testing.T) {
+	app, _ := newTestApplication(t)
+	response := getPage(app, "/")
+	body := response.Body.String()
+
+	title := "Secure AI-Powered Digital Employees | Tabiri Analytics"
+	if !strings.Contains(body, `<meta property="og:title" content="`+title+`">`) {
+		t.Errorf("homepage does not contain the expected Open Graph title")
+	}
+	if !strings.Contains(body, `<meta name="twitter:title" content="`+title+`">`) {
+		t.Errorf("homepage does not contain the expected Twitter title")
+	}
+}
+
 func TestNotFoundPageDoesNotUseHomepageAsCanonical(t *testing.T) {
 	app, _ := newTestApplication(t)
 	response := getPage(app, "/missing-page")
