@@ -250,6 +250,20 @@ resource "google_compute_url_map" "production" {
         strip_query            = false
       }
     }
+
+    route_rules {
+      priority = 170
+
+      match_rules {
+        full_path_match = "/assets/svg/logo.svg"
+      }
+
+      url_redirect {
+        path_redirect          = "/static/svg/logo.svg"
+        redirect_response_code = "FOUND"
+        strip_query            = false
+      }
+    }
   }
 
   path_matcher {
