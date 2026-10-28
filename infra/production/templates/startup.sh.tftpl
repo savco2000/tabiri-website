@@ -4,7 +4,7 @@ set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
-apt-get install -y ca-certificates curl gnupg
+apt-get install -y ca-certificates curl gnupg sqlite3
 
 if ! command -v gcloud >/dev/null 2>&1; then
   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg |
