@@ -264,6 +264,62 @@ resource "google_compute_url_map" "production" {
         strip_query            = false
       }
     }
+
+    route_rules {
+      priority = 180
+
+      match_rules {
+        full_path_match = "/contact.html"
+      }
+
+      url_redirect {
+        path_redirect          = "/contact"
+        redirect_response_code = "FOUND"
+        strip_query            = false
+      }
+    }
+
+    route_rules {
+      priority = 190
+
+      match_rules {
+        full_path_match = "/newsletter.html"
+      }
+
+      url_redirect {
+        path_redirect          = "/newsletter"
+        redirect_response_code = "FOUND"
+        strip_query            = false
+      }
+    }
+
+    route_rules {
+      priority = 200
+
+      match_rules {
+        full_path_match = "/partner-contact.html"
+      }
+
+      url_redirect {
+        path_redirect          = "/partner-contact"
+        redirect_response_code = "FOUND"
+        strip_query            = false
+      }
+    }
+
+    route_rules {
+      priority = 210
+
+      match_rules {
+        full_path_match = "/index.html"
+      }
+
+      url_redirect {
+        path_redirect          = "/"
+        redirect_response_code = "FOUND"
+        strip_query            = false
+      }
+    }
   }
 
   path_matcher {
