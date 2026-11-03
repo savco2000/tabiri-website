@@ -15,6 +15,7 @@
     const assessment = document.querySelector("#assessment-result");
     const result = document.querySelector("#post-assessment-result");
     const contactCTA = document.querySelector("#assessment-contact-cta");
+    const checklistDownload = document.querySelector("#assurance-checklist-download");
     let started = false;
 
     track("automation_assessment_view", campaign);
@@ -73,6 +74,7 @@
       contactCTA.href = `/contact?${contactQuery.toString()}`;
       contactCTA.textContent = band.cta;
       contactCTA.dataset.assessmentResult = band.key;
+      checklistDownload.dataset.assessmentResult = band.key;
 
       assessment.classList.add("hidden");
       result.classList.remove("hidden");
@@ -94,6 +96,7 @@
         assessment_result: contactCTA.dataset.assessmentResult,
       });
     });
+
   }
 
   const contactForm = document.querySelector("#contact-form");
@@ -163,8 +166,8 @@
       ? `Business case: ${answers.impact.label} indicates a measurable reason to improve the workflow.`
       : `Business case: ${answers.impact.label} suggests prioritizing a higher-impact workflow.`);
     factors.push(answers.oversight.score >= 1
-      ? `Governance: ${answers.oversight.label} supports human review of exceptions and sensitive decisions.`
-      : `Governance: ${answers.oversight.label} must be resolved before sensitive work is automated.`);
+      ? `Governance: ${answers.oversight.label} provides an intervention path for exceptions and sensitive decisions.`
+      : `Governance: ${answers.oversight.label} must be established before sensitive work is automated.`);
     return factors;
   }
 

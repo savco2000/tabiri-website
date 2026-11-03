@@ -71,9 +71,9 @@
             <fieldset>
                 <legend class="mb-4 font-headline text-headline-md text-on-surface"><span class="mr-2 font-label text-label-md text-primary">05</span> Can a person review exceptions or sensitive decisions?</legend>
                 <div class="grid gap-3 sm:grid-cols-3">
-                    <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest p-4"><input class="text-primary focus:ring-primary" name="oversight" required type="radio" value="0"><span class="text-body-sm">No clear owner</span></label>
-                    <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest p-4"><input class="text-primary focus:ring-primary" name="oversight" type="radio" value="1"><span class="text-body-sm">An owner could be assigned</span></label>
-                    <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest p-4"><input class="text-primary focus:ring-primary" name="oversight" type="radio" value="2"><span class="text-body-sm">Yes, an owner is available</span></label>
+                    <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest p-4"><input class="text-primary focus:ring-primary" name="oversight" required type="radio" value="0"><span class="text-body-sm">No clear reviewer or intervention process</span></label>
+                    <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest p-4"><input class="text-primary focus:ring-primary" name="oversight" type="radio" value="1"><span class="text-body-sm">Someone can review flagged exceptions</span></label>
+                    <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-outline-variant bg-surface-container-lowest p-4"><input class="text-primary focus:ring-primary" name="oversight" type="radio" value="2"><span class="text-body-sm">A named reviewer can approve, stop, or redirect sensitive actions</span></label>
                 </div>
             </fieldset>
 
@@ -93,7 +93,17 @@
                     <p class="mb-5 font-body text-body-md text-on-surface-variant" id="assessment-result-copy"></p>
                     <h3 class="mb-3 font-headline text-headline-md text-on-surface">What shaped this recommendation</h3>
                     <ul class="mb-6 list-disc space-y-2 pl-5 font-body text-body-sm text-on-surface-variant" id="assessment-result-factors"></ul>
-                    <a class="btn-primary" href="/contact" id="assessment-contact-cta">Discuss This Workflow</a>
+                    <div class="mb-6 rounded-xl border border-outline-variant bg-surface-container-low p-5">
+                        <h3 class="mb-2 font-headline text-headline-md text-on-surface">Secure deployment is only the first step</h3>
+                        <p class="font-body text-body-sm leading-relaxed text-on-surface-variant">Before launch, define what the digital employee may access, which actions require approval, and what activity must be monitored or retained for review.</p>
+                    </div>
+                    <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+                        <a class="btn-primary" href="/contact" id="assessment-contact-cta">Discuss This Workflow</a>
+                        <a class="btn-secondary" data-analytics-download="continuous_assurance_checklist" download="Tabiri-Continuous-Assurance-Checklist.pdf" href="/static/tabiri_continuous_assurance_checklist.pdf" id="assurance-checklist-download">
+                            <span class="material-symbols-outlined icon-size-sm">download</span>
+                            Download the Continuous Assurance Checklist
+                        </a>
+                    </div>
                 </div>
             </div>
         </article>

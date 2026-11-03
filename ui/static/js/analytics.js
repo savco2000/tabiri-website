@@ -4,6 +4,7 @@
   const acceptButton = document.getElementById("accept-analytics");
   const rejectButton = document.getElementById("reject-analytics");
   const settingsButton = document.getElementById("cookie-settings");
+  const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
   let analyticsLoaded = false;
   let consent = null;
 
@@ -88,5 +89,36 @@
   settingsButton.addEventListener("click", () => {
     showConsentBanner();
     rejectButton.focus();
+  });
+
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a[data-analytics-download]");
+    if (!link || consent !== "accepted" || !analyticsLoaded) {
+      return;
+    }
+
+    const url = new URL(link.href, window.location.href);
+    const fileName = link.download || url.pathname.split("/").pop();
+    const extensionIndex = fileName.lastIndexOf(".");
+    const campaign = new URLSearchParams(window.location.search);
+    const parameters = {
+      file_extension: extensionIndex >= 0 ? fileName.slice(extensionIndex + 1).toLowerCase() : "",
+      file_name: fileName,
+      link_text: link.textContent.trim(),
+      link_url: url.href,
+      resource_name: link.dataset.analyticsDownload,
+    };
+
+    campaignKeys.forEach((key) => {
+      const value = campaign.get(key);
+      if (value) {
+        parameters[key] = value;
+      }
+    });
+    if (link.dataset.assessmentResult) {
+      parameters.assessment_result = link.dataset.assessmentResult;
+    }
+
+    window.gtag("event", "file_download", parameters);
   });
 })();
