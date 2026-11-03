@@ -2103,6 +2103,11 @@
       grid-template-columns: 1.2fr 2fr;
     }
   }
+  .lg\:grid-cols-\[1fr_auto\] {
+    @media (width >= 64rem) {
+      grid-template-columns: 1fr auto;
+    }
+  }
   .lg\:grid-cols-\[minmax\(0\,3fr\)_minmax\(0\,5fr\)\] {
     @media (width >= 64rem) {
       grid-template-columns: minmax(0,3fr) minmax(0,5fr);
@@ -2126,6 +2131,11 @@
   .lg\:items-start {
     @media (width >= 64rem) {
       align-items: flex-start;
+    }
+  }
+  .lg\:justify-end {
+    @media (width >= 64rem) {
+      justify-content: flex-end;
     }
   }
   .lg\:justify-start {
@@ -2213,6 +2223,11 @@
   .xl\:grid-cols-3 {
     @media (width >= 80rem) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .xl\:grid-cols-4 {
+    @media (width >= 80rem) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
   .xl\:grid-cols-\[1\.2fr_0\.8fr\] {
