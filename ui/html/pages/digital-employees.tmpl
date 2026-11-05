@@ -194,154 +194,27 @@
                     </div>
                     <div class="p-3 sm:p-4 md:p-6">
                         <div class="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-6 items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
-                                <defs>
-                                    <style>
-                                    :root {
-                                        /* TABIRI ANALYTICS - BRAND THEME VARIABLES */
-                                        --bg-main: transparent;
-                                        
-                                        /* Human Supervisor - Deep Slate / Corporate Navy */
-                                        --color-supervisor-bg: #1E293B;  
-                                        --color-supervisor-text: #F8FAFC;
-                                        
-                                        /* AI Agents - Color Swapped (was blue bg / white inner) */
-                                        /* New Outer Background (was white inner) */
-                                        --color-agent-bg: rgba(255, 255, 255, 0.75);       
-                                        --color-agent-border: #7DD3FC;
-                                        --color-agent-text: #0369A1;
-                                        /* New Inner Background (was blue agent bg) */
-                                        --color-agent-inner-bg: #E0F2FE; 
-                                        
-                                        /* Guardrails Layer - Secure Green */
-                                        --color-semantic-bg: #D1FAE5;    
-                                        --color-semantic-border: #6EE7B7;
-                                        --color-semantic-text: #065F46;
-                                        
-                                        /* Data & Infrastructure - Slate Gray */
-                                        --color-data-bg: #F1F5F9;        
-                                        --color-data-border: #CBD5E1;
-                                        --color-data-text: #475569;
-                                        
-                                        /* Lines & Connectors */
-                                        --color-arrow: #94A3B8;
-                                        --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-                                    }
-                                    
-                                    .font-sans { font-family: var(--font-family); }
-                                    
-                                    /* Base Box Styling */
-                                    .box {
-                                        rx: 8px; 
-                                        ry: 8px; 
-                                        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
-                                    }
-                                    
-                                    /* Component Classes */
-                                    .box-human { fill: var(--color-supervisor-bg); }
-                                    .box-agent { fill: var(--color-agent-bg); stroke: var(--color-agent-border); stroke-width: 2; }
-                                    .box-agent-inner { fill: var(--color-agent-inner-bg); rx: 4px; ry: 4px; }
-                                    .box-semantic { fill: var(--color-semantic-bg); stroke: var(--color-semantic-border); stroke-width: 2; }
-                                    .box-data { fill: var(--color-data-bg); stroke: var(--color-data-border); stroke-width: 2; }
-                                    
-                                    /* Typography */
-                                    .text-title { font-size: 18px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; letter-spacing: 0.5px; }
-                                    .text-human { fill: var(--color-supervisor-text); font-size: 22px; }
-                                    .text-agent { fill: var(--color-agent-text); font-size: 16px; }
-                                    .text-agent-inner { fill: var(--color-agent-text); font-size: 14px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; }
-                                    .text-semantic { fill: var(--color-semantic-text); font-size: 20px; }
-                                    .text-data { fill: var(--color-data-text); font-size: 16px; }
-                                    
-                                    /* Connectors */
-                                    .arrow { stroke: var(--color-arrow); stroke-width: 2; fill: none; }
-                                    .arrow-head { fill: var(--color-arrow); }
-                                    </style>
-                                    
-                                    <!-- Arrowhead Marker -->
-                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                                    <polygon points="0 0, 10 3.5, 0 7" class="arrow-head" />
-                                    </marker>
-                                </defs>
-
-                                <!-- Section Title -->
-                                <text x="50" y="40" class="font-sans" fill="#64748B" font-size="12" font-weight="600" letter-spacing="1.5">SYSTEM ARCHITECTURE / HUMAN-AGENT COOPERATION</text>
-
-                                <!-- HUMAN SUPERVISOR -->
-                                <rect x="50" y="70" width="900" height="70" class="box box-human" />
-                                <text x="500" y="107" class="font-sans text-title text-human">HUMAN SUPERVISOR</text>
-
-                                <!-- AGENTS LAYER -->
-                                <!-- Customer Experience Agent -->
-                                <rect x="60" y="200" width="270" height="120" class="box box-agent" />
-                                <text x="195" y="235" class="font-sans text-title text-agent">CUSTOMER EXPERIENCE</text>
-                                <text x="195" y="257" class="font-sans text-title text-agent">AGENT</text>
-                                <rect x="85" y="275" width="220" height="32" class="box-agent-inner" />
-                                <text x="195" y="292" class="font-sans text-agent-inner">Business Logic</text>
-
-                                <!-- Billing Agent -->
-                                <rect x="365" y="200" width="270" height="120" class="box box-agent" />
-                                <text x="500" y="245" class="font-sans text-title text-agent">BILLING AGENT</text>
-                                <rect x="390" y="275" width="220" height="32" class="box-agent-inner" />
-                                <text x="500" y="292" class="font-sans text-agent-inner">Business Logic</text>
-
-                                <!-- Compliance Agent -->
-                                <rect x="670" y="200" width="270" height="120" class="box box-agent" />
-                                <text x="805" y="245" class="font-sans text-title text-agent">COMPLIANCE AGENT</text>
-                                <rect x="695" y="275" width="220" height="32" class="box-agent-inner" />
-                                <text x="805" y="292" class="font-sans text-agent-inner">Business Logic</text>
-
-                                <!-- SEMANTIC LAYER -->
-                                <rect x="50" y="380" width="900" height="80" class="box box-semantic" />
-                                <text x="500" y="422" class="font-sans text-title text-semantic">ONTOLOGY-BASED SEMANTIC LAYER (GUARDRAILS)</text>
-
-                                <!-- DATA LAYER -->
-                                <rect x="50" y="520" width="195" height="70" class="box box-data" />
-                                <text x="147.5" y="557" class="font-sans text-title text-data">CRM</text>
-
-                                <rect x="285" y="520" width="195" height="70" class="box box-data" />
-                                <text x="382.5" y="557" class="font-sans text-title text-data">DATABASE</text>
-
-                                <rect x="520" y="520" width="195" height="70" class="box box-data" />
-                                <text x="617.5" y="557" class="font-sans text-title text-data">DATA LAKE</text>
-
-                                <rect x="755" y="520" width="195" height="70" class="box box-data" />
-                                <text x="852.5" y="557" class="font-sans text-title text-data">SERVICE D</text>
-
-                                <!-- CONNECTORS -->
-                                <!-- Supervisor to Agents -->
-                                <path d="M 500 140 L 500 170" class="arrow" />
-                                <path d="M 500 170 L 195 170 L 195 192" class="arrow" marker-end="url(#arrowhead)" />
-                                <path d="M 500 170 L 500 192" class="arrow" marker-end="url(#arrowhead)" />
-                                <path d="M 500 170 L 805 170 L 805 192" class="arrow" marker-end="url(#arrowhead)" />
-
-                                <!-- Agents to Semantic Layer -->
-                                <path d="M 195 320 L 195 372" class="arrow" marker-end="url(#arrowhead)" />
-                                <path d="M 500 320 L 500 372" class="arrow" marker-end="url(#arrowhead)" />
-                                <path d="M 805 320 L 805 372" class="arrow" marker-end="url(#arrowhead)" />
-
-                                <!-- Semantic Layer to Data Services -->
-                                <path d="M 147.5 460 L 147.5 512" class="arrow" marker-end="url(#arrowhead)" />
-                                <path d="M 382.5 460 L 382.5 512" class="arrow" marker-end="url(#arrowhead)" />
-                                <path d="M 617.5 460 L 617.5 512" class="arrow" marker-end="url(#arrowhead)" />
-                                <path d="M 852.5 460 L 852.5 512" class="arrow" marker-end="url(#arrowhead)" />
-                            </svg>
+                            <figure class="overflow-hidden rounded-4xl border border-outline-variant bg-surface-container-low shadow-sm">
+                                <img alt="Digital employee activity flowing from approved data through guardrails and continuous assurance to human review and intervention" class="h-auto w-full" width="1536" height="1024" loading="lazy" decoding="async" src="/static/images/digital-employees-operating-model.avif">
+                            </figure>
 
 
                             <div class="rounded-3xl border border-outline-variant bg-surface-container-low p-6 shadow-sm">
-                                <h4 class="font-headline text-2xl md:text-headline-md text-on-surface mb-4">Control generic automation lacks</h4>
-                                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">Instead of giving a general-purpose tool open-ended access, each specialist operates inside a defined workflow with governed data, explicit boundaries, and accountable execution.</p>
+                                <h4 class="font-headline text-2xl md:text-headline-md text-on-surface mb-4">Guardrails Define. <span class="text-primary">Continuous Assurance Verifies.</span></h4>
+                                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">Guardrails establish approved data, permissions, and escalation paths before work begins.</p>
+                                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-6">Continuous assurance makes activity, behavioral change, and human intervention visible once the workflow is operating.</p>
                                 <ul class="space-y-3">
                                     <li class="flex items-start gap-3">
-                                        <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
-                                        <span class="text-body-sm text-on-surface-variant">People approve high-impact actions and handle exceptions.</span>
+                                        <span class="material-symbols-outlined text-primary mt-0.5">lock</span>
+                                        <span class="text-body-sm text-on-surface-variant">Approved data sources and explicit permissions bound what each specialist can access and do.</span>
                                     </li>
                                     <li class="flex items-start gap-3">
-                                        <span class="material-symbols-outlined text-primary mt-0.5">bolt</span>
-                                        <span class="text-body-sm text-on-surface-variant">Approved data sources limit what each specialist can access.</span>
+                                        <span class="material-symbols-outlined text-primary mt-0.5">monitoring</span>
+                                        <span class="text-body-sm text-on-surface-variant">Runtime signals help teams identify drift, risky delegation, and actions that need investigation.</span>
                                     </li>
                                     <li class="flex items-start gap-3">
-                                        <span class="material-symbols-outlined text-primary mt-0.5">shield_lock</span>
-                                        <span class="text-body-sm text-on-surface-variant">Source trails and policy checks keep outputs reviewable.</span>
+                                        <span class="material-symbols-outlined text-primary mt-0.5">gpp_good</span>
+                                        <span class="text-body-sm text-on-surface-variant">Reviewers see evidence and retain authority to approve, redirect, pause, or stop high-impact work.</span>
                                     </li>
                                 </ul>
                             </div>
