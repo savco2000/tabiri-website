@@ -1462,6 +1462,13 @@
       }
     }
   }
+  .hover\:text-primary {
+    &:hover {
+      @media (hover: hover) {
+        color: #1A45D2;
+      }
+    }
+  }
   .hover\:underline {
     &:hover {
       @media (hover: hover) {
