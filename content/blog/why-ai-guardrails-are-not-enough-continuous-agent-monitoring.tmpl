@@ -1,0 +1,193 @@
+{{define "page-title"}}Why AI Guardrails Are Not Enough: Continuous Agent Monitoring | Tabiri Analytics{{end}}
+{{define "page-description"}}How Tabiri's cybersecurity monitoring experience informs continuous assurance for AI agent permissions, drift, human oversight, and intervention.{{end}}
+{{define "open-graph-description"}}AI agents need the operational discipline of continuous security monitoring, adapted for permissions, delegation, behavioral drift, and human intervention.{{end}}
+{{define "open-graph-image"}}https://tabirianalytics.com/static/images/continuous-agent-monitoring.avif{{end}}
+
+{{define "main"}}
+<article class="pb-12">
+    <section class="relative overflow-hidden border-b border-outline-variant bg-surface-container-lowest px-gutter py-14 md:py-16">
+        <div class="absolute inset-0 opacity-40"></div>
+        <div class="relative z-10 mx-auto max-w-4xl">
+            <div class="mb-6">
+                <a class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm uppercase tracking-wider text-primary transition-colors hover:bg-surface-container-lowest" href="/blog">
+                    <span class="material-symbols-outlined icon-size-sm">arrow_back</span>
+                    Back to Blog
+                </a>
+            </div>
+            <div class="mb-8 flex flex-wrap items-center gap-3 text-body-sm text-on-surface-variant">
+                <span class="inline-flex items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 font-label text-label-sm uppercase tracking-wider text-primary">AI Governance</span>
+                <span>&bull;</span>
+                <time datetime="2026-11-03">November 3, 2026</time>
+                <span>&bull;</span>
+                <span>8 min read</span>
+            </div>
+            <h1 class="mb-6 max-w-4xl font-headline text-4xl text-on-background md:text-display-lg">Why AI guardrails are not enough: the case for continuous agent monitoring</h1>
+            <p class="mb-8 max-w-3xl font-body text-body-lg text-on-surface-variant">
+                Pre-deployment safeguards establish how an AI agent should behave. Continuous assurance helps an organization verify that permissions, human intervention, and accountable behavior remain effective once real work begins.
+            </p>
+            <div class="flex items-center gap-4">
+                <img alt="Savannah O. Kadima" class="h-14 w-14 rounded-full object-cover ring-2 ring-primary/20" width="56" height="56" src="/static/images/savannah_kadima_headshot.avif">
+                <div>
+                    <p class="font-headline text-xl text-on-surface">Savannah O. Kadima</p>
+                    <p class="font-body text-body-sm text-on-surface-variant">Co-Founder and CTO, Tabiri Analytics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-surface-container-low px-gutter py-12">
+        <div class="mx-auto max-w-4xl">
+            <div class="mb-10 overflow-hidden rounded-4xl border border-outline-variant bg-surface-container-low shadow-sm">
+                <img alt="AI agent activity flowing through observability signals to a human review console" class="h-auto w-full" width="1600" height="1067" src="/static/images/continuous-agent-monitoring.avif">
+            </div>
+
+            <div class="prose max-w-none">
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    Most conversations about secure AI begin before deployment. Teams define approved data sources, limit tool access, add refusal rules, test representative cases, and require human approval for sensitive decisions. Those controls are necessary, but they answer only one question: how should the system work?
+                </p>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    Production creates a second question: how will the organization know whether those controls continue to work across unfamiliar inputs, changing permissions, accumulated context, and thousands of decisions? An agent can remain inside its technical permissions and still make a poor decision. A human can click approve without conducting meaningful review. A workflow can drift gradually without producing one obvious failure.
+                </p>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    This distinction is central to <em>The Observability Gap in AI Agents: What to Fix Before Agents Scale</em>, a new <a class="text-primary underline" href="https://partnershiponai.org/" rel="noopener noreferrer" target="_blank">Partnership on AI</a> report co-authored by <a class="text-primary underline" href="https://www.linkedin.com/in/eric-mibuari-phd-bb24044/" rel="noopener noreferrer" target="_blank">Eric Mibuari, PhD</a> and a multidisciplinary group of AI practitioners and researchers. The report evaluates what enterprises need to monitor and where leading agent frameworks still leave important telemetry gaps.
+                </p>
+
+                <div class="my-8 rounded-2xl border border-outline-variant bg-surface-container-low p-6">
+                    <p class="mb-3 font-headline text-2xl text-primary md:text-headline-md">The practical distinction</p>
+                    <p class="font-body text-body-md leading-relaxed text-on-surface-variant">
+                        Guardrails define intended behavior. Observability records what happened. Continuous assurance turns those records into signals that help people detect risk, intervene, and review decisions after the fact.
+                    </p>
+                </div>
+
+                <h2 class="mb-4 mt-10 font-headline text-3xl text-on-background md:text-headline-lg">Testing cannot cover production reality</h2>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    Traditional software testing works best when inputs and outcomes can be bounded. AI agents complicate that model. They interpret requests, select tools, retrieve information, delegate work, revise plans, and act in environments that change after testing is complete. The number of possible paths grows quickly.
+                </p>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    Pre-deployment evaluation should therefore be treated as the beginning of assurance, not its conclusion. Runtime monitoring is what gives an organization a chance to identify behavior that a finite test suite did not anticipate.
+                </p>
+
+                <h2 class="mb-4 mt-10 font-headline text-3xl text-on-background md:text-headline-lg">Continuous monitoring is not a new operating model</h2>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    Continuous agent monitoring extends an operating discipline Tabiri already knows through cybersecurity. In our <a class="text-primary underline" href="/case-studies#cdp-mapsync">work with CDP-MapSync</a>, a network-sensor pilot grew into ongoing endpoint visibility, practical remediation, and human-governed investigation. The value came not from collecting every possible event, but from establishing a baseline, identifying meaningful deviations, assigning owners, and connecting alerts to action.
+                </p>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    The operating principles transfer, but the signals do not map one for one. Cybersecurity monitoring focuses on systems, identities, vulnerabilities, and network or endpoint activity. Agent assurance must also examine what an agent was authorized to do, which tools and evidence shaped its action, whether delegation expanded its authority, how its behavior changed, and whether a person could intervene effectively. A security information and event management platform can contribute useful telemetry, but it is not, by itself, an agent assurance program.
+                </p>
+
+                <h2 class="mb-4 mt-10 font-headline text-3xl text-on-background md:text-headline-lg">Six questions a production monitoring program should answer</h2>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    The report organizes enterprise monitoring needs around six goals. They provide a useful operating checklist for any team preparing to scale an agent.
+                </p>
+
+                <div class="my-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <article class="trust-card-no-hover">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">policy</span></div>
+                            <h3 class="font-headline text-2xl text-primary md:text-headline-md">Did it follow policy?</h3>
+                        </div>
+                        <p class="font-body text-body-sm leading-relaxed text-on-surface-variant">Detect outputs or actions that violate enterprise rules, legal requirements, data-handling restrictions, or expected refusal behavior.</p>
+                    </article>
+
+                    <article class="trust-card-no-hover">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">lock</span></div>
+                            <h3 class="font-headline text-2xl text-primary md:text-headline-md">Was the action authorized?</h3>
+                        </div>
+                        <p class="font-body text-body-sm leading-relaxed text-on-surface-variant">Check the tools, data, operations, and permission mode in force when the agent acted.</p>
+                    </article>
+
+                    <article class="trust-card-no-hover">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">gpp_good</span></div>
+                            <h3 class="font-headline text-2xl text-primary md:text-headline-md">Was human review meaningful?</h3>
+                        </div>
+                        <p class="font-body text-body-sm leading-relaxed text-on-surface-variant">Confirm that the right person reviewed the decision with enough time and authority to approve, stop, or redirect it.</p>
+                    </article>
+
+                    <article class="trust-card-no-hover">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">monitoring</span></div>
+                            <h3 class="font-headline text-2xl text-primary md:text-headline-md">Has behavior changed?</h3>
+                        </div>
+                        <p class="font-body text-body-sm leading-relaxed text-on-surface-variant">Identify drift in escalation, refusal, source use, quality, or other behavior that matters to the workflow.</p>
+                    </article>
+
+                    <article class="trust-card-no-hover">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">account_tree</span></div>
+                            <h3 class="font-headline text-2xl text-primary md:text-headline-md">Did delegation expand risk?</h3>
+                        </div>
+                        <p class="font-body text-body-sm leading-relaxed text-on-surface-variant">Trace authority, context, and evidence across agent handoffs so delegation does not silently widen access.</p>
+                    </article>
+
+                    <article class="trust-card-no-hover">
+                        <div class="mb-4 flex items-center gap-3">
+                            <div class="icon-tile mb-0"><span class="material-symbols-outlined text-primary">fact_check</span></div>
+                            <h3 class="font-headline text-2xl text-primary md:text-headline-md">Can the decision be reconstructed?</h3>
+                        </div>
+                        <p class="font-body text-body-sm leading-relaxed text-on-surface-variant">Preserve a trustworthy record of inputs, sources, actions, handoffs, approvals, and outcomes for later review.</p>
+                    </article>
+                </div>
+
+                <h2 class="mb-4 mt-10 font-headline text-3xl text-on-background md:text-headline-lg">Logs are not the same as assurance</h2>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    A tool-call log can show that an agent opened a file. It cannot, by itself, show whether that agent was permitted to open the file for that case. A record of approval cannot show whether the reviewer had the right authority or whether approvals are becoming automatic. Telemetry becomes useful only when it is connected to organizational context.
+                </p>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    That means joining agent activity to identity and access systems, tracing claims back to evidence, comparing outputs with policy or source material, and looking for patterns over time. The intent layer still belongs to the organization: policies, roles, deny lists, escalation rules, and definitions of unacceptable behavior must be explicit before monitoring can judge against them.
+                </p>
+
+                <blockquote class="my-10 rounded-r-2xl border-l-4 border-primary bg-surface-container-low p-6">
+                    <p class="font-headline text-2xl leading-relaxed text-primary md:text-headline-md">A record tells you what happened. Continuous assurance helps determine whether it should have happened and what to do next.</p>
+                </blockquote>
+
+                <h2 class="mb-4 mt-10 font-headline text-3xl text-on-background md:text-headline-lg">Human-in-the-loop needs its own monitoring</h2>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    Human approval is often presented as the final safeguard, but the presence of an approval button does not prove meaningful oversight. Reviewers can become over-reliant on recommendations, approve too quickly, or lack the authority required for the decision.
+                </p>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    Teams should be able to examine who reviewed a recommendation, what they decided, how long the review took, whether they sought more information, and how often they overrode the system. Those patterns help distinguish earned trust from rubber-stamping.
+                </p>
+
+                <h2 class="mb-4 mt-10 font-headline text-3xl text-on-background md:text-headline-lg">What organizations can do now</h2>
+                <ol class="mb-8 list-decimal space-y-4 pl-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    <li><strong class="text-on-surface">Start with one bounded workflow.</strong> Name the decisions, tools, data sources, handoffs, and people involved.</li>
+                    <li><strong class="text-on-surface">Work backward from failure.</strong> Identify the policy violations, unauthorized actions, oversight failures, and drift that would matter most.</li>
+                    <li><strong class="text-on-surface">Define identity and permissions.</strong> Give each agent a durable identity and make approval-mode changes visible.</li>
+                    <li><strong class="text-on-surface">Capture evidence proportionately.</strong> Use stronger records and alerts for high-impact, difficult-to-reverse actions; use lighter monitoring for routine work.</li>
+                    <li><strong class="text-on-surface">Connect signals to intervention.</strong> Assign owners, thresholds, escalation paths, and post-incident review before launch.</li>
+                </ol>
+
+                <h2 class="mb-4 mt-10 font-headline text-3xl text-on-background md:text-headline-lg">Do not confuse visible reasoning with reliable evidence</h2>
+                <p class="mb-6 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    The report draws an important boundary between records of what an agent did and records of how a model reached its decision. Actions, permissions, memory changes, sources, and approvals are concrete operational records. Chain-of-thought summaries and confidence statements are less reliable and may not reflect the factors that actually drove the model.
+                </p>
+                <p class="mb-10 font-body text-body-md leading-relaxed text-on-surface-variant">
+                    For practical governance, organizations should begin with evidence they can verify: identity, authority, tool activity, source attribution, human intervention, and outcomes. Explainability claims should not outrun what the system can faithfully observe.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="border-t border-outline-variant bg-surface-container-low px-gutter py-12" id="agent-observability-cta">
+        <div class="relative mx-auto max-w-7xl overflow-hidden rounded-3xl border border-outline-variant bg-[#e2e7ff] p-8 text-center text-on-surface shadow-lg md:p-12">
+            <div class="absolute inset-0 bg-linear-to-tr from-[#1a45d2]/5 to-transparent"></div>
+            <div class="relative z-10 mx-auto max-w-5xl">
+                <p class="mb-4 font-label text-label-sm uppercase tracking-[0.2em] text-primary">Start with one workflow</p>
+                <h2 class="mb-4 text-center font-headline text-4xl md:text-display-lg">Is your workflow ready for <span class="text-primary">governed automation?</span></h2>
+                <p class="mx-auto mb-8 max-w-2xl font-body text-body-lg text-on-surface-variant">
+                    Get an immediate recommendation in less than two minutes, then use the checklist to prepare its permissions, intervention paths, and monitoring requirements.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a class="btn-primary" href="/automation-assessment">Take the Automation Readiness Assessment</a>
+                    <a class="btn-secondary" data-analytics-download="continuous_assurance_checklist" download="Tabiri-Continuous-Assurance-Checklist.pdf" href="/static/tabiri_continuous_assurance_checklist.pdf">
+                        <span class="material-symbols-outlined icon-size-sm">download</span>
+                        Download the Continuous Assurance Checklist
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>
+{{end}}

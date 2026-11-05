@@ -695,6 +695,9 @@
   .scroll-mt-28 {
     scroll-margin-top: calc(var(--spacing) * 28);
   }
+  .list-decimal {
+    list-style-type: decimal;
+  }
   .list-disc {
     list-style-type: disc;
   }
@@ -1222,6 +1225,9 @@
   }
   .pl-5 {
     padding-left: calc(var(--spacing) * 5);
+  }
+  .pl-6 {
+    padding-left: calc(var(--spacing) * 6);
   }
   .text-center {
     text-align: center;
