@@ -76,6 +76,12 @@ Commercial and partner submissions remain non-marketing contacts. Only an
 explicit newsletter submission may update the `Tabiri newsletter`
 communication preference.
 
+Migration 5 installs temporary, one-way SQLite triggers from the three legacy
+submission tables to `lead_submissions`. This keeps submissions made by a
+rolled-back application version in the unified HubSpot queue. Remove the
+triggers and legacy tables only after the unified intake path has completed its
+rollback window.
+
 Production routes `tabirianalytics.com` to `tabiri-web-backend`.
 `www.tabirianalytics.com` terminates TLS with the same managed certificate and
 permanently redirects to the apex hostname while preserving paths and query

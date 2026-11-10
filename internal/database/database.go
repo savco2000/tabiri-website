@@ -14,6 +14,9 @@ var schema string
 //go:embed lead_submissions.sql
 var leadSubmissionsSchema string
 
+//go:embed rollback_compatibility.sql
+var rollbackCompatibilitySchema string
+
 func Open(path string) (*sql.DB, error) {
 	db, err := sql.Open("sqlite3", path)
 	if err != nil {
@@ -52,6 +55,7 @@ var migrations = []migration{
 	{version: 2, apply: migrateLegacyLeadSchema},
 	{version: 3, apply: createNewsletterSubscriptions},
 	{version: 4, apply: createLeadSubmissions},
+	{version: 5, apply: createRollbackCompatibilityTriggers},
 }
 
 func ApplySchema(ctx context.Context, db *sql.DB) error {
@@ -179,6 +183,13 @@ func createNewsletterSubscriptions(ctx context.Context, tx *sql.Tx) error {
 func createLeadSubmissions(ctx context.Context, tx *sql.Tx) error {
 	if _, err := tx.ExecContext(ctx, leadSubmissionsSchema); err != nil {
 		return fmt.Errorf("create lead submissions table: %w", err)
+	}
+	return nil
+}
+
+func createRollbackCompatibilityTriggers(ctx context.Context, tx *sql.Tx) error {
+	if _, err := tx.ExecContext(ctx, rollbackCompatibilitySchema); err != nil {
+		return fmt.Errorf("create rollback compatibility triggers: %w", err)
 	}
 	return nil
 }

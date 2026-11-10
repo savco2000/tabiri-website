@@ -216,6 +216,193 @@ func TestLeadSubmissionsQueueDefaultsAndConstraints(t *testing.T) {
 	}
 }
 
+func TestLegacySubmissionsMirrorToLeadSubmissions(t *testing.T) {
+	db, err := Open(":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		db.Close()
+	})
+	if err := ApplySchema(t.Context(), db); err != nil {
+		t.Fatal(err)
+	}
+	_, err = db.Exec(`
+		INSERT INTO contact_submissions (
+			full_name,
+			corporate_email,
+			workflow_bottleneck,
+			workflow_name,
+			assessment_result,
+			assessment_score,
+			assessment_answers,
+			utm_source,
+			utm_medium,
+			utm_campaign,
+			utm_content,
+			referrer,
+			spam_status,
+			spam_reasons,
+			lead_status,
+			turnstile_verified_at,
+			created_date
+		) VALUES (
+			'Commercial Lead',
+			'commercial@example.com',
+			'Manual handoffs',
+			'Order processing',
+			'Ready',
+			'8',
+			'{"q1":"yes"}',
+			'google',
+			'cpc',
+			'automation',
+			'checklist',
+			'https://example.com/',
+			'accepted',
+			'[]',
+			'new',
+			'2026-11-10 12:00:00',
+			'2026-11-10 12:01:00'
+		)
+	`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var submissionType, fullName, email, assessmentScore, submittedDate string
+	if err := db.QueryRow(`
+		SELECT submission_type, full_name, email, assessment_score, submitted_date
+		FROM lead_submissions
+	`).Scan(&submissionType, &fullName, &email, &assessmentScore, &submittedDate); err != nil {
+		t.Fatal(err)
+	}
+	if submissionType != "commercial_lead" ||
+		fullName != "Commercial Lead" ||
+		email != "commercial@example.com" ||
+		assessmentScore != "8" ||
+		submittedDate != "2026-11-10 12:01:00" {
+		t.Fatalf(
+			"unexpected mirrored commercial lead: submission_type=%q full_name=%q email=%q assessment_score=%q submitted_date=%q",
+			submissionType,
+			fullName,
+			email,
+			assessmentScore,
+			submittedDate,
+		)
+	}
+
+	_, err = db.Exec(`
+		INSERT INTO partner_contact_submissions (
+			agency_name,
+			corporate_email,
+			client_volume,
+			primary_vertical,
+			delivery_constraint,
+			created_date
+		) VALUES (
+			'Partner Agency',
+			'partner@example.com',
+			'11-50',
+			'Healthcare',
+			'Limited delivery capacity',
+			'2026-11-10 12:02:00'
+		)
+	`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var agencyName, clientVolume, primaryVertical, partnerType string
+	if err := db.QueryRow(`
+		SELECT submission_type, agency_name, client_volume, primary_vertical
+		FROM lead_submissions
+		WHERE email = 'partner@example.com'
+	`).Scan(&partnerType, &agencyName, &clientVolume, &primaryVertical); err != nil {
+		t.Fatal(err)
+	}
+	if partnerType != "partner" ||
+		agencyName != "Partner Agency" ||
+		clientVolume != "11-50" ||
+		primaryVertical != "Healthcare" {
+		t.Fatalf(
+			"unexpected mirrored partner lead: submission_type=%q agency_name=%q client_volume=%q primary_vertical=%q",
+			partnerType,
+			agencyName,
+			clientVolume,
+			primaryVertical,
+		)
+	}
+
+	_, err = db.Exec(`
+		INSERT INTO newsletter_subscriptions (
+			first_name,
+			email,
+			consent_given,
+			created_date
+		) VALUES (
+			'Newsletter',
+			'newsletter@example.com',
+			1,
+			'2026-11-10 12:03:00'
+		)
+	`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var firstName, newsletterType, consentRecordedDate string
+	var consentGiven int
+	if err := db.QueryRow(`
+		SELECT submission_type, first_name, consent_given, consent_recorded_date
+		FROM lead_submissions
+		WHERE email = 'newsletter@example.com'
+	`).Scan(&newsletterType, &firstName, &consentGiven, &consentRecordedDate); err != nil {
+		t.Fatal(err)
+	}
+	if newsletterType != "newsletter" ||
+		firstName != "Newsletter" ||
+		consentGiven != 1 ||
+		consentRecordedDate != "2026-11-10 12:03:00" {
+		t.Fatalf(
+			"unexpected mirrored newsletter: submission_type=%q first_name=%q consent_given=%d consent_recorded_date=%q",
+			newsletterType,
+			firstName,
+			consentGiven,
+			consentRecordedDate,
+		)
+	}
+}
+
+func TestLeadSubmissionWritesDoNotMirrorToLegacyTables(t *testing.T) {
+	db, err := Open(":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		db.Close()
+	})
+	if err := ApplySchema(t.Context(), db); err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = db.Exec(`
+		INSERT INTO lead_submissions (submission_type, email)
+		VALUES ('commercial_lead', 'unified@example.com')
+	`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var count int
+	if err := db.QueryRow("SELECT COUNT(*) FROM contact_submissions").Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+	if count != 0 {
+		t.Fatalf("unified insert created %d legacy submissions, want 0", count)
+	}
+}
+
 func TestApplySchemaRecordsMigrationsIdempotently(t *testing.T) {
 	db, err := Open(":memory:")
 	if err != nil {
