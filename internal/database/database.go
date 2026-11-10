@@ -11,6 +11,9 @@ import (
 //go:embed schema.sql
 var schema string
 
+//go:embed lead_submissions.sql
+var leadSubmissionsSchema string
+
 func Open(path string) (*sql.DB, error) {
 	db, err := sql.Open("sqlite3", path)
 	if err != nil {
@@ -48,6 +51,7 @@ var migrations = []migration{
 	{version: 1, apply: createCurrentSchema},
 	{version: 2, apply: migrateLegacyLeadSchema},
 	{version: 3, apply: createNewsletterSubscriptions},
+	{version: 4, apply: createLeadSubmissions},
 }
 
 func ApplySchema(ctx context.Context, db *sql.DB) error {
@@ -168,6 +172,13 @@ func createNewsletterSubscriptions(ctx context.Context, tx *sql.Tx) error {
 		)
 	`); err != nil {
 		return fmt.Errorf("create newsletter subscriptions table: %w", err)
+	}
+	return nil
+}
+
+func createLeadSubmissions(ctx context.Context, tx *sql.Tx) error {
+	if _, err := tx.ExecContext(ctx, leadSubmissionsSchema); err != nil {
+		return fmt.Errorf("create lead submissions table: %w", err)
 	}
 	return nil
 }

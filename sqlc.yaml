@@ -2,7 +2,9 @@ version: "2"
 sql:
   - engine: "sqlite"
     queries: "internal/database/queries.sql"
-    schema: "internal/database/schema.sql"
+    schema:
+      - "internal/database/schema.sql"
+      - "internal/database/lead_submissions.sql"
     gen:
       go:
         package: "database"

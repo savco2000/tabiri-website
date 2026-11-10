@@ -4,6 +4,10 @@
 
 package database
 
+import (
+	"database/sql"
+)
+
 type ContactSubmission struct {
 	ID                  int64  `json:"id"`
 	FullName            string `json:"full_name"`
@@ -23,6 +27,42 @@ type ContactSubmission struct {
 	LeadStatus          string `json:"lead_status"`
 	TurnstileVerifiedAt string `json:"turnstile_verified_at"`
 	CreatedDate         string `json:"created_date"`
+}
+
+type LeadSubmission struct {
+	ID                  int64          `json:"id"`
+	SubmissionType      string         `json:"submission_type"`
+	Email               string         `json:"email"`
+	FirstName           string         `json:"first_name"`
+	FullName            string         `json:"full_name"`
+	AgencyName          string         `json:"agency_name"`
+	WorkflowBottleneck  string         `json:"workflow_bottleneck"`
+	WorkflowName        string         `json:"workflow_name"`
+	AssessmentResult    string         `json:"assessment_result"`
+	AssessmentScore     string         `json:"assessment_score"`
+	AssessmentAnswers   string         `json:"assessment_answers"`
+	ClientVolume        string         `json:"client_volume"`
+	PrimaryVertical     string         `json:"primary_vertical"`
+	DeliveryConstraint  string         `json:"delivery_constraint"`
+	ConsentGiven        int64          `json:"consent_given"`
+	ConsentRecordedDate sql.NullString `json:"consent_recorded_date"`
+	UtmSource           string         `json:"utm_source"`
+	UtmMedium           string         `json:"utm_medium"`
+	UtmCampaign         string         `json:"utm_campaign"`
+	UtmContent          string         `json:"utm_content"`
+	Referrer            string         `json:"referrer"`
+	SpamStatus          string         `json:"spam_status"`
+	SpamReasons         string         `json:"spam_reasons"`
+	LeadStatus          string         `json:"lead_status"`
+	TurnstileVerifiedAt string         `json:"turnstile_verified_at"`
+	SyncStatus          string         `json:"sync_status"`
+	SyncAttempts        int64          `json:"sync_attempts"`
+	NextAttemptDate     sql.NullString `json:"next_attempt_date"`
+	LastAttemptDate     sql.NullString `json:"last_attempt_date"`
+	LastSyncError       string         `json:"last_sync_error"`
+	HubspotContactID    string         `json:"hubspot_contact_id"`
+	SyncedDate          sql.NullString `json:"synced_date"`
+	SubmittedDate       string         `json:"submitted_date"`
 }
 
 type NewsletterSubscription struct {

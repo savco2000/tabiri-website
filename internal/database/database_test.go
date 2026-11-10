@@ -115,6 +115,107 @@ func TestLeadStatusConstraints(t *testing.T) {
 	}
 }
 
+func TestApplySchemaCreatesEmptyLeadSubmissionsTable(t *testing.T) {
+	db, err := Open(":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		db.Close()
+	})
+
+	if err := ApplySchema(t.Context(), db); err != nil {
+		t.Fatal(err)
+	}
+
+	columns, err := tableColumns(t.Context(), db, "lead_submissions")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, name := range []string{
+		"submission_type",
+		"email",
+		"consent_recorded_date",
+		"submitted_date",
+		"next_attempt_date",
+		"last_attempt_date",
+		"synced_date",
+		"sync_status",
+		"sync_attempts",
+		"hubspot_contact_id",
+	} {
+		if !columns[name] {
+			t.Errorf("missing lead_submissions column %q", name)
+		}
+	}
+	for _, name := range []string{
+		"consent_recorded_at",
+		"submitted_at",
+		"next_attempt_at",
+		"last_attempt_at",
+		"synced_at",
+	} {
+		if columns[name] {
+			t.Errorf("lead_submissions should not contain superseded column %q", name)
+		}
+	}
+
+	var count int
+	if err := db.QueryRow("SELECT COUNT(*) FROM lead_submissions").Scan(&count); err != nil {
+		t.Fatal(err)
+	}
+	if count != 0 {
+		t.Fatalf("got %d lead submissions after migration, want 0", count)
+	}
+}
+
+func TestLeadSubmissionsQueueDefaultsAndConstraints(t *testing.T) {
+	db, err := Open(":memory:")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		db.Close()
+	})
+	if err := ApplySchema(t.Context(), db); err != nil {
+		t.Fatal(err)
+	}
+
+	_, err = db.Exec(`
+		INSERT INTO lead_submissions (submission_type, email)
+		VALUES ('commercial_lead', 'lead@example.com')
+	`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var syncStatus string
+	var syncAttempts, consentGiven int
+	var submittedDate string
+	if err := db.QueryRow(`
+		SELECT sync_status, sync_attempts, consent_given, submitted_date
+		FROM lead_submissions
+	`).Scan(&syncStatus, &syncAttempts, &consentGiven, &submittedDate); err != nil {
+		t.Fatal(err)
+	}
+	if syncStatus != "pending" || syncAttempts != 0 || consentGiven != 0 || submittedDate == "" {
+		t.Fatalf(
+			"unexpected queue defaults: sync_status=%q sync_attempts=%d consent_given=%d submitted_date=%q",
+			syncStatus,
+			syncAttempts,
+			consentGiven,
+			submittedDate,
+		)
+	}
+
+	if _, err := db.Exec(`
+		INSERT INTO lead_submissions (submission_type, email)
+		VALUES ('unknown', 'invalid@example.com')
+	`); err == nil {
+		t.Fatal("expected invalid submission_type to violate the schema constraint")
+	}
+}
+
 func TestApplySchemaRecordsMigrationsIdempotently(t *testing.T) {
 	db, err := Open(":memory:")
 	if err != nil {
