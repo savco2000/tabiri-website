@@ -173,6 +173,31 @@ If later routing to the Go app, avoid conflicting edge/app CSP headers:
 browsers enforce all supplied policies. Forward dynamic forms to the app and
 do not cache pages containing per-request form proofs or form POST responses.
 
+## Google tag gateway
+
+Production serves the consent-gated GTM container through the first-party
+`/metrics/` path. Terraform routes that path on both production hostnames to an
+HTTPS backend service backed by a global internet NEG for
+`gtm-wh3cmbpj.fps.goog`. The backend supplies Google's required host and
+geolocation headers. Cloud CDN and Cloud Armor are not required for this
+backend.
+
+Keep `/metrics/` reserved for Google tag gateway traffic. The analytics loader
+must remain behind the existing consent gate; rejecting analytics must not
+request the gateway path. After applying the Terraform change and deploying the
+matching application release, verify:
+
+```bash
+curl --fail --silent https://tabirianalytics.com/metrics/healthy
+curl --fail --silent \
+  'https://tabirianalytics.com/metrics/?validate_geo=healthy'
+```
+
+Both commands must return `ok`. In a browser, reject analytics and confirm that
+no `/metrics/` or GA4 collection requests are sent. Then accept analytics and
+confirm that the GTM script, `page_view`, and conversion events use the
+first-party `/metrics/` path without duplicate events.
+
 ## Verify after rollout
 
 ```bash

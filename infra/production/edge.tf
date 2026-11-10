@@ -28,6 +28,15 @@ resource "google_compute_url_map" "production" {
     default_service = google_compute_backend_service.web.id
 
     route_rules {
+      priority = 1
+      service  = google_compute_backend_service.google_tag_gateway.id
+
+      match_rules {
+        prefix_match = "/metrics/"
+      }
+    }
+
+    route_rules {
       priority = 10
 
       match_rules {
@@ -324,6 +333,15 @@ resource "google_compute_url_map" "production" {
 
   path_matcher {
     name = "www-redirect"
+
+    route_rules {
+      priority = 1
+      service  = google_compute_backend_service.google_tag_gateway.id
+
+      match_rules {
+        prefix_match = "/metrics/"
+      }
+    }
 
     default_url_redirect {
       host_redirect          = "tabirianalytics.com"

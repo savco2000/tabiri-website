@@ -4,6 +4,7 @@
   const acceptButton = document.getElementById("accept-analytics");
   const rejectButton = document.getElementById("reject-analytics");
   const settingsButton = document.getElementById("cookie-settings");
+  const measurementId = "G-VYTHYNP8N7";
   const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
   let analyticsLoaded = false;
   let conversionTracked = false;
@@ -15,7 +16,7 @@
       return;
     }
 
-    const parameters = {};
+    const parameters = { send_to: measurementId };
     if (eventName === "generate_lead") {
       parameters.lead_type = document.body.dataset.analyticsLeadType;
       parameters.lead_source = document.body.dataset.analyticsLeadSource;
@@ -64,7 +65,7 @@
 
     const script = document.createElement("script");
     script.async = true;
-    script.src = "https://www.googletagmanager.com/gtm.js?id=GTM-WH3CMBPJ";
+    script.src = "/metrics/?id=GTM-WH3CMBPJ";
     document.head.appendChild(script);
     trackPendingConversion();
   };
@@ -118,6 +119,7 @@
       window.gtag("event", `${contactMethod}_click`, {
         contact_method: contactMethod,
         link_location: window.location.pathname,
+        send_to: measurementId,
       });
     }
 
@@ -136,6 +138,7 @@
       link_text: link.textContent.trim(),
       link_url: url.href,
       resource_name: link.dataset.analyticsDownload,
+      send_to: measurementId,
     };
 
     campaignKeys.forEach((key) => {
