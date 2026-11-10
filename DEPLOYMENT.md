@@ -42,6 +42,40 @@ Before enabling the VM:
 5. Review and apply a new plan.
 6. Confirm that `tabiri-web-backend` is healthy.
 
+The HubSpot CRM integration stores its service key in
+`tabiri-hubspot-private-app-token`. Keep the service key out of source control,
+application logs, SQLite, and Terraform variables.
+
+### HubSpot CRM configuration
+
+- Portal ID: `52292760`
+- Service key scopes:
+  - `crm.objects.contacts.read`
+  - `crm.objects.contacts.write`
+  - `communication_preferences.read_write`
+- Newsletter subscription type: `Tabiri newsletter`
+- Newsletter subscription type ID: `4078871385`
+
+The Contact property contract is:
+
+| Internal name | Field type |
+|---|---|
+| `tabiri_engagement_types` | Multiple checkboxes |
+| `tabiri_latest_submission_at` | Date and time picker |
+| `tabiri_latest_lead_source` | Dropdown select |
+| `tabiri_workflow_bottleneck` | Multi-line text |
+| `tabiri_workflow_name` | Single-line text |
+| `tabiri_assessment_result` | Single-line text |
+| `tabiri_assessment_score` | Number |
+| `tabiri_partner_client_volume` | Dropdown select |
+| `tabiri_partner_primary_vertical` | Single-line text |
+| `tabiri_partner_delivery_constraint` | Multi-line text |
+
+Use the engagement values `commercial_lead`, `partner`, and `newsletter`.
+Commercial and partner submissions remain non-marketing contacts. Only an
+explicit newsletter submission may update the `Tabiri newsletter`
+communication preference.
+
 Production routes `tabirianalytics.com` to `tabiri-web-backend`.
 `www.tabirianalytics.com` terminates TLS with the same managed certificate and
 permanently redirects to the apex hostname while preserving paths and query

@@ -18,6 +18,16 @@ resource "google_secret_manager_secret" "form_hmac_key" {
   depends_on = [google_project_service.required]
 }
 
+resource "google_secret_manager_secret" "hubspot_service_key" {
+  secret_id = "tabiri-hubspot-private-app-token"
+
+  replication {
+    auto {}
+  }
+
+  depends_on = [google_project_service.required]
+}
+
 resource "google_secret_manager_secret_iam_member" "turnstile_reader" {
   secret_id = google_secret_manager_secret.turnstile_secret_key.id
   role      = "roles/secretmanager.secretAccessor"
@@ -26,6 +36,12 @@ resource "google_secret_manager_secret_iam_member" "turnstile_reader" {
 
 resource "google_secret_manager_secret_iam_member" "form_hmac_reader" {
   secret_id = google_secret_manager_secret.form_hmac_key.id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = google_service_account.web.member
+}
+
+resource "google_secret_manager_secret_iam_member" "hubspot_service_key_reader" {
+  secret_id = google_secret_manager_secret.hubspot_service_key.id
   role      = "roles/secretmanager.secretAccessor"
   member    = google_service_account.web.member
 }

@@ -17,6 +17,7 @@ output "secret_names" {
   description = "Secret Manager containers that require versions before application deployment."
   value = {
     form_hmac_key        = google_secret_manager_secret.form_hmac_key.secret_id
+    hubspot_service_key  = google_secret_manager_secret.hubspot_service_key.secret_id
     turnstile_secret_key = google_secret_manager_secret.turnstile_secret_key.secret_id
   }
 }
