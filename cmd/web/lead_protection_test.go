@@ -18,7 +18,7 @@ func TestContactSubmitRequiresTurnstileToken(t *testing.T) {
 	if response.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("got status %d, want %d", response.Code, http.StatusUnprocessableEntity)
 	}
-	assertSubmissionCount(t, db, "contact_submissions", 0)
+	assertSubmissionCount(t, db, "lead_submissions", 0)
 }
 
 func TestContactSubmitRequiresSignedFormProof(t *testing.T) {
@@ -31,7 +31,7 @@ func TestContactSubmitRequiresSignedFormProof(t *testing.T) {
 	if response.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("got status %d, want %d", response.Code, http.StatusUnprocessableEntity)
 	}
-	assertSubmissionCount(t, db, "contact_submissions", 0)
+	assertSubmissionCount(t, db, "lead_submissions", 0)
 }
 
 func TestContactSubmitRejectsOversizedBody(t *testing.T) {
@@ -49,7 +49,7 @@ func TestContactSubmitRejectsOversizedBody(t *testing.T) {
 	if response.Code != http.StatusRequestEntityTooLarge {
 		t.Fatalf("got status %d, want %d", response.Code, http.StatusRequestEntityTooLarge)
 	}
-	assertSubmissionCount(t, db, "contact_submissions", 0)
+	assertSubmissionCount(t, db, "lead_submissions", 0)
 }
 
 func validContactValues() url.Values {

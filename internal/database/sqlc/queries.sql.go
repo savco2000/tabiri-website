@@ -9,15 +9,23 @@ import (
 	"context"
 )
 
-const createContactSubmission = `-- name: CreateContactSubmission :one
-INSERT INTO contact_submissions (
+const createLeadSubmission = `-- name: CreateLeadSubmission :one
+INSERT INTO lead_submissions (
+    submission_type,
+    email,
+    first_name,
     full_name,
-    corporate_email,
+    agency_name,
     workflow_bottleneck,
     workflow_name,
     assessment_result,
     assessment_score,
     assessment_answers,
+    client_volume,
+    primary_vertical,
+    delivery_constraint,
+    consent_given,
+    consent_recorded_date,
     utm_source,
     utm_medium,
     utm_campaign,
@@ -27,18 +35,53 @@ INSERT INTO contact_submissions (
     spam_reasons,
     lead_status,
     turnstile_verified_at
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-RETURNING id, full_name, corporate_email, workflow_bottleneck, workflow_name, assessment_result, assessment_score, assessment_answers, utm_source, utm_medium, utm_campaign, utm_content, referrer, spam_status, spam_reasons, lead_status, turnstile_verified_at, created_date
+) VALUES (
+    ?1,
+    ?2,
+    ?3,
+    ?4,
+    ?5,
+    ?6,
+    ?7,
+    ?8,
+    ?9,
+    ?10,
+    ?11,
+    ?12,
+    ?13,
+    ?14,
+    CASE
+        WHEN ?14 = 1 THEN CURRENT_TIMESTAMP
+        ELSE NULL
+    END,
+    ?15,
+    ?16,
+    ?17,
+    ?18,
+    ?19,
+    ?20,
+    ?21,
+    ?22,
+    CURRENT_TIMESTAMP
+)
+RETURNING id, submission_type, email, first_name, full_name, agency_name, workflow_bottleneck, workflow_name, assessment_result, assessment_score, assessment_answers, client_volume, primary_vertical, delivery_constraint, consent_given, consent_recorded_date, utm_source, utm_medium, utm_campaign, utm_content, referrer, spam_status, spam_reasons, lead_status, turnstile_verified_at, sync_status, sync_attempts, next_attempt_date, last_attempt_date, last_sync_error, hubspot_contact_id, synced_date, submitted_date
 `
 
-type CreateContactSubmissionParams struct {
+type CreateLeadSubmissionParams struct {
+	SubmissionType     string `json:"submission_type"`
+	Email              string `json:"email"`
+	FirstName          string `json:"first_name"`
 	FullName           string `json:"full_name"`
-	CorporateEmail     string `json:"corporate_email"`
+	AgencyName         string `json:"agency_name"`
 	WorkflowBottleneck string `json:"workflow_bottleneck"`
 	WorkflowName       string `json:"workflow_name"`
 	AssessmentResult   string `json:"assessment_result"`
 	AssessmentScore    string `json:"assessment_score"`
 	AssessmentAnswers  string `json:"assessment_answers"`
+	ClientVolume       string `json:"client_volume"`
+	PrimaryVertical    string `json:"primary_vertical"`
+	DeliveryConstraint string `json:"delivery_constraint"`
+	ConsentGiven       int64  `json:"consent_given"`
 	UtmSource          string `json:"utm_source"`
 	UtmMedium          string `json:"utm_medium"`
 	UtmCampaign        string `json:"utm_campaign"`
@@ -49,15 +92,22 @@ type CreateContactSubmissionParams struct {
 	LeadStatus         string `json:"lead_status"`
 }
 
-func (q *Queries) CreateContactSubmission(ctx context.Context, arg CreateContactSubmissionParams) (ContactSubmission, error) {
-	row := q.db.QueryRowContext(ctx, createContactSubmission,
+func (q *Queries) CreateLeadSubmission(ctx context.Context, arg CreateLeadSubmissionParams) (LeadSubmission, error) {
+	row := q.db.QueryRowContext(ctx, createLeadSubmission,
+		arg.SubmissionType,
+		arg.Email,
+		arg.FirstName,
 		arg.FullName,
-		arg.CorporateEmail,
+		arg.AgencyName,
 		arg.WorkflowBottleneck,
 		arg.WorkflowName,
 		arg.AssessmentResult,
 		arg.AssessmentScore,
 		arg.AssessmentAnswers,
+		arg.ClientVolume,
+		arg.PrimaryVertical,
+		arg.DeliveryConstraint,
+		arg.ConsentGiven,
 		arg.UtmSource,
 		arg.UtmMedium,
 		arg.UtmCampaign,
@@ -67,16 +117,24 @@ func (q *Queries) CreateContactSubmission(ctx context.Context, arg CreateContact
 		arg.SpamReasons,
 		arg.LeadStatus,
 	)
-	var i ContactSubmission
+	var i LeadSubmission
 	err := row.Scan(
 		&i.ID,
+		&i.SubmissionType,
+		&i.Email,
+		&i.FirstName,
 		&i.FullName,
-		&i.CorporateEmail,
+		&i.AgencyName,
 		&i.WorkflowBottleneck,
 		&i.WorkflowName,
 		&i.AssessmentResult,
 		&i.AssessmentScore,
 		&i.AssessmentAnswers,
+		&i.ClientVolume,
+		&i.PrimaryVertical,
+		&i.DeliveryConstraint,
+		&i.ConsentGiven,
+		&i.ConsentRecordedDate,
 		&i.UtmSource,
 		&i.UtmMedium,
 		&i.UtmCampaign,
@@ -86,107 +144,14 @@ func (q *Queries) CreateContactSubmission(ctx context.Context, arg CreateContact
 		&i.SpamReasons,
 		&i.LeadStatus,
 		&i.TurnstileVerifiedAt,
-		&i.CreatedDate,
-	)
-	return i, err
-}
-
-const createNewsletterSubscription = `-- name: CreateNewsletterSubscription :one
-INSERT INTO newsletter_subscriptions (
-    first_name,
-    email,
-    consent_given,
-    spam_status,
-    spam_reasons,
-    lead_status,
-    turnstile_verified_at
-) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-RETURNING id, first_name, email, consent_given, spam_status, spam_reasons, lead_status, turnstile_verified_at, created_date
-`
-
-type CreateNewsletterSubscriptionParams struct {
-	FirstName    string `json:"first_name"`
-	Email        string `json:"email"`
-	ConsentGiven int64  `json:"consent_given"`
-	SpamStatus   string `json:"spam_status"`
-	SpamReasons  string `json:"spam_reasons"`
-	LeadStatus   string `json:"lead_status"`
-}
-
-func (q *Queries) CreateNewsletterSubscription(ctx context.Context, arg CreateNewsletterSubscriptionParams) (NewsletterSubscription, error) {
-	row := q.db.QueryRowContext(ctx, createNewsletterSubscription,
-		arg.FirstName,
-		arg.Email,
-		arg.ConsentGiven,
-		arg.SpamStatus,
-		arg.SpamReasons,
-		arg.LeadStatus,
-	)
-	var i NewsletterSubscription
-	err := row.Scan(
-		&i.ID,
-		&i.FirstName,
-		&i.Email,
-		&i.ConsentGiven,
-		&i.SpamStatus,
-		&i.SpamReasons,
-		&i.LeadStatus,
-		&i.TurnstileVerifiedAt,
-		&i.CreatedDate,
-	)
-	return i, err
-}
-
-const createPartnerContactSubmission = `-- name: CreatePartnerContactSubmission :one
-INSERT INTO partner_contact_submissions (
-    agency_name,
-    corporate_email,
-    client_volume,
-    primary_vertical,
-    delivery_constraint,
-    spam_status,
-    spam_reasons,
-    lead_status,
-    turnstile_verified_at
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-RETURNING id, agency_name, corporate_email, client_volume, primary_vertical, delivery_constraint, spam_status, spam_reasons, lead_status, turnstile_verified_at, created_date
-`
-
-type CreatePartnerContactSubmissionParams struct {
-	AgencyName         string `json:"agency_name"`
-	CorporateEmail     string `json:"corporate_email"`
-	ClientVolume       string `json:"client_volume"`
-	PrimaryVertical    string `json:"primary_vertical"`
-	DeliveryConstraint string `json:"delivery_constraint"`
-	SpamStatus         string `json:"spam_status"`
-	SpamReasons        string `json:"spam_reasons"`
-	LeadStatus         string `json:"lead_status"`
-}
-
-func (q *Queries) CreatePartnerContactSubmission(ctx context.Context, arg CreatePartnerContactSubmissionParams) (PartnerContactSubmission, error) {
-	row := q.db.QueryRowContext(ctx, createPartnerContactSubmission,
-		arg.AgencyName,
-		arg.CorporateEmail,
-		arg.ClientVolume,
-		arg.PrimaryVertical,
-		arg.DeliveryConstraint,
-		arg.SpamStatus,
-		arg.SpamReasons,
-		arg.LeadStatus,
-	)
-	var i PartnerContactSubmission
-	err := row.Scan(
-		&i.ID,
-		&i.AgencyName,
-		&i.CorporateEmail,
-		&i.ClientVolume,
-		&i.PrimaryVertical,
-		&i.DeliveryConstraint,
-		&i.SpamStatus,
-		&i.SpamReasons,
-		&i.LeadStatus,
-		&i.TurnstileVerifiedAt,
-		&i.CreatedDate,
+		&i.SyncStatus,
+		&i.SyncAttempts,
+		&i.NextAttemptDate,
+		&i.LastAttemptDate,
+		&i.LastSyncError,
+		&i.HubspotContactID,
+		&i.SyncedDate,
+		&i.SubmittedDate,
 	)
 	return i, err
 }

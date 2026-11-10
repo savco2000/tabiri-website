@@ -80,7 +80,9 @@ Migration 5 installs temporary, one-way SQLite triggers from the three legacy
 submission tables to `lead_submissions`. This keeps submissions made by a
 rolled-back application version in the unified HubSpot queue. Remove the
 triggers and legacy tables only after the unified intake path has completed its
-rollback window.
+rollback window. The active contact, partner-contact, and newsletter handlers
+write directly to `lead_submissions`; they do not dual-write to the legacy
+tables.
 
 Production routes `tabirianalytics.com` to `tabiri-web-backend`.
 `www.tabirianalytics.com` terminates TLS with the same managed certificate and

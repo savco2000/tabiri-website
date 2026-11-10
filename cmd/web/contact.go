@@ -140,15 +140,22 @@ func (app *application) contactSubmit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := app.databaseOperation(r.Context(), "create_contact_submission", func(ctx context.Context) error {
-		_, err := app.queries.CreateContactSubmission(ctx, sqlc.CreateContactSubmissionParams{
+	err := app.databaseOperation(r.Context(), "create_lead_submission", func(ctx context.Context) error {
+		_, err := app.queries.CreateLeadSubmission(ctx, sqlc.CreateLeadSubmissionParams{
+			SubmissionType:     "commercial_lead",
+			Email:              form.CorporateEmail,
+			FirstName:          "",
 			FullName:           form.FullName,
-			CorporateEmail:     form.CorporateEmail,
+			AgencyName:         "",
 			WorkflowBottleneck: form.WorkflowBottleneck,
 			WorkflowName:       form.WorkflowName,
 			AssessmentResult:   form.AssessmentResult,
 			AssessmentScore:    form.AssessmentScore,
 			AssessmentAnswers:  form.AssessmentAnswers,
+			ClientVolume:       "",
+			PrimaryVertical:    "",
+			DeliveryConstraint: "",
+			ConsentGiven:       0,
 			UtmSource:          form.UTMSource,
 			UtmMedium:          form.UTMMedium,
 			UtmCampaign:        form.UTMCampaign,
@@ -195,13 +202,27 @@ func (app *application) partnerContactSubmit(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	err := app.databaseOperation(r.Context(), "create_partner_contact_submission", func(ctx context.Context) error {
-		_, err := app.queries.CreatePartnerContactSubmission(ctx, sqlc.CreatePartnerContactSubmissionParams{
+	err := app.databaseOperation(r.Context(), "create_lead_submission", func(ctx context.Context) error {
+		_, err := app.queries.CreateLeadSubmission(ctx, sqlc.CreateLeadSubmissionParams{
+			SubmissionType:     "partner",
+			Email:              form.CorporateEmail,
+			FirstName:          "",
+			FullName:           "",
 			AgencyName:         form.AgencyName,
-			CorporateEmail:     form.CorporateEmail,
+			WorkflowBottleneck: "",
+			WorkflowName:       "",
+			AssessmentResult:   "",
+			AssessmentScore:    "",
+			AssessmentAnswers:  "",
 			ClientVolume:       form.ClientVolume,
 			PrimaryVertical:    form.PrimaryVertical,
 			DeliveryConstraint: form.DeliveryConstraint,
+			ConsentGiven:       0,
+			UtmSource:          "",
+			UtmMedium:          "",
+			UtmCampaign:        "",
+			UtmContent:         "",
+			Referrer:           "",
 			SpamStatus:         string(spamStatusAccepted),
 			SpamReasons:        "[]",
 			LeadStatus:         string(leadStatusNew),
@@ -239,14 +260,30 @@ func (app *application) newsletterSubmit(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	err := app.databaseOperation(r.Context(), "create_newsletter_subscription", func(ctx context.Context) error {
-		_, err := app.queries.CreateNewsletterSubscription(ctx, sqlc.CreateNewsletterSubscriptionParams{
-			FirstName:    form.FirstName,
-			Email:        form.Email,
-			ConsentGiven: 1,
-			SpamStatus:   string(spamStatusAccepted),
-			SpamReasons:  "[]",
-			LeadStatus:   string(leadStatusNew),
+	err := app.databaseOperation(r.Context(), "create_lead_submission", func(ctx context.Context) error {
+		_, err := app.queries.CreateLeadSubmission(ctx, sqlc.CreateLeadSubmissionParams{
+			SubmissionType:     "newsletter",
+			Email:              form.Email,
+			FirstName:          form.FirstName,
+			FullName:           "",
+			AgencyName:         "",
+			WorkflowBottleneck: "",
+			WorkflowName:       "",
+			AssessmentResult:   "",
+			AssessmentScore:    "",
+			AssessmentAnswers:  "",
+			ClientVolume:       "",
+			PrimaryVertical:    "",
+			DeliveryConstraint: "",
+			ConsentGiven:       1,
+			UtmSource:          "",
+			UtmMedium:          "",
+			UtmCampaign:        "",
+			UtmContent:         "",
+			Referrer:           "",
+			SpamStatus:         string(spamStatusAccepted),
+			SpamReasons:        "[]",
+			LeadStatus:         string(leadStatusNew),
 		})
 		return err
 	})

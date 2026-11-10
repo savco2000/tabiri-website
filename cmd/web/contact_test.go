@@ -47,27 +47,47 @@ func TestContactSubmitPersistsSubmission(t *testing.T) {
 		t.Fatalf("got redirect %q, want %q", location, "/contact?submitted=true")
 	}
 
-	var fullName, email, bottleneck, spamStatus, spamReasons, leadStatus, verifiedAt string
+	var submissionType, fullName, email, bottleneck string
+	var spamStatus, spamReasons, leadStatus, verifiedAt, syncStatus string
 	err := db.QueryRow(`
-		SELECT full_name, corporate_email, workflow_bottleneck,
-		       spam_status, spam_reasons, lead_status, turnstile_verified_at
-		FROM contact_submissions
-	`).Scan(&fullName, &email, &bottleneck, &spamStatus, &spamReasons, &leadStatus, &verifiedAt)
+		SELECT submission_type, full_name, email, workflow_bottleneck,
+		       spam_status, spam_reasons, lead_status, turnstile_verified_at, sync_status
+		FROM lead_submissions
+	`).Scan(
+		&submissionType,
+		&fullName,
+		&email,
+		&bottleneck,
+		&spamStatus,
+		&spamReasons,
+		&leadStatus,
+		&verifiedAt,
+		&syncStatus,
+	)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if fullName != "Jane Doe" || email != "jane@example.com" || bottleneck != "Manual invoice reconciliation" {
+	if submissionType != "commercial_lead" ||
+		fullName != "Jane Doe" ||
+		email != "jane@example.com" ||
+		bottleneck != "Manual invoice reconciliation" {
 		t.Fatalf("stored unexpected submission: %q, %q, %q", fullName, email, bottleneck)
 	}
-	if spamStatus != "accepted" || spamReasons != "[]" || leadStatus != "new" || verifiedAt == "" {
+	if spamStatus != "accepted" ||
+		spamReasons != "[]" ||
+		leadStatus != "new" ||
+		verifiedAt == "" ||
+		syncStatus != "pending" {
 		t.Fatalf(
-			"stored unexpected lead screening state: %q, %q, %q, %q",
+			"stored unexpected lead state: %q, %q, %q, %q, %q",
 			spamStatus,
 			spamReasons,
 			leadStatus,
 			verifiedAt,
+			syncStatus,
 		)
 	}
+	assertSubmissionCount(t, db, "contact_submissions", 0)
 }
 
 func TestAssessmentContactSubmitPersistsAttribution(t *testing.T) {
@@ -100,7 +120,7 @@ func TestAssessmentContactSubmitPersistsAttribution(t *testing.T) {
 	err := db.QueryRow(`
 			SELECT workflow_name, assessment_result, assessment_score, assessment_answers,
 			       utm_source, utm_medium, utm_campaign, utm_content, referrer
-			FROM contact_submissions
+			FROM lead_submissions
 		`).Scan(&workflowName, &result, &score, &storedAnswers, &source, &medium, &campaign, &content, &referrer)
 	if err != nil {
 		t.Fatal(err)
@@ -129,7 +149,7 @@ func TestAssessmentContactSubmitRejectsMalformedContext(t *testing.T) {
 		t.Fatalf("got status %d, want %d", response.Code, http.StatusUnprocessableEntity)
 	}
 	var count int
-	if err := db.QueryRow("SELECT COUNT(*) FROM contact_submissions").Scan(&count); err != nil {
+	if err := db.QueryRow("SELECT COUNT(*) FROM lead_submissions").Scan(&count); err != nil {
 		t.Fatal(err)
 	}
 	if count != 0 {
@@ -154,7 +174,7 @@ func TestAssessmentContactSubmitRejectsMismatchedResult(t *testing.T) {
 		t.Fatalf("got status %d, want %d", response.Code, http.StatusUnprocessableEntity)
 	}
 	var count int
-	if err := db.QueryRow("SELECT COUNT(*) FROM contact_submissions").Scan(&count); err != nil {
+	if err := db.QueryRow("SELECT COUNT(*) FROM lead_submissions").Scan(&count); err != nil {
 		t.Fatal(err)
 	}
 	if count != 0 {
@@ -268,13 +288,14 @@ func TestPartnerContactSubmitPersistsSubmission(t *testing.T) {
 		t.Fatalf("got redirect %q, want %q", location, "/partner-contact?submitted=true")
 	}
 
-	var agencyName, email, clientVolume, primaryVertical, deliveryConstraint string
+	var submissionType, agencyName, email, clientVolume, primaryVertical, deliveryConstraint string
 	var spamStatus, spamReasons, leadStatus, verifiedAt string
 	err := db.QueryRow(`
-		SELECT agency_name, corporate_email, client_volume, primary_vertical, delivery_constraint,
+		SELECT submission_type, agency_name, email, client_volume, primary_vertical, delivery_constraint,
 		       spam_status, spam_reasons, lead_status, turnstile_verified_at
-		FROM partner_contact_submissions
+		FROM lead_submissions
 	`).Scan(
+		&submissionType,
 		&agencyName,
 		&email,
 		&clientVolume,
@@ -288,7 +309,8 @@ func TestPartnerContactSubmitPersistsSubmission(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if agencyName != "Example Partners" ||
+	if submissionType != "partner" ||
+		agencyName != "Example Partners" ||
 		email != "partner@example.com" ||
 		clientVolume != "11-50" ||
 		primaryVertical != "Healthcare" ||
@@ -311,6 +333,7 @@ func TestPartnerContactSubmitPersistsSubmission(t *testing.T) {
 			verifiedAt,
 		)
 	}
+	assertSubmissionCount(t, db, "partner_contact_submissions", 0)
 }
 
 func TestNewsletterSubmitPersistsSubscription(t *testing.T) {
@@ -331,16 +354,32 @@ func TestNewsletterSubmitPersistsSubscription(t *testing.T) {
 		t.Fatalf("got redirect %q, want %q", location, "/newsletter?submitted=true")
 	}
 
-	var firstName, email, spamStatus, spamReasons, leadStatus, verifiedAt string
+	var submissionType, firstName, email, consentRecordedDate string
+	var spamStatus, spamReasons, leadStatus, verifiedAt string
 	var consentGiven int
 	err := db.QueryRow(`
-		SELECT first_name, email, consent_given, spam_status, spam_reasons, lead_status, turnstile_verified_at
-		FROM newsletter_subscriptions
-	`).Scan(&firstName, &email, &consentGiven, &spamStatus, &spamReasons, &leadStatus, &verifiedAt)
+		SELECT submission_type, first_name, email, consent_given, consent_recorded_date,
+		       spam_status, spam_reasons, lead_status, turnstile_verified_at
+		FROM lead_submissions
+	`).Scan(
+		&submissionType,
+		&firstName,
+		&email,
+		&consentGiven,
+		&consentRecordedDate,
+		&spamStatus,
+		&spamReasons,
+		&leadStatus,
+		&verifiedAt,
+	)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if firstName != "Jane" || email != "jane@example.com" || consentGiven != 1 {
+	if submissionType != "newsletter" ||
+		firstName != "Jane" ||
+		email != "jane@example.com" ||
+		consentGiven != 1 ||
+		consentRecordedDate == "" {
 		t.Fatalf("stored unexpected subscription: %q, %q, %d", firstName, email, consentGiven)
 	}
 	if spamStatus != "accepted" || spamReasons != "[]" || leadStatus != "new" || verifiedAt == "" {
@@ -352,6 +391,7 @@ func TestNewsletterSubmitPersistsSubscription(t *testing.T) {
 			verifiedAt,
 		)
 	}
+	assertSubmissionCount(t, db, "newsletter_subscriptions", 0)
 }
 
 func TestSuccessfulSubmissionsRenderOneTimeConversionMarkers(t *testing.T) {
@@ -453,7 +493,7 @@ func TestNewsletterSubmitRequiresConsent(t *testing.T) {
 	if !strings.Contains(response.Body.String(), "Agree to receive the newsletter before subscribing.") {
 		t.Fatal("response does not contain consent validation error")
 	}
-	assertSubmissionCount(t, db, "newsletter_subscriptions", 0)
+	assertSubmissionCount(t, db, "lead_submissions", 0)
 }
 
 func TestContactSubmitRejectsHoneypotWithoutPersisting(t *testing.T) {
@@ -469,7 +509,7 @@ func TestContactSubmitRejectsHoneypotWithoutPersisting(t *testing.T) {
 	if response.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("got status %d, want %d", response.Code, http.StatusUnprocessableEntity)
 	}
-	assertSubmissionCount(t, db, "contact_submissions", 0)
+	assertSubmissionCount(t, db, "lead_submissions", 0)
 }
 
 func TestPartnerContactSubmitRejectsTurnstileFailureWithoutPersisting(t *testing.T) {
@@ -487,7 +527,7 @@ func TestPartnerContactSubmitRejectsTurnstileFailureWithoutPersisting(t *testing
 	if response.Code != http.StatusUnprocessableEntity {
 		t.Fatalf("got status %d, want %d", response.Code, http.StatusUnprocessableEntity)
 	}
-	assertSubmissionCount(t, db, "partner_contact_submissions", 0)
+	assertSubmissionCount(t, db, "lead_submissions", 0)
 }
 
 func TestContactSubmitSurfacesTurnstileOutageWithoutPersisting(t *testing.T) {
@@ -506,7 +546,7 @@ func TestContactSubmitSurfacesTurnstileOutageWithoutPersisting(t *testing.T) {
 	if !strings.Contains(response.Body.String(), verificationUnavailableMessage) {
 		t.Fatalf("response does not contain verification outage message")
 	}
-	assertSubmissionCount(t, db, "contact_submissions", 0)
+	assertSubmissionCount(t, db, "lead_submissions", 0)
 }
 
 func TestContactPageIncludesProtectionFields(t *testing.T) {

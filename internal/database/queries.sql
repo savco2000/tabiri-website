@@ -1,12 +1,20 @@
--- name: CreateContactSubmission :one
-INSERT INTO contact_submissions (
+-- name: CreateLeadSubmission :one
+INSERT INTO lead_submissions (
+    submission_type,
+    email,
+    first_name,
     full_name,
-    corporate_email,
+    agency_name,
     workflow_bottleneck,
     workflow_name,
     assessment_result,
     assessment_score,
     assessment_answers,
+    client_volume,
+    primary_vertical,
+    delivery_constraint,
+    consent_given,
+    consent_recorded_date,
     utm_source,
     utm_medium,
     utm_campaign,
@@ -16,31 +24,33 @@ INSERT INTO contact_submissions (
     spam_reasons,
     lead_status,
     turnstile_verified_at
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-RETURNING *;
-
--- name: CreateNewsletterSubscription :one
-INSERT INTO newsletter_subscriptions (
-    first_name,
-    email,
-    consent_given,
-    spam_status,
-    spam_reasons,
-    lead_status,
-    turnstile_verified_at
-) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-RETURNING *;
-
--- name: CreatePartnerContactSubmission :one
-INSERT INTO partner_contact_submissions (
-    agency_name,
-    corporate_email,
-    client_volume,
-    primary_vertical,
-    delivery_constraint,
-    spam_status,
-    spam_reasons,
-    lead_status,
-    turnstile_verified_at
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+) VALUES (
+    sqlc.arg(submission_type),
+    sqlc.arg(email),
+    sqlc.arg(first_name),
+    sqlc.arg(full_name),
+    sqlc.arg(agency_name),
+    sqlc.arg(workflow_bottleneck),
+    sqlc.arg(workflow_name),
+    sqlc.arg(assessment_result),
+    sqlc.arg(assessment_score),
+    sqlc.arg(assessment_answers),
+    sqlc.arg(client_volume),
+    sqlc.arg(primary_vertical),
+    sqlc.arg(delivery_constraint),
+    sqlc.arg(consent_given),
+    CASE
+        WHEN sqlc.arg(consent_given) = 1 THEN CURRENT_TIMESTAMP
+        ELSE NULL
+    END,
+    sqlc.arg(utm_source),
+    sqlc.arg(utm_medium),
+    sqlc.arg(utm_campaign),
+    sqlc.arg(utm_content),
+    sqlc.arg(referrer),
+    sqlc.arg(spam_status),
+    sqlc.arg(spam_reasons),
+    sqlc.arg(lead_status),
+    CURRENT_TIMESTAMP
+)
 RETURNING *;
