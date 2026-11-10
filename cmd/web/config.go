@@ -23,6 +23,12 @@ type config struct {
 	shutdownTimeout       time.Duration
 	telemetryEnabled      bool
 	traceSampleRatio      float64
+	hubspotEnabled        bool
+	hubspotServiceKey     string
+	hubspotAPIBaseURL     string
+	hubspotSubscriptionID string
+	hubspotPollInterval   time.Duration
+	hubspotRequestTimeout time.Duration
 	turnstileSiteKey      string
 	turnstileSecretKey    string
 	turnstileVerifyURL    string
@@ -61,6 +67,8 @@ func loadConfig(args []string) (*config, error) {
 	flags.DurationVar(&cfg.idleTimeout, "idle-timeout", 2*time.Minute, "HTTP keep-alive idle timeout")
 	flags.DurationVar(&cfg.shutdownTimeout, "shutdown-timeout", 10*time.Second, "Graceful shutdown timeout")
 	flags.Float64Var(&cfg.traceSampleRatio, "trace-sample-ratio", defaultTraceSampleRatio, "Trace sampling ratio from 0 to 1")
+	flags.DurationVar(&cfg.hubspotPollInterval, "hubspot-poll-interval", 5*time.Second, "HubSpot queue polling interval")
+	flags.DurationVar(&cfg.hubspotRequestTimeout, "hubspot-request-timeout", 10*time.Second, "HubSpot request timeout")
 	if err := flags.Parse(args); err != nil {
 		return nil, fmt.Errorf("parse flags: %w", err)
 	}
@@ -79,8 +87,12 @@ func loadConfig(args []string) (*config, error) {
 		return nil, fmt.Errorf("db-path must not be empty")
 	}
 	if cfg.readHeaderTimeout <= 0 || cfg.readTimeout <= 0 || cfg.writeTimeout <= 0 ||
-		cfg.idleTimeout <= 0 || cfg.shutdownTimeout <= 0 {
+		cfg.idleTimeout <= 0 || cfg.shutdownTimeout <= 0 ||
+		cfg.hubspotPollInterval <= 0 || cfg.hubspotRequestTimeout <= 0 {
 		return nil, fmt.Errorf("HTTP and shutdown timeouts must be positive")
+	}
+	if cfg.hubspotRequestTimeout >= 5*time.Minute {
+		return nil, fmt.Errorf("hubspot-request-timeout must be less than the five-minute claim timeout")
 	}
 	if cfg.traceSampleRatio < 0 || cfg.traceSampleRatio > 1 {
 		return nil, fmt.Errorf("trace-sample-ratio must be between 0 and 1")
@@ -94,8 +106,43 @@ func loadConfig(args []string) (*config, error) {
 	if err := loadLeadProtectionConfig(cfg); err != nil {
 		return nil, err
 	}
+	if err := loadHubSpotConfig(cfg); err != nil {
+		return nil, err
+	}
 	cfg.telemetryEnabled = telemetryConfigured()
 	return cfg, nil
+}
+
+func loadHubSpotConfig(cfg *config) error {
+	cfg.hubspotServiceKey = strings.TrimSpace(os.Getenv("HUBSPOT_SERVICE_KEY"))
+	cfg.hubspotAPIBaseURL = strings.TrimRight(
+		envOrDefault("HUBSPOT_API_BASE_URL", "https://api.hubapi.com"),
+		"/",
+	)
+	cfg.hubspotSubscriptionID = strings.TrimSpace(
+		envOrDefault("HUBSPOT_NEWSLETTER_SUBSCRIPTION_ID", "4078871385"),
+	)
+	cfg.hubspotEnabled = cfg.hubspotServiceKey != ""
+
+	if cfg.environment == "production" && !cfg.hubspotEnabled {
+		return fmt.Errorf("HUBSPOT_SERVICE_KEY is required in production")
+	}
+	if cfg.hubspotEnabled && cfg.hubspotSubscriptionID == "" {
+		return fmt.Errorf("HUBSPOT_NEWSLETTER_SUBSCRIPTION_ID is required when HubSpot sync is enabled")
+	}
+	if cfg.hubspotEnabled &&
+		!strings.HasPrefix(cfg.hubspotAPIBaseURL, "https://") &&
+		!strings.HasPrefix(cfg.hubspotAPIBaseURL, "http://") {
+		return fmt.Errorf("HUBSPOT_API_BASE_URL must use HTTP or HTTPS")
+	}
+	return nil
+}
+
+func envOrDefault(name, fallback string) string {
+	if value := strings.TrimSpace(os.Getenv(name)); value != "" {
+		return value
+	}
+	return fallback
 }
 
 func loadLeadProtectionConfig(cfg *config) error {

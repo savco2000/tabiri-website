@@ -35,7 +35,8 @@ Before enabling the VM:
 
 1. Upload a versioned release archive containing `tabiri-web`, `ui/`, and
    `content/` to the private release bucket.
-2. Add versions to `tabiri-turnstile-secret` and `tabiri-form-hmac-key`.
+2. Add versions to `tabiri-turnstile-secret`, `tabiri-form-hmac-key`, and
+   `tabiri-hubspot-private-app-token`.
 3. Set the production Turnstile site key, release object, and SHA-256 checksum
    in an untracked `terraform.tfvars`.
 4. Set `deploy_application = true`.
@@ -75,6 +76,17 @@ Use the engagement values `commercial_lead`, `partner`, and `newsletter`.
 Commercial and partner submissions remain non-marketing contacts. Only an
 explicit newsletter submission may update the `Tabiri newsletter`
 communication preference.
+
+The application reads `HUBSPOT_SERVICE_KEY` from the protected systemd
+environment file. Production startup fails when the key is absent; development
+leaves synchronization disabled when it is absent. The worker claims ready
+`lead_submissions` rows without holding a database transaction during HubSpot
+requests, retries transient failures up to eight times with exponential
+backoff, and recovers claims left in `processing` for more than five minutes.
+Validation and authorization failures remain in `failed` without an automatic
+retry. Monitor `hubspot.sync.count` by `hubspot.sync.outcome` and inspect
+`last_sync_error` for failed rows without exposing submitted email addresses in
+logs.
 
 Migration 5 installs temporary, one-way SQLite triggers from the three legacy
 submission tables to `lead_submissions`. This keeps submissions made by a

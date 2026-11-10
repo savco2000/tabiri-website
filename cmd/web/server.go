@@ -83,7 +83,43 @@ func run(args []string, output io.Writer) (runErr error) {
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
-	return serve(ctx, server, cfg, logger)
+
+	var workerDone <-chan struct{}
+	stopWorker := func() {}
+	if cfg.hubspotEnabled {
+		workerCtx, cancelWorker := context.WithCancel(ctx)
+		done := make(chan struct{})
+		worker := &hubspotWorker{
+			queries: app.queries,
+			synchronizer: &hubspotClient{
+				httpClient:               &http.Client{Timeout: cfg.hubspotRequestTimeout},
+				baseURL:                  cfg.hubspotAPIBaseURL,
+				serviceKey:               cfg.hubspotServiceKey,
+				newsletterSubscriptionID: cfg.hubspotSubscriptionID,
+			},
+			logger:         logger,
+			telemetry:      telemetry,
+			pollInterval:   cfg.hubspotPollInterval,
+			requestTimeout: cfg.hubspotRequestTimeout,
+			now:            time.Now,
+		}
+		go func() {
+			defer close(done)
+			worker.run(workerCtx)
+		}()
+		workerDone = done
+		stopWorker = cancelWorker
+		logger.Info("HubSpot synchronization enabled")
+	} else {
+		logger.Info("HubSpot synchronization disabled")
+	}
+
+	err = serve(ctx, server, cfg, logger)
+	stopWorker()
+	if workerDone != nil {
+		<-workerDone
+	}
+	return err
 }
 
 func serve(ctx context.Context, server *http.Server, cfg *config, logger *slog.Logger) error {

@@ -69,6 +69,7 @@ resource "google_compute_instance" "web" {
 
   depends_on = [
     google_secret_manager_secret_iam_member.form_hmac_reader,
+    google_secret_manager_secret_iam_member.hubspot_service_key_reader,
     google_secret_manager_secret_iam_member.turnstile_reader,
     google_storage_bucket_iam_member.release_reader,
   ]

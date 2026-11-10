@@ -54,3 +54,50 @@ INSERT INTO lead_submissions (
     CURRENT_TIMESTAMP
 )
 RETURNING *;
+
+-- name: ClaimLeadSubmission :one
+UPDATE lead_submissions
+SET
+    sync_status = 'processing',
+    sync_attempts = sync_attempts + 1,
+    last_attempt_date = CURRENT_TIMESTAMP,
+    next_attempt_date = NULL
+WHERE id = (
+    SELECT id
+    FROM lead_submissions
+    WHERE
+        sync_status = 'pending'
+        OR (
+            sync_status = 'failed'
+            AND next_attempt_date IS NOT NULL
+            AND next_attempt_date <= CURRENT_TIMESTAMP
+        )
+        OR (
+            sync_status = 'processing'
+            AND last_attempt_date <= datetime(CURRENT_TIMESTAMP, '-5 minutes')
+        )
+    ORDER BY submitted_date, id
+    LIMIT 1
+)
+RETURNING *;
+
+-- name: MarkLeadSubmissionSynced :one
+UPDATE lead_submissions
+SET
+    sync_status = 'synced',
+    next_attempt_date = NULL,
+    last_sync_error = '',
+    hubspot_contact_id = ?,
+    synced_date = CURRENT_TIMESTAMP
+WHERE id = ? AND sync_status = 'processing'
+RETURNING id;
+
+-- name: MarkLeadSubmissionFailed :one
+UPDATE lead_submissions
+SET
+    sync_status = 'failed',
+    next_attempt_date = sqlc.narg(next_attempt_date),
+    last_sync_error = sqlc.arg(last_sync_error),
+    synced_date = NULL
+WHERE id = sqlc.arg(id) AND sync_status = 'processing'
+RETURNING id;

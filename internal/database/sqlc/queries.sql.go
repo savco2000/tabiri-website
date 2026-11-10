@@ -7,7 +7,76 @@ package database
 
 import (
 	"context"
+	"database/sql"
 )
+
+const claimLeadSubmission = `-- name: ClaimLeadSubmission :one
+UPDATE lead_submissions
+SET
+    sync_status = 'processing',
+    sync_attempts = sync_attempts + 1,
+    last_attempt_date = CURRENT_TIMESTAMP,
+    next_attempt_date = NULL
+WHERE id = (
+    SELECT id
+    FROM lead_submissions
+    WHERE
+        sync_status = 'pending'
+        OR (
+            sync_status = 'failed'
+            AND next_attempt_date IS NOT NULL
+            AND next_attempt_date <= CURRENT_TIMESTAMP
+        )
+        OR (
+            sync_status = 'processing'
+            AND last_attempt_date <= datetime(CURRENT_TIMESTAMP, '-5 minutes')
+        )
+    ORDER BY submitted_date, id
+    LIMIT 1
+)
+RETURNING id, submission_type, email, first_name, full_name, agency_name, workflow_bottleneck, workflow_name, assessment_result, assessment_score, assessment_answers, client_volume, primary_vertical, delivery_constraint, consent_given, consent_recorded_date, utm_source, utm_medium, utm_campaign, utm_content, referrer, spam_status, spam_reasons, lead_status, turnstile_verified_at, sync_status, sync_attempts, next_attempt_date, last_attempt_date, last_sync_error, hubspot_contact_id, synced_date, submitted_date
+`
+
+func (q *Queries) ClaimLeadSubmission(ctx context.Context) (LeadSubmission, error) {
+	row := q.db.QueryRowContext(ctx, claimLeadSubmission)
+	var i LeadSubmission
+	err := row.Scan(
+		&i.ID,
+		&i.SubmissionType,
+		&i.Email,
+		&i.FirstName,
+		&i.FullName,
+		&i.AgencyName,
+		&i.WorkflowBottleneck,
+		&i.WorkflowName,
+		&i.AssessmentResult,
+		&i.AssessmentScore,
+		&i.AssessmentAnswers,
+		&i.ClientVolume,
+		&i.PrimaryVertical,
+		&i.DeliveryConstraint,
+		&i.ConsentGiven,
+		&i.ConsentRecordedDate,
+		&i.UtmSource,
+		&i.UtmMedium,
+		&i.UtmCampaign,
+		&i.UtmContent,
+		&i.Referrer,
+		&i.SpamStatus,
+		&i.SpamReasons,
+		&i.LeadStatus,
+		&i.TurnstileVerifiedAt,
+		&i.SyncStatus,
+		&i.SyncAttempts,
+		&i.NextAttemptDate,
+		&i.LastAttemptDate,
+		&i.LastSyncError,
+		&i.HubspotContactID,
+		&i.SyncedDate,
+		&i.SubmittedDate,
+	)
+	return i, err
+}
 
 const createLeadSubmission = `-- name: CreateLeadSubmission :one
 INSERT INTO lead_submissions (
@@ -154,4 +223,52 @@ func (q *Queries) CreateLeadSubmission(ctx context.Context, arg CreateLeadSubmis
 		&i.SubmittedDate,
 	)
 	return i, err
+}
+
+const markLeadSubmissionFailed = `-- name: MarkLeadSubmissionFailed :one
+UPDATE lead_submissions
+SET
+    sync_status = 'failed',
+    next_attempt_date = ?1,
+    last_sync_error = ?2,
+    synced_date = NULL
+WHERE id = ?3 AND sync_status = 'processing'
+RETURNING id
+`
+
+type MarkLeadSubmissionFailedParams struct {
+	NextAttemptDate sql.NullString `json:"next_attempt_date"`
+	LastSyncError   string         `json:"last_sync_error"`
+	ID              int64          `json:"id"`
+}
+
+func (q *Queries) MarkLeadSubmissionFailed(ctx context.Context, arg MarkLeadSubmissionFailedParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, markLeadSubmissionFailed, arg.NextAttemptDate, arg.LastSyncError, arg.ID)
+	var id int64
+	err := row.Scan(&id)
+	return id, err
+}
+
+const markLeadSubmissionSynced = `-- name: MarkLeadSubmissionSynced :one
+UPDATE lead_submissions
+SET
+    sync_status = 'synced',
+    next_attempt_date = NULL,
+    last_sync_error = '',
+    hubspot_contact_id = ?,
+    synced_date = CURRENT_TIMESTAMP
+WHERE id = ? AND sync_status = 'processing'
+RETURNING id
+`
+
+type MarkLeadSubmissionSyncedParams struct {
+	HubspotContactID string `json:"hubspot_contact_id"`
+	ID               int64  `json:"id"`
+}
+
+func (q *Queries) MarkLeadSubmissionSynced(ctx context.Context, arg MarkLeadSubmissionSyncedParams) (int64, error) {
+	row := q.db.QueryRowContext(ctx, markLeadSubmissionSynced, arg.HubspotContactID, arg.ID)
+	var id int64
+	err := row.Scan(&id)
+	return id, err
 }

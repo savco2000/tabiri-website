@@ -36,6 +36,8 @@ type telemetry struct {
 	leadOutcomes     metric.Int64Counter
 	turnstileCalls   metric.Int64Counter
 	turnstileLatency metric.Float64Histogram
+	hubspotSyncs     metric.Int64Counter
+	hubspotLatency   metric.Float64Histogram
 
 	tracerProvider *sdktrace.TracerProvider
 	meterProvider  *sdkmetric.MeterProvider
@@ -127,6 +129,15 @@ func newTelemetry(ctx context.Context, cfg *config) (*telemetry, error) {
 	); err != nil {
 		return nil, err
 	}
+	if t.hubspotSyncs, err = meter.Int64Counter("hubspot.sync.count"); err != nil {
+		return nil, err
+	}
+	if t.hubspotLatency, err = meter.Float64Histogram(
+		"hubspot.sync.duration",
+		metric.WithUnit("s"),
+	); err != nil {
+		return nil, err
+	}
 	return t, nil
 }
 
@@ -181,6 +192,20 @@ func (t *telemetry) recordTurnstile(ctx context.Context, outcome string, duratio
 	attrs := metric.WithAttributes(attribute.String("turnstile.outcome", outcome))
 	t.turnstileCalls.Add(ctx, 1, attrs)
 	t.turnstileLatency.Record(ctx, duration.Seconds(), attrs)
+}
+
+func (t *telemetry) recordHubSpotSync(
+	ctx context.Context,
+	submissionType string,
+	outcome string,
+	duration time.Duration,
+) {
+	attrs := metric.WithAttributes(
+		attribute.String("lead.submission_type", submissionType),
+		attribute.String("hubspot.sync.outcome", outcome),
+	)
+	t.hubspotSyncs.Add(ctx, 1, attrs)
+	t.hubspotLatency.Record(ctx, duration.Seconds(), attrs)
 }
 
 func telemetryConfigured() bool {
