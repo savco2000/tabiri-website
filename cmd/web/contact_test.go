@@ -217,6 +217,9 @@ func TestContactSuccessIncludesWhatHappensNext(t *testing.T) {
 	if got := strings.Count(body, "What Happens Next"); got != 1 {
 		t.Errorf("What Happens Next appears %d times, want 1", got)
 	}
+	if strings.Contains(body, "data-analytics-conversion") {
+		t.Error("unverified success URL must not include a conversion marker")
+	}
 }
 
 func TestPartnerContactSuccessIncludesReviewTimeline(t *testing.T) {
@@ -318,6 +321,7 @@ func TestNewsletterSubmitPersistsSubscription(t *testing.T) {
 		"email":      {"jane@example.com"},
 		"consent":    {"on"},
 	}
+
 	response := submitForm(app, "/newsletter", form)
 
 	if response.Code != http.StatusSeeOther {
@@ -347,6 +351,91 @@ func TestNewsletterSubmitPersistsSubscription(t *testing.T) {
 			leadStatus,
 			verifiedAt,
 		)
+	}
+}
+
+func TestSuccessfulSubmissionsRenderOneTimeConversionMarkers(t *testing.T) {
+	tests := []struct {
+		name       string
+		target     string
+		form       url.Values
+		event      string
+		leadType   string
+		leadSource string
+	}{
+		{
+			name:       "commercial contact",
+			target:     "/contact",
+			form:       validContactValues(),
+			event:      "generate_lead",
+			leadType:   "commercial_contact",
+			leadSource: "direct",
+		},
+		{
+			name:   "partner contact",
+			target: "/partner-contact",
+			form: url.Values{
+				"agency_name":         {"Example Partners"},
+				"corporate_email":     {"partner@example.com"},
+				"client_volume":       {"11-50"},
+				"primary_vertical":    {"Healthcare"},
+				"delivery_constraint": {"Limited implementation capacity"},
+			},
+			event:      "generate_lead",
+			leadType:   "partner_contact",
+			leadSource: "partner",
+		},
+		{
+			name:   "newsletter",
+			target: "/newsletter",
+			form: url.Values{
+				"first_name": {"Jane"},
+				"email":      {"jane@example.com"},
+				"consent":    {"on"},
+			},
+			event:    "sign_up",
+			leadType: "newsletter",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			app, _ := newTestApplication(t)
+			submission := submitForm(app, test.target, test.form)
+			result := submission.Result()
+			cookies := result.Cookies()
+			if len(cookies) != 1 || cookies[0].Name != conversionCookieName || !cookies[0].HttpOnly {
+				t.Fatalf("unexpected conversion cookies: %#v", cookies)
+			}
+
+			request := httptest.NewRequest(http.MethodGet, result.Header.Get("Location"), nil)
+			request.AddCookie(cookies[0])
+			response := httptest.NewRecorder()
+			app.routes().ServeHTTP(response, request)
+
+			body := response.Body.String()
+			for _, expected := range []string{
+				`data-analytics-conversion="` + test.event + `"`,
+				`data-analytics-lead-type="` + test.leadType + `"`,
+			} {
+				if !strings.Contains(body, expected) {
+					t.Errorf("response does not contain %q", expected)
+				}
+			}
+			if test.leadSource != "" && !strings.Contains(
+				body,
+				`data-analytics-lead-source="`+test.leadSource+`"`,
+			) {
+				t.Errorf("response does not contain lead source %q", test.leadSource)
+			}
+
+			refresh := httptest.NewRequest(http.MethodGet, result.Header.Get("Location"), nil)
+			refreshedResponse := httptest.NewRecorder()
+			app.routes().ServeHTTP(refreshedResponse, refresh)
+			if strings.Contains(refreshedResponse.Body.String(), "data-analytics-conversion") {
+				t.Error("refreshed success page must not repeat the conversion marker")
+			}
+		})
 	}
 }
 

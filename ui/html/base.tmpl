@@ -23,7 +23,7 @@
     <link href="/static/css/fonts.css?v=2" rel="stylesheet">
     <link href="/static/css/styles.css" rel="stylesheet">
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-white">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-white"{{if .AnalyticsConversion}} data-analytics-conversion="{{.AnalyticsConversion}}" data-analytics-lead-source="{{.LeadSource}}" data-analytics-lead-type="{{.AnalyticsLeadType}}"{{end}}>
     {{template "nav" .}}
 
     <main class="pt-24 md:pt-28" id="index-main">

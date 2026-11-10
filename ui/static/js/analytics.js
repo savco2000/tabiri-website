@@ -6,7 +6,26 @@
   const settingsButton = document.getElementById("cookie-settings");
   const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
   let analyticsLoaded = false;
+  let conversionTracked = false;
   let consent = null;
+
+  const trackPendingConversion = () => {
+    const eventName = document.body.dataset.analyticsConversion;
+    if (conversionTracked || !eventName || consent !== "accepted" || !analyticsLoaded) {
+      return;
+    }
+
+    const parameters = {};
+    if (eventName === "generate_lead") {
+      parameters.lead_type = document.body.dataset.analyticsLeadType;
+      parameters.lead_source = document.body.dataset.analyticsLeadSource;
+    } else if (eventName === "sign_up") {
+      parameters.method = "newsletter";
+    }
+
+    conversionTracked = true;
+    window.gtag("event", eventName, parameters);
+  };
 
   const updateGoogleConsent = (value) => {
     if (!window.dataLayer) {
@@ -47,6 +66,7 @@
     script.async = true;
     script.src = "https://www.googletagmanager.com/gtm.js?id=GTM-WH3CMBPJ";
     document.head.appendChild(script);
+    trackPendingConversion();
   };
 
   const showConsentBanner = () => {
@@ -92,6 +112,15 @@
   });
 
   document.addEventListener("click", (event) => {
+    const contactLink = event.target.closest('a[href^="mailto:"], a[href^="tel:"]');
+    if (contactLink && consent === "accepted" && analyticsLoaded) {
+      const contactMethod = contactLink.href.startsWith("mailto:") ? "email" : "phone";
+      window.gtag("event", `${contactMethod}_click`, {
+        contact_method: contactMethod,
+        link_location: window.location.pathname,
+      });
+    }
+
     const link = event.target.closest("a[data-analytics-download]");
     if (!link || consent !== "accepted" || !analyticsLoaded) {
       return;

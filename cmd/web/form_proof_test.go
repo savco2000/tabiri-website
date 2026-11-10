@@ -59,6 +59,25 @@ func TestFormProofTimingWindows(t *testing.T) {
 	}
 }
 
+func TestFormProofVerifyRecentAllowsImmediateUse(t *testing.T) {
+	now := time.Date(2026, time.October, 14, 16, 0, 0, 0, time.UTC)
+	signer := newFormProofSigner([]byte("01234567890123456789012345678901"))
+	signer.now = func() time.Time { return now }
+	signer.random = bytes.NewReader(bytes.Repeat([]byte{3}, 16))
+
+	token, err := signer.Create("conversion:contact")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := signer.VerifyRecent(token, "conversion:contact", 10*time.Minute); err != nil {
+		t.Fatalf("recent proof rejected: %v", err)
+	}
+	now = now.Add(10*time.Minute + time.Second)
+	if err := signer.VerifyRecent(token, "conversion:contact", 10*time.Minute); !errors.Is(err, errInvalidFormProof) {
+		t.Fatalf("expired recent proof returned %v, want errInvalidFormProof", err)
+	}
+}
+
 func TestDecodeFormHMACKeyRequiresStrongKey(t *testing.T) {
 	if _, err := decodeFormHMACKey("c2hvcnQ"); err == nil {
 		t.Fatal("expected a short HMAC key to be rejected")

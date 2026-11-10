@@ -14,6 +14,8 @@ type PageData struct {
 	CurrentYear          int
 	FormSubmitted        bool
 	LeadSource           string
+	AnalyticsConversion  string
+	AnalyticsLeadType    string
 	ContactForm          ContactForm
 	PartnerContactForm   PartnerContactForm
 	NewsletterForm       NewsletterForm

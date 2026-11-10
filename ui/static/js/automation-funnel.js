@@ -110,13 +110,6 @@
     });
   }
 
-  const contactSuccess = document.querySelector("#contact-success");
-  if (contactSuccess) {
-    track("commercial_contact_success", {
-      lead_source: contactSuccess.dataset.leadSource || "direct",
-    });
-  }
-
   function readinessBand(score, oversight) {
     if (score >= 8 && oversight > 0) {
       return {

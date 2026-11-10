@@ -9,11 +9,14 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 
 	sqlc "website.tabirianalytics.com/internal/database/sqlc"
 )
 
 const maxFormBodyBytes = 64 << 10
+const conversionCookieName = "tabiri-conversion"
+const conversionCookieMaxAge = 10 * time.Minute
 
 type ContactForm struct {
 	FullName           string
@@ -169,6 +172,7 @@ func (app *application) contactSubmit(w http.ResponseWriter, r *http.Request) {
 		"form", "contact",
 		"request_id", requestIDFromContext(r.Context()),
 	)
+	app.setConversionCookie(w, r, "contact")
 
 	redirect := "/contact?submitted=true"
 	if form.AssessmentResult != "" {
@@ -216,6 +220,7 @@ func (app *application) partnerContactSubmit(w http.ResponseWriter, r *http.Requ
 		"form", "partner_contact",
 		"request_id", requestIDFromContext(r.Context()),
 	)
+	app.setConversionCookie(w, r, "partner_contact")
 
 	http.Redirect(w, r, "/partner-contact?submitted=true", http.StatusSeeOther)
 }
@@ -257,8 +262,57 @@ func (app *application) newsletterSubmit(w http.ResponseWriter, r *http.Request)
 		"form", "newsletter",
 		"request_id", requestIDFromContext(r.Context()),
 	)
+	app.setConversionCookie(w, r, "newsletter")
 
 	http.Redirect(w, r, "/newsletter?submitted=true", http.StatusSeeOther)
+}
+
+func (app *application) setConversionCookie(w http.ResponseWriter, r *http.Request, conversion string) {
+	token, err := app.formProof.Create("conversion:" + conversion)
+	if err != nil {
+		app.logger.ErrorContext(
+			r.Context(),
+			"conversion cookie creation failed",
+			"event", "analytics.conversion_cookie.failed",
+			"conversion", conversion,
+			"request_id", requestIDFromContext(r.Context()),
+			"error", err,
+		)
+		return
+	}
+	http.SetCookie(w, &http.Cookie{
+		Name:     conversionCookieName,
+		Value:    token,
+		Path:     "/",
+		MaxAge:   int(conversionCookieMaxAge.Seconds()),
+		HttpOnly: true,
+		Secure:   app.cfg.environment == "production",
+		SameSite: http.SameSiteLaxMode,
+	})
+}
+
+func (app *application) consumeConversionCookie(
+	w http.ResponseWriter,
+	r *http.Request,
+	conversion string,
+) bool {
+	cookie, err := r.Cookie(conversionCookieName)
+	if err != nil {
+		return false
+	}
+	http.SetCookie(w, &http.Cookie{
+		Name:     conversionCookieName,
+		Path:     "/",
+		MaxAge:   -1,
+		HttpOnly: true,
+		Secure:   app.cfg.environment == "production",
+		SameSite: http.SameSiteLaxMode,
+	})
+	return app.formProof.VerifyRecent(
+		cookie.Value,
+		"conversion:"+conversion,
+		conversionCookieMaxAge,
+	) == nil
 }
 
 func (form *ContactForm) validate() {
@@ -403,14 +457,19 @@ func validateEmailField(errors map[string]string, field, email, requiredMessage 
 }
 
 func (app *application) renderContact(w http.ResponseWriter, r *http.Request, status int, form ContactForm) {
+	formSubmitted := r.URL.Query().Get("submitted") == "true"
 	formProof := ""
-	if r.URL.Query().Get("submitted") != "true" {
+	if !formSubmitted {
 		var err error
 		formProof, err = app.formProof.Create("contact")
 		if err != nil {
 			app.serverError(w, r, err)
 			return
 		}
+	}
+	analyticsConversion := ""
+	if formSubmitted && app.consumeConversionCookie(w, r, "contact") {
+		analyticsConversion = "generate_lead"
 	}
 	data := PageData{
 		PageTitle:            "Commercial Contact | Tabiri Analytics",
@@ -419,8 +478,10 @@ func (app *application) renderContact(w http.ResponseWriter, r *http.Request, st
 		CanonicalURL:         "https://tabirianalytics.com/contact",
 		CurrentPage:          "contact",
 		CurrentYear:          app.now().Year(),
-		FormSubmitted:        r.URL.Query().Get("submitted") == "true",
+		FormSubmitted:        formSubmitted,
 		LeadSource:           contactLeadSource(r.URL.Query().Get("lead_source"), form),
+		AnalyticsConversion:  analyticsConversion,
+		AnalyticsLeadType:    "commercial_contact",
 		ContactForm:          form,
 		TurnstileSiteKey:     app.cfg.turnstileSiteKey,
 		FormProof:            formProof,
@@ -457,14 +518,19 @@ func contactFormFromQuery(query url.Values) ContactForm {
 }
 
 func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Request, status int, form PartnerContactForm) {
+	formSubmitted := r.URL.Query().Get("submitted") == "true"
 	formProof := ""
-	if r.URL.Query().Get("submitted") != "true" {
+	if !formSubmitted {
 		var err error
 		formProof, err = app.formProof.Create("partner_contact")
 		if err != nil {
 			app.serverError(w, r, err)
 			return
 		}
+	}
+	analyticsConversion := ""
+	if formSubmitted && app.consumeConversionCookie(w, r, "partner_contact") {
+		analyticsConversion = "generate_lead"
 	}
 	data := PageData{
 		PageTitle:            "Partner Contact | Channel Partner Application | Tabiri",
@@ -473,7 +539,10 @@ func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Requ
 		CanonicalURL:         "https://tabirianalytics.com/partner-contact",
 		CurrentPage:          "partner-contact",
 		CurrentYear:          app.now().Year(),
-		FormSubmitted:        r.URL.Query().Get("submitted") == "true",
+		FormSubmitted:        formSubmitted,
+		LeadSource:           "partner",
+		AnalyticsConversion:  analyticsConversion,
+		AnalyticsLeadType:    "partner_contact",
 		PartnerContactForm:   form,
 		TurnstileSiteKey:     app.cfg.turnstileSiteKey,
 		FormProof:            formProof,
@@ -482,14 +551,19 @@ func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Requ
 }
 
 func (app *application) renderNewsletter(w http.ResponseWriter, r *http.Request, status int, form NewsletterForm) {
+	formSubmitted := r.URL.Query().Get("submitted") == "true"
 	formProof := ""
-	if r.URL.Query().Get("submitted") != "true" {
+	if !formSubmitted {
 		var err error
 		formProof, err = app.formProof.Create("newsletter")
 		if err != nil {
 			app.serverError(w, r, err)
 			return
 		}
+	}
+	analyticsConversion := ""
+	if formSubmitted && app.consumeConversionCookie(w, r, "newsletter") {
+		analyticsConversion = "sign_up"
 	}
 	data := PageData{
 		PageTitle:            "Newsletter | Tabiri Analytics",
@@ -498,7 +572,9 @@ func (app *application) renderNewsletter(w http.ResponseWriter, r *http.Request,
 		CanonicalURL:         "https://tabirianalytics.com/newsletter",
 		CurrentPage:          "newsletter",
 		CurrentYear:          app.now().Year(),
-		FormSubmitted:        r.URL.Query().Get("submitted") == "true",
+		FormSubmitted:        formSubmitted,
+		AnalyticsConversion:  analyticsConversion,
+		AnalyticsLeadType:    "newsletter",
 		NewsletterForm:       form,
 		TurnstileSiteKey:     app.cfg.turnstileSiteKey,
 		FormProof:            formProof,

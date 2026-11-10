@@ -62,6 +62,14 @@ func (s *formProofSigner) Create(form string) (string, error) {
 }
 
 func (s *formProofSigner) Verify(token, expectedForm string) error {
+	return s.verify(token, expectedForm, s.minAge, s.maxAge)
+}
+
+func (s *formProofSigner) VerifyRecent(token, expectedForm string, maxAge time.Duration) error {
+	return s.verify(token, expectedForm, 0, maxAge)
+}
+
+func (s *formProofSigner) verify(token, expectedForm string, minAge, maxAge time.Duration) error {
 	parts := strings.Split(token, ".")
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
 		return errInvalidFormProof
@@ -93,7 +101,7 @@ func (s *formProofSigner) Verify(token, expectedForm string) error {
 		return errInvalidFormProof
 	}
 	age := now.Sub(issuedAt)
-	if age < s.minAge || age > s.maxAge {
+	if age < minAge || age > maxAge {
 		return errInvalidFormProof
 	}
 	return nil
