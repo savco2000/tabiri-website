@@ -17,6 +17,7 @@ import (
 const maxFormBodyBytes = 64 << 10
 const conversionCookieName = "tabiri-conversion"
 const conversionCookieMaxAge = 10 * time.Minute
+const rapidExposureTriageWorkflowName = "rapid-exposure-triage"
 
 type ContactForm struct {
 	FullName           string
@@ -184,6 +185,8 @@ func (app *application) contactSubmit(w http.ResponseWriter, r *http.Request) {
 	redirect := "/contact?submitted=true"
 	if form.AssessmentResult != "" {
 		redirect += "&lead_source=automation-assessment"
+	} else if form.WorkflowName == rapidExposureTriageWorkflowName {
+		redirect += "&lead_source=rapid-exposure-triage"
 	}
 	http.Redirect(w, r, redirect, http.StatusSeeOther)
 }
@@ -518,7 +521,7 @@ func (app *application) renderContact(w http.ResponseWriter, r *http.Request, st
 		FormSubmitted:        formSubmitted,
 		LeadSource:           contactLeadSource(r.URL.Query().Get("lead_source"), form),
 		AnalyticsConversion:  analyticsConversion,
-		AnalyticsLeadType:    "commercial_contact",
+		AnalyticsLeadType:    contactAnalyticsLeadType(r.URL.Query().Get("lead_source"), form),
 		ContactForm:          form,
 		TurnstileSiteKey:     app.cfg.turnstileSiteKey,
 		FormProof:            formProof,
@@ -530,13 +533,23 @@ func contactLeadSource(querySource string, form ContactForm) string {
 	if querySource == "automation-assessment" || form.AssessmentResult != "" {
 		return "automation-assessment"
 	}
+	if querySource == rapidExposureTriageWorkflowName || form.WorkflowName == rapidExposureTriageWorkflowName {
+		return rapidExposureTriageWorkflowName
+	}
 	return "direct"
+}
+
+func contactAnalyticsLeadType(querySource string, form ContactForm) string {
+	if querySource == rapidExposureTriageWorkflowName || form.WorkflowName == rapidExposureTriageWorkflowName {
+		return "rapid_exposure_triage"
+	}
+	return "commercial_contact"
 }
 
 func contactFormFromQuery(query url.Values) ContactForm {
 	workflowName := strings.TrimSpace(query.Get("workflow_name"))
 	workflowBottleneck := ""
-	if workflowName != "" {
+	if workflowName != "" && workflowName != rapidExposureTriageWorkflowName {
 		workflowBottleneck = workflowName
 	}
 	return ContactForm{

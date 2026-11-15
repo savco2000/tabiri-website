@@ -1,0 +1,158 @@
+{{define "main"}}
+<article class="pb-12">
+    <section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant" id="rapid-exposure-triage-hero">
+        <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
+            <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
+                <span class="material-symbols-outlined icon-size-sm text-primary">policy</span>
+                <span class="font-label text-label-sm text-on-surface">A Focused, Authorized First Step</span>
+            </div>
+            <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
+                Rapid Exposure Triage
+            </h1>
+            <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+                When vulnerability research moves faster, response needs to keep pace. AI is changing how quickly security research can progress. Tabiri uses AI-assisted workflows to turn relevant advisories into focused, authorized checks - with experienced security professionals reviewing the evidence and guiding next steps.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
+                <a class="btn-primary w-full sm:w-auto" data-analytics-service-inquiry="rapid_exposure_triage" href="/contact?workflow_name=rapid-exposure-triage">Discuss an authorized triage</a>
+                <a class="btn-secondary w-full sm:w-auto" href="#how-it-works">How it works</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-surface-container-low border-b border-outline-variant" id="triage-purpose">
+        <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div>
+                <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">Answer a focused question</p>
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">From new advisory to a <span class="text-primary">clear next step</span></h2>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-5">
+                    When a vulnerability is newly disclosed or a security concern needs quick investigation, teams may lack reliable version information or know which application paths matter. A bounded triage can gather relevant signals and help prioritize what engineers should verify next.
+                </p>
+                <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                    Agent-assisted checks can accelerate evidence collection. Tabiri's security professionals review the evidence, explain its limitations, and help determine whether remediation, deeper validation, or another response is appropriate.
+                </p>
+            </div>
+            <aside class="rounded-xl border border-outline-variant bg-surface-container-lowest p-6 md:p-8">
+                <h3 class="font-headline text-2xl md:text-headline-md text-on-surface mb-4"><span class="text-primary">What triage is - and is not</span></h3>
+                <ul class="space-y-3 font-body text-body-sm text-on-surface-variant leading-relaxed">
+                    <li>A focused investigation of an agreed question and explicitly scoped systems.</li>
+                    <li>A concise, human-reviewed account of checks, observations, uncertainty, and recommended next steps.</li>
+                    <li>Not a full penetration test, a guarantee of safety, or automatic confirmation that a vulnerability is exploitable.</li>
+                    <li>Not an unsolicited scan. An inquiry does not begin testing or grant permission to test.</li>
+                </ul>
+            </aside>
+        </div>
+    </section>
+
+    <section class="py-12 bg-surface-container-lowest border-b border-outline-variant" id="how-it-works">
+        <div class="max-w-7xl mx-auto px-gutter">
+            <div class="text-center mb-8">
+                <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">A controlled process</p>
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Scope first. <span class="text-primary">Evidence second.</span></h2>
+                <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">We agree on the question and authorization before any technical testing begins.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <article class="trust-card-no-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="icon-tile"><span class="material-symbols-outlined text-primary">description</span></div>
+                        <h3 class="font-headline text-2xl md:text-headline-md text-primary">1. Confirm authority and scope</h3>
+                    </div>
+                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Identify the asset owner and authorized requester, then document in-scope systems, permitted checks, timing, contacts, and stop conditions.</p>
+                </article>
+                <article class="trust-card-no-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="icon-tile"><span class="material-symbols-outlined text-primary">manage_search</span></div>
+                        <h3 class="font-headline text-2xl md:text-headline-md text-primary">2. Investigate the question</h3>
+                    </div>
+                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Use agreed, appropriately bounded checks to collect relevant signals. Testing stays within the approved scope; potentially disruptive actions require separate agreement.</p>
+                </article>
+                <article class="trust-card-no-hover">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="icon-tile"><span class="material-symbols-outlined text-primary">summarize</span></div>
+                        <h3 class="font-headline text-2xl md:text-headline-md text-primary">3. Review and recommend</h3>
+                    </div>
+                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">An experienced reviewer summarizes observations and uncertainty, then discusses practical verification, remediation, or further assessment options.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-surface-container-low border-y border-outline-variant" id="authorization">
+        <div class="max-w-7xl mx-auto px-gutter">
+            <div class="max-w-4xl mx-auto rounded-xl border border-outline-variant bg-surface-container-lowest p-6 md:p-8">
+                <div class="flex items-start gap-4">
+                    <div class="icon-tile shrink-0"><span class="material-symbols-outlined text-primary">verified_user</span></div>
+                    <div>
+                        <p class="font-label text-label-sm text-accent mb-3 uppercase tracking-widest">Permission is a prerequisite</p>
+                        <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">No testing without <span class="text-primary">written authorization</span></h2>
+                        <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-4">
+                            Before testing, Tabiri must confirm written authorization from the asset owner or an authorized representative, along with the exact scope, allowed checks, timing, and escalation process. A matching business email and web domain can help verify a relationship, but it does not establish permission to test.
+                        </p>
+                        <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                            Use the inquiry form to start a conversation only. Do not send credentials, secrets, or sensitive system data. We will not scan a domain just because it was submitted through the website.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-surface-container-lowest border-b border-outline-variant" id="triage-examples">
+        <div class="max-w-7xl mx-auto px-gutter">
+            <div class="text-center mb-8">
+                <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">Examples of the approach</p>
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Fast investigation. <span class="text-primary">Human judgment.</span></h2>
+                <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">See how Tabiri translated emerging vulnerability advisories into focused, authorized investigations without treating a signal as a verdict.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <a class="trust-card group" href="/blog/how-tabiris-ai-agent-triaged-php2shell-safely-in-less-than-20-minutes">
+                    <h3 class="font-headline text-2xl text-primary mb-3">PHP2Shell: a focused lead in about twenty minutes</h3>
+                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Read how an authorized environment was checked using targeted, non-exploit signals, with engineers responsible for confirming the system and risk.</p>
+                </a>
+                <a class="trust-card group" href="/blog/one-brotli-error-five-leads-how-tabirids-ai-agent-traced-node2shell-risk">
+                    <h3 class="font-headline text-2xl text-primary mb-3">Node2Shell: five leads, not five confirmed vulnerabilities</h3>
+                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">See how safe behavioral checks mapped potential exposure across authorized systems and directed human review.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-surface-container-low border-y border-outline-variant" id="related-services">
+        <div class="max-w-7xl mx-auto px-gutter">
+            <div class="text-center mb-8">
+                <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">Choose the right next step</p>
+                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Triage can connect to <span class="text-primary">broader security work</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a class="trust-card group" href="/penetration-testing">
+                    <h3 class="font-headline text-xl text-primary mb-2">Deeper validation</h3>
+                    <p class="font-body text-body-sm text-on-surface-variant">Explore Tabiri's Penetration Testing service for validated findings and a practical remediation plan.</p>
+                </a>
+                <a class="trust-card group" href="/managed-cybersecurity-services">
+                    <h3 class="font-headline text-xl text-primary mb-2">Ongoing visibility</h3>
+                    <p class="font-body text-body-sm text-on-surface-variant">Explore Tabiri's Managed Cybersecurity Services to track risk between assessments.</p>
+                </a>
+                <a class="trust-card group" href="/operational-assessment">
+                    <h3 class="font-headline text-xl text-primary mb-2">Broader baseline</h3>
+                    <p class="font-body text-body-sm text-on-surface-variant">Explore Tabiri's Operational Assessment to connect technical observations to organizational priorities.</p>
+                </a>
+                <a class="trust-card group" href="/cybersecurity-insurance">
+                    <h3 class="font-headline text-xl text-primary mb-2">Insurance readiness</h3>
+                    <p class="font-body text-body-sm text-on-surface-variant">Explore Tabiri's Cybersecurity Insurance service to discuss how security evidence can inform readiness, without guaranteeing coverage or pricing.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-gutter bg-surface-container-lowest" id="rapid-exposure-triage-cta">
+        <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
+            <div class="absolute inset-0 bg-gradient-to-tr from-[#1a45d2]/5 to-transparent"></div>
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Start with a conversation</p>
+                <h2 class="font-headline text-4xl md:text-display-lg text-center mb-4">Get clarity on your <span class="text-primary">next security decision</span></h2>
+                <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">Tell us about the advisory or question. We will discuss whether triage is appropriate and confirm authority and scope before any testing.</p>
+                <a class="btn-primary" data-analytics-service-inquiry="rapid_exposure_triage" href="/contact?workflow_name=rapid-exposure-triage">Discuss an authorized triage</a>
+            </div>
+        </div>
+    </section>
+</article>
+{{end}}

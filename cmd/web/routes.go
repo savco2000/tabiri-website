@@ -22,6 +22,7 @@ func (app *application) routes() http.Handler {
 	mux.HandleFunc("GET /digital-employees", app.digitalEmployees)
 	mux.HandleFunc("GET /operational-assessment", app.operationalAssessment)
 	mux.HandleFunc("GET /penetration-testing", app.penetrationTesting)
+	mux.HandleFunc("GET /rapid-exposure-triage", app.rapidExposureTriage)
 	mux.HandleFunc("GET /managed-cybersecurity-services", app.managedCybersecurityServices)
 	mux.HandleFunc("GET /cybersecurity-insurance", app.cybersecurityInsurance)
 	mux.HandleFunc("GET /data-protection", app.dataProtection)

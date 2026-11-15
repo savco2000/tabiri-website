@@ -8,10 +8,10 @@
             <span class="font-label text-label-sm text-on-surface">Commercial Customer Contact</span>
         </div>
         <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
-            Optimize Operations with <span class="text-primary">Secure AI Support</span>
+            {{if eq .LeadSource "rapid-exposure-triage"}}Discuss <span class="text-primary">Rapid Exposure Triage</span>{{else}}Optimize Operations with <span class="text-primary">Secure AI Support</span>{{end}}
         </h1>
         <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
-            This page is for commercial organizations looking to modernize workflows, reduce manual overhead, and deploy secure AI capabilities.
+            {{if eq .LeadSource "rapid-exposure-triage"}}Tell us what prompted your inquiry. We will discuss whether a focused assessment is appropriate; no testing begins from this form submission.{{else}}This page is for commercial organizations looking to modernize workflows, reduce manual overhead, and deploy secure AI capabilities.{{end}}
         </p>
     </div>
 </section>
@@ -34,7 +34,22 @@
                     </div>
                     <div class="mt-6 border-t border-outline-variant pt-6">
                         <h4 class="font-headline text-headline-md text-on-surface">What Happens Next</h4>
+                        {{if eq .LeadSource "rapid-exposure-triage"}}<p class="mt-2 font-body text-body-sm text-on-surface-variant">Your inquiry does not authorize or initiate testing.</p>{{end}}
                         <ol class="mt-4 space-y-4">
+                            {{if eq .LeadSource "rapid-exposure-triage"}}
+                            <li class="flex items-start gap-3">
+                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">1</span>
+                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">We review the issue and the systems you would like to discuss.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">2</span>
+                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">Before any testing, we confirm your authority, written scope, permitted checks, and timing.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">3</span>
+                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">If the engagement proceeds, an engineer reviews the evidence and discusses next steps with you.</span>
+                            </li>
+                            {{else}}
                             <li class="flex items-start gap-3">
                                 <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">1</span>
                                 <span class="pt-1 font-body text-body-sm text-on-surface-variant">We review your workflow bottleneck and current operating constraints.</span>
@@ -47,6 +62,7 @@
                                 <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">3</span>
                                 <span class="pt-1 font-body text-body-sm text-on-surface-variant">We scope a secure deployment plan tailored to your environment.</span>
                             </li>
+                            {{end}}
                         </ol>
                         <a class="btn-secondary mt-6 inline-flex" href="/">Return to Homepage</a>
                     </div>
@@ -57,8 +73,8 @@
                             <span class="material-symbols-outlined text-primary">contact_support</span>
                         </div>
                         <div>
-                            <h2 class="font-headline text-headline-md text-on-surface">{{if .ContactForm.AssessmentResult}}Discuss Your Automation Assessment{{else}}Talk to Our Commercial Team{{end}}</h2>
-                            <p class="font-body text-body-sm text-on-surface-variant">{{if .ContactForm.AssessmentResult}}Your assessment context is attached, so you do not need to repeat your answers.{{else}}Start a commercial readiness assessment for secure AI deployment in your organization.{{end}}</p>
+                            <h2 class="font-headline text-headline-md text-on-surface">{{if eq .LeadSource "rapid-exposure-triage"}}Discuss Rapid Exposure Triage{{else if .ContactForm.AssessmentResult}}Discuss Your Automation Assessment{{else}}Talk to Our Commercial Team{{end}}</h2>
+                            <p class="font-body text-body-sm text-on-surface-variant">{{if eq .LeadSource "rapid-exposure-triage"}}Share your organization and the advisory or security question. We will confirm authority and scope separately; this inquiry does not authorize or initiate testing.{{else if .ContactForm.AssessmentResult}}Your assessment context is attached, so you do not need to repeat your answers.{{else}}Start a commercial readiness assessment for secure AI deployment in your organization.{{end}}</p>
                         </div>
                     </div>
                     {{if .ContactForm.Errors}}
@@ -105,8 +121,8 @@
                         </div>
 
                         <div class="space-y-2">
-                            <label class="form-label" for="contact_workflow_bottleneck">{{if .ContactForm.AssessmentResult}}Workflow or Additional Context{{else}}Workflow Bottleneck{{end}}</label>
-                            <textarea class="form-field-input" id="contact_workflow_bottleneck" maxlength="5000" name="workflow_bottleneck" placeholder="Describe the manual process or backlog slowing your operations..." required rows="4">{{.ContactForm.WorkflowBottleneck}}</textarea>
+                            <label class="form-label" for="contact_workflow_bottleneck">{{if eq .LeadSource "rapid-exposure-triage"}}Organization and security question{{else if .ContactForm.AssessmentResult}}Workflow or Additional Context{{else}}Workflow Bottleneck{{end}}</label>
+                            <textarea class="form-field-input" id="contact_workflow_bottleneck" maxlength="5000" name="workflow_bottleneck" placeholder="{{if eq .LeadSource "rapid-exposure-triage"}}Share your organization, the vulnerability advisory or concern, and the systems you would like to discuss. Do not include credentials or sensitive data.{{else}}Describe the manual process or backlog slowing your operations...{{end}}" required rows="4">{{.ContactForm.WorkflowBottleneck}}</textarea>
                             {{with index .ContactForm.Errors "workflow_bottleneck"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
                         </div>
 

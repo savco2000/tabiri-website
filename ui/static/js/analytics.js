@@ -123,6 +123,15 @@
       });
     }
 
+    const inquiryLink = event.target.closest("a[data-analytics-service-inquiry]");
+    if (inquiryLink && consent === "accepted" && analyticsLoaded) {
+      window.gtag("event", "service_inquiry_click", {
+        service_name: inquiryLink.dataset.analyticsServiceInquiry,
+        link_location: window.location.pathname,
+        send_to: measurementId,
+      });
+    }
+
     const link = event.target.closest("a[data-analytics-download]");
     if (!link || consent !== "accepted" || !analyticsLoaded) {
       return;

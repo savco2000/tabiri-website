@@ -212,6 +212,130 @@ func TestContactPrefillsAssessmentContext(t *testing.T) {
 	}
 }
 
+func TestRapidExposureTriageContactPath(t *testing.T) {
+	app, db := newTestApplication(t)
+	query := url.Values{"workflow_name": {rapidExposureTriageWorkflowName}}
+	request := httptest.NewRequest(http.MethodGet, "/contact?"+query.Encode(), nil)
+	response := httptest.NewRecorder()
+	app.routes().ServeHTTP(response, request)
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	}
+	for _, expected := range []string{
+		"Discuss Rapid Exposure Triage",
+		"Organization and security question",
+		"no testing begins from this form submission",
+		"Do not include credentials or sensitive data.",
+	} {
+		if !strings.Contains(response.Body.String(), expected) {
+			t.Errorf("contact form does not contain %q", expected)
+		}
+	}
+
+	form := url.Values{
+		"full_name":           {"Jane Doe"},
+		"corporate_email":     {"jane@example.com"},
+		"workflow_name":       {rapidExposureTriageWorkflowName},
+		"workflow_bottleneck": {"Example Corp; question about a recent security advisory"},
+	}
+	submissionResponse := submitForm(app, "/contact", form)
+	if submissionResponse.Code != http.StatusSeeOther {
+		t.Fatalf("got status %d, want %d", submissionResponse.Code, http.StatusSeeOther)
+	}
+	wantLocation := "/contact?submitted=true&lead_source=rapid-exposure-triage"
+	if got := submissionResponse.Header().Get("Location"); got != wantLocation {
+		t.Fatalf("got redirect %q, want %q", got, wantLocation)
+	}
+
+	var workflowName, inquiry string
+	if err := db.QueryRow(
+		"SELECT workflow_name, workflow_bottleneck FROM lead_submissions",
+	).Scan(&workflowName, &inquiry); err != nil {
+		t.Fatal(err)
+	}
+	if workflowName != rapidExposureTriageWorkflowName ||
+		inquiry != "Example Corp; question about a recent security advisory" {
+		t.Fatalf("stored unexpected triage inquiry: %q, %q", workflowName, inquiry)
+	}
+
+	successRequest := httptest.NewRequest(http.MethodGet, wantLocation, nil)
+	for _, cookie := range submissionResponse.Result().Cookies() {
+		successRequest.AddCookie(cookie)
+	}
+	successResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(successResponse, successRequest)
+	if successResponse.Code != http.StatusOK {
+		t.Fatalf("got success-page status %d, want %d", successResponse.Code, http.StatusOK)
+	}
+	for _, expected := range []string{
+		"Before any testing, we confirm your authority, written scope, permitted checks, and timing.",
+		"Your inquiry does not authorize or initiate testing.",
+		`data-analytics-conversion="generate_lead"`,
+		`data-analytics-lead-source="rapid-exposure-triage"`,
+		`data-analytics-lead-type="rapid_exposure_triage"`,
+	} {
+		if !strings.Contains(successResponse.Body.String(), expected) {
+			t.Errorf("triage success page does not contain %q", expected)
+		}
+	}
+}
+
+func TestPenetrationTestingPagePromotesRapidExposureTriage(t *testing.T) {
+	app, _ := newTestApplication(t)
+	request := httptest.NewRequest(http.MethodGet, "/penetration-testing", nil)
+	response := httptest.NewRecorder()
+	app.routes().ServeHTTP(response, request)
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	}
+	for _, expected := range []string{
+		"Rapid Exposure Triage",
+		`data-analytics-service-inquiry="rapid_exposure_triage"`,
+		"href=\"/rapid-exposure-triage\"",
+	} {
+		if !strings.Contains(response.Body.String(), expected) {
+			t.Errorf("penetration testing page does not contain %q", expected)
+		}
+	}
+}
+
+func TestRapidExposureTriagePageExplainsAuthorizationAndNextSteps(t *testing.T) {
+	app, _ := newTestApplication(t)
+	response := getPage(app, "/rapid-exposure-triage")
+	if response.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	}
+	for _, expected := range []string{
+		"Rapid Exposure",
+		"When vulnerability research moves faster, response needs to keep pace.",
+		"Tabiri uses AI-assisted workflows to turn relevant advisories into focused, authorized checks",
+		"written authorization",
+		`material-symbols-outlined text-primary">description</span>`,
+		"A matching business email and web domain can help verify a relationship, but it does not establish permission to test.",
+		"An inquiry does not begin testing or grant permission to test.",
+		"href=\"/contact?workflow_name=rapid-exposure-triage\"",
+		"href=\"/blog/how-tabiris-ai-agent-triaged-php2shell-safely-in-less-than-20-minutes\"",
+		"href=\"/blog/one-brotli-error-five-leads-how-tabirids-ai-agent-traced-node2shell-risk\"",
+		"href=\"/penetration-testing\"",
+		"href=\"/managed-cybersecurity-services\"",
+		"href=\"/operational-assessment\"",
+		"href=\"/cybersecurity-insurance\"",
+		"Explore Tabiri's Penetration Testing service",
+		"Explore Tabiri's Managed Cybersecurity Services",
+		"Explore Tabiri's Operational Assessment",
+		"Explore Tabiri's Cybersecurity Insurance service",
+	} {
+		if !strings.Contains(response.Body.String(), expected) {
+			t.Errorf("triage page does not contain %q", expected)
+		}
+	}
+	if strings.Contains(response.Body.String(), `material-symbols-outlined text-primary">contract</span>`) {
+		t.Error("triage page contains the unsupported contract icon")
+	}
+}
+
 func TestContactSuccessIncludesWhatHappensNext(t *testing.T) {
 	app, _ := newTestApplication(t)
 	request := httptest.NewRequest(http.MethodGet, "/contact?submitted=true", nil)

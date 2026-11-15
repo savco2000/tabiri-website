@@ -66,6 +66,14 @@ var pageSpecs = map[string]pageSpec{
 		canonicalURL:         "https://tabirianalytics.com/penetration-testing",
 		currentPage:          "penetration-testing",
 	},
+	"rapid-exposure-triage": {
+		template:             "rapid-exposure-triage",
+		title:                "Rapid Exposure Triage | Tabiri Analytics",
+		description:          "Investigate urgent vulnerability advisories with focused, authorized checks and a human-reviewed summary of evidence, uncertainty, and next steps.",
+		openGraphDescription: "Turn a new vulnerability advisory into focused, authorized checks and a human-reviewed path to the next security decision.",
+		canonicalURL:         "https://tabirianalytics.com/rapid-exposure-triage",
+		currentPage:          "rapid-exposure-triage",
+	},
 	"managed-cybersecurity-services": {
 		template:             "managed-cybersecurity-services",
 		title:                "Managed Cybersecurity Services | Tabiri Analytics",
@@ -215,6 +223,10 @@ func (app *application) operationalAssessment(w http.ResponseWriter, r *http.Req
 
 func (app *application) penetrationTesting(w http.ResponseWriter, r *http.Request) {
 	app.renderNamedPage(w, r, "penetration-testing", http.StatusOK)
+}
+
+func (app *application) rapidExposureTriage(w http.ResponseWriter, r *http.Request) {
+	app.renderNamedPage(w, r, "rapid-exposure-triage", http.StatusOK)
 }
 
 func (app *application) managedCybersecurityServices(w http.ResponseWriter, r *http.Request) {

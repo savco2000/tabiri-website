@@ -17,6 +17,7 @@ func TestPublicPagesHavePageSpecificCanonicalURLs(t *testing.T) {
 		{"/digital-employees", "https://tabirianalytics.com/digital-employees"},
 		{"/operational-assessment", "https://tabirianalytics.com/operational-assessment"},
 		{"/penetration-testing", "https://tabirianalytics.com/penetration-testing"},
+		{"/rapid-exposure-triage", "https://tabirianalytics.com/rapid-exposure-triage"},
 		{"/managed-cybersecurity-services", "https://tabirianalytics.com/managed-cybersecurity-services"},
 		{"/cybersecurity-insurance", "https://tabirianalytics.com/cybersecurity-insurance"},
 		{"/data-protection", "https://tabirianalytics.com/data-protection"},
