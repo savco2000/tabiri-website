@@ -2610,9 +2610,11 @@
     transition: max-height 320ms cubic-bezier(0.22, 1, 0.36, 1), opacity 260ms ease-out, transform 260ms ease-out;
   }
   .mobile-nav-panel.is-open {
-    max-height: 36rem;
+    max-height: calc(100dvh - 4rem);
     opacity: 1;
     transform: translateY(0);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     pointer-events: auto;
   }
   .icon-size-sm {

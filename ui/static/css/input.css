@@ -88,9 +88,11 @@
 	}
 
 	.mobile-nav-panel.is-open {
-		max-height: 36rem;
+		max-height: calc(100dvh - 4rem);
 		opacity: 1;
 		transform: translateY(0);
+		overflow-y: auto;
+		overscroll-behavior: contain;
 		pointer-events: auto;
 	}
 

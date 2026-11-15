@@ -68,6 +68,23 @@ func TestHomepageHasRelevantSocialMetadata(t *testing.T) {
 	}
 }
 
+func TestMobileNavigationIncludesAboutUs(t *testing.T) {
+	app, _ := newTestApplication(t)
+	body := getPage(app, "/").Body.String()
+	mobileNavStart := strings.Index(body, `id="mobile-nav-panel"`)
+	if mobileNavStart < 0 {
+		t.Fatal("homepage is missing the mobile navigation panel")
+	}
+	mobileNavEnd := strings.Index(body[mobileNavStart:], "</div>\n    </div>\n</nav>")
+	if mobileNavEnd < 0 {
+		t.Fatal("could not locate the end of the mobile navigation panel")
+	}
+	mobileNav := body[mobileNavStart : mobileNavStart+mobileNavEnd]
+	if !strings.Contains(mobileNav, `href="/about">About Us</a>`) {
+		t.Error("mobile navigation panel does not include About Us")
+	}
+}
+
 func TestNotFoundPageDoesNotUseHomepageAsCanonical(t *testing.T) {
 	app, _ := newTestApplication(t)
 	response := getPage(app, "/missing-page")
