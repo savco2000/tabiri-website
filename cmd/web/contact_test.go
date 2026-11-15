@@ -322,10 +322,10 @@ func TestRapidExposureTriagePageExplainsAuthorizationAndNextSteps(t *testing.T) 
 		"href=\"/managed-cybersecurity-services\"",
 		"href=\"/operational-assessment\"",
 		"href=\"/cybersecurity-insurance\"",
-		"Explore Tabiri's Penetration Testing service",
-		"Explore Tabiri's Managed Cybersecurity Services",
-		"Explore Tabiri's Operational Assessment",
-		"Explore Tabiri's Cybersecurity Insurance service",
+		"Explore Tabiri's <strong>Penetration Testing</strong> service",
+		"Explore Tabiri's <strong>Managed Cybersecurity Services</strong>",
+		"Explore Tabiri's <strong>Operational Assessment</strong>",
+		"Explore Tabiri's <strong>Cybersecurity Insurance</strong> service",
 	} {
 		if !strings.Contains(response.Body.String(), expected) {
 			t.Errorf("triage page does not contain %q", expected)
