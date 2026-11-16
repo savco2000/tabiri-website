@@ -72,6 +72,7 @@ var pageSpecs = map[string]pageSpec{
 		description:          "Investigate urgent vulnerability advisories with focused, authorized checks and a human-reviewed summary of evidence, uncertainty, and next steps.",
 		openGraphDescription: "Turn a new vulnerability advisory into focused, authorized checks and a human-reviewed path to the next security decision.",
 		canonicalURL:         "https://tabirianalytics.com/rapid-exposure-triage",
+		openGraphImage:       "https://tabirianalytics.com/static/images/rapid-exposure-triage-social.avif",
 		currentPage:          "rapid-exposure-triage",
 	},
 	"managed-cybersecurity-services": {

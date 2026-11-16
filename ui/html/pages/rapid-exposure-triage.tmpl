@@ -1,20 +1,29 @@
 {{define "main"}}
+<!-- Hero Section -->
 <article class="pb-12">
     <section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant" id="rapid-exposure-triage-hero">
-        <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-            <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
-                <span class="material-symbols-outlined icon-size-sm text-primary">policy</span>
-                <span class="font-label text-label-sm text-on-surface">A Focused, Authorized First Step</span>
+        <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 items-center">
+            <div class="flex flex-col items-center text-center lg:items-start lg:text-left">
+                <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
+                    <span class="material-symbols-outlined icon-size-sm text-primary">policy</span>
+                    <span class="font-label text-label-sm text-on-surface">A Focused, Authorized First Step</span>
+                </div>
+                <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
+                    Rapid Exposure Triage
+                </h1>
+                <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+                    When vulnerability research moves faster, response needs to keep pace. AI is changing how quickly security research can progress. Tabiri uses AI-assisted workflows to turn relevant advisories into focused, authorized checks - with experienced security professionals reviewing the evidence and guiding next steps.
+                </p>
+                <div class="mt-10 md:mt-12 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 w-full sm:w-auto">
+                    <a class="btn-primary w-full sm:w-auto" data-analytics-service-inquiry="rapid_exposure_triage" href="/contact?workflow_name=rapid-exposure-triage">Discuss an authorized triage</a>
+                    <a class="btn-secondary w-full sm:w-auto" href="#how-it-works">How it works</a>
+                </div>
             </div>
-            <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
-                Rapid Exposure Triage
-            </h1>
-            <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
-                When vulnerability research moves faster, response needs to keep pace. AI is changing how quickly security research can progress. Tabiri uses AI-assisted workflows to turn relevant advisories into focused, authorized checks - with experienced security professionals reviewing the evidence and guiding next steps.
-            </p>
-            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
-                <a class="btn-primary w-full sm:w-auto" data-analytics-service-inquiry="rapid_exposure_triage" href="/contact?workflow_name=rapid-exposure-triage">Discuss an authorized triage</a>
-                <a class="btn-secondary w-full sm:w-auto" href="#how-it-works">How it works</a>
+            <div class="relative">
+                <div class="absolute -inset-4 bg-primary-container/20 blur-3xl rounded-full"></div>
+                <figure class="relative rounded-2xl overflow-hidden border border-outline-variant shadow-2xl">
+                    <img alt="A vulnerability advisory moving through an authorized, shielded triage process to human review" class="w-full aspect-video object-cover" width="1536" height="1024" fetchpriority="high" decoding="async" src="/static/images/rapid-exposure-triage-social.avif">
+                </figure>
             </div>
         </div>
     </section>
