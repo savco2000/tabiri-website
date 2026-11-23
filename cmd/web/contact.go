@@ -497,7 +497,8 @@ func validateEmailField(errors map[string]string, field, email, requiredMessage 
 }
 
 func (app *application) renderContact(w http.ResponseWriter, r *http.Request, status int, form ContactForm) {
-	formSubmitted := r.URL.Query().Get("submitted") == "true"
+	formSubmitted := r.URL.Query().Get("submitted") == "true" &&
+		app.consumeConversionCookie(w, r, "contact")
 	formProof := ""
 	if !formSubmitted {
 		var err error
@@ -508,7 +509,7 @@ func (app *application) renderContact(w http.ResponseWriter, r *http.Request, st
 		}
 	}
 	analyticsConversion := ""
-	if formSubmitted && app.consumeConversionCookie(w, r, "contact") {
+	if formSubmitted {
 		analyticsConversion = "generate_lead"
 	}
 	data := PageData{
@@ -568,7 +569,8 @@ func contactFormFromQuery(query url.Values) ContactForm {
 }
 
 func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Request, status int, form PartnerContactForm) {
-	formSubmitted := r.URL.Query().Get("submitted") == "true"
+	formSubmitted := r.URL.Query().Get("submitted") == "true" &&
+		app.consumeConversionCookie(w, r, "partner_contact")
 	formProof := ""
 	if !formSubmitted {
 		var err error
@@ -579,7 +581,7 @@ func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Requ
 		}
 	}
 	analyticsConversion := ""
-	if formSubmitted && app.consumeConversionCookie(w, r, "partner_contact") {
+	if formSubmitted {
 		analyticsConversion = "generate_lead"
 	}
 	data := PageData{
@@ -601,7 +603,8 @@ func (app *application) renderPartnerContact(w http.ResponseWriter, r *http.Requ
 }
 
 func (app *application) renderNewsletter(w http.ResponseWriter, r *http.Request, status int, form NewsletterForm) {
-	formSubmitted := r.URL.Query().Get("submitted") == "true"
+	formSubmitted := r.URL.Query().Get("submitted") == "true" &&
+		app.consumeConversionCookie(w, r, "newsletter")
 	formProof := ""
 	if !formSubmitted {
 		var err error
@@ -612,7 +615,7 @@ func (app *application) renderNewsletter(w http.ResponseWriter, r *http.Request,
 		}
 	}
 	analyticsConversion := ""
-	if formSubmitted && app.consumeConversionCookie(w, r, "newsletter") {
+	if formSubmitted {
 		analyticsConversion = "sign_up"
 	}
 	data := PageData{

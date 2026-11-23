@@ -339,17 +339,41 @@ func TestRapidExposureTriagePageExplainsAuthorizationAndNextSteps(t *testing.T) 
 	}
 }
 
-func TestContactSuccessIncludesWhatHappensNext(t *testing.T) {
+func TestContactSuccessRequiresRecentSubmission(t *testing.T) {
 	app, _ := newTestApplication(t)
-	request := httptest.NewRequest(http.MethodGet, "/contact?submitted=true", nil)
-	response := httptest.NewRecorder()
+	location := "/contact?submitted=true"
 
-	app.routes().ServeHTTP(response, request)
+	directRequest := httptest.NewRequest(http.MethodGet, location, nil)
+	directResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(directResponse, directRequest)
 
-	if response.Code != http.StatusOK {
-		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	if directResponse.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", directResponse.Code, http.StatusOK)
 	}
-	body := response.Body.String()
+	if body := directResponse.Body.String(); !strings.Contains(body, `<form action="/contact"`) {
+		t.Fatal("direct success URL must render the contact form")
+	} else if strings.Contains(body, "Thank you for contacting us") {
+		t.Fatal("direct success URL must not show the acknowledgement")
+	}
+	if strings.Contains(directResponse.Body.String(), "data-analytics-conversion") {
+		t.Error("unverified success URL must not include a conversion marker")
+	}
+
+	submission := submitForm(app, "/contact", validContactValues())
+	cookies := submission.Result().Cookies()
+	if len(cookies) != 1 || cookies[0].Name != conversionCookieName {
+		t.Fatalf("unexpected conversion cookies: %#v", cookies)
+	}
+	location = submission.Header().Get("Location")
+	redirectRequest := httptest.NewRequest(http.MethodGet, location, nil)
+	redirectRequest.AddCookie(cookies[0])
+	redirectResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(redirectResponse, redirectRequest)
+
+	if redirectResponse.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", redirectResponse.Code, http.StatusOK)
+	}
+	body := redirectResponse.Body.String()
 	for _, expected := range []string{
 		"Thank you for contacting us",
 		"What Happens Next",
@@ -364,22 +388,56 @@ func TestContactSuccessIncludesWhatHappensNext(t *testing.T) {
 	if got := strings.Count(body, "What Happens Next"); got != 1 {
 		t.Errorf("What Happens Next appears %d times, want 1", got)
 	}
-	if strings.Contains(body, "data-analytics-conversion") {
-		t.Error("unverified success URL must not include a conversion marker")
+	if !strings.Contains(body, `data-analytics-conversion="generate_lead"`) {
+		t.Error("successful inquiry must include the conversion marker")
+	}
+
+	refreshRequest := httptest.NewRequest(http.MethodGet, location, nil)
+	refreshResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(refreshResponse, refreshRequest)
+	if strings.Contains(refreshResponse.Body.String(), "Thank you for contacting us") {
+		t.Error("refreshing after consuming the success signal must show the form")
 	}
 }
 
-func TestPartnerContactSuccessIncludesReviewTimeline(t *testing.T) {
+func TestPartnerContactSuccessRequiresRecentSubmission(t *testing.T) {
 	app, _ := newTestApplication(t)
-	request := httptest.NewRequest(http.MethodGet, "/partner-contact?submitted=true", nil)
-	response := httptest.NewRecorder()
+	location := "/partner-contact?submitted=true"
 
-	app.routes().ServeHTTP(response, request)
+	directRequest := httptest.NewRequest(http.MethodGet, location, nil)
+	directResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(directResponse, directRequest)
 
-	if response.Code != http.StatusOK {
-		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	if directResponse.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", directResponse.Code, http.StatusOK)
 	}
-	body := response.Body.String()
+	if body := directResponse.Body.String(); !strings.Contains(body, `<form action="/partner-contact"`) {
+		t.Fatal("direct success URL must render the partner contact form")
+	} else if strings.Contains(body, "Thank you for applying") {
+		t.Fatal("direct success URL must not show the acknowledgement")
+	}
+
+	submission := submitForm(app, "/partner-contact", url.Values{
+		"agency_name":         {"Example Partners"},
+		"corporate_email":     {"partner@example.com"},
+		"client_volume":       {"11-50"},
+		"primary_vertical":    {"Healthcare"},
+		"delivery_constraint": {"Limited implementation capacity"},
+	})
+	cookies := submission.Result().Cookies()
+	if len(cookies) != 1 || cookies[0].Name != conversionCookieName {
+		t.Fatalf("unexpected conversion cookies: %#v", cookies)
+	}
+	location = submission.Header().Get("Location")
+	redirectRequest := httptest.NewRequest(http.MethodGet, location, nil)
+	redirectRequest.AddCookie(cookies[0])
+	redirectResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(redirectResponse, redirectRequest)
+
+	if redirectResponse.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", redirectResponse.Code, http.StatusOK)
+	}
+	body := redirectResponse.Body.String()
 	for _, expected := range []string{
 		"Thank you for applying",
 		"Review Timeline",
@@ -393,6 +451,16 @@ func TestPartnerContactSuccessIncludesReviewTimeline(t *testing.T) {
 	}
 	if got := strings.Count(body, "Review Timeline"); got != 1 {
 		t.Errorf("Review Timeline appears %d times, want 1", got)
+	}
+	if !strings.Contains(body, `data-analytics-conversion="generate_lead"`) {
+		t.Error("successful application must include the conversion marker")
+	}
+
+	refreshRequest := httptest.NewRequest(http.MethodGet, location, nil)
+	refreshResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(refreshResponse, refreshRequest)
+	if strings.Contains(refreshResponse.Body.String(), "Thank you for applying") {
+		t.Error("refreshing after consuming the success signal must show the form")
 	}
 }
 
@@ -752,22 +820,60 @@ func TestNewsletterPageIncludesProtectionFields(t *testing.T) {
 	}
 }
 
-func TestNewsletterSuccessReplacesForm(t *testing.T) {
+func TestNewsletterSuccessRequiresRecentSubmission(t *testing.T) {
 	app, _ := newTestApplication(t)
-	request := httptest.NewRequest(http.MethodGet, "/newsletter?submitted=true", nil)
-	response := httptest.NewRecorder()
+	location := "/newsletter?submitted=true"
 
-	app.routes().ServeHTTP(response, request)
+	directRequest := httptest.NewRequest(http.MethodGet, location, nil)
+	directResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(directResponse, directRequest)
 
-	if response.Code != http.StatusOK {
-		t.Fatalf("got status %d, want %d", response.Code, http.StatusOK)
+	if directResponse.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", directResponse.Code, http.StatusOK)
 	}
-	body := response.Body.String()
+	if body := directResponse.Body.String(); !strings.Contains(body, `action="/newsletter"`) {
+		t.Fatal("direct success URL must render the newsletter form")
+	} else if strings.Contains(body, "Thank you for subscribing") {
+		t.Fatal("direct success URL must not show the acknowledgement")
+	}
+
+	submission := submitForm(app, "/newsletter", url.Values{
+		"first_name": {"Jane"},
+		"email":      {"jane@example.com"},
+		"consent":    {"on"},
+	})
+	cookies := submission.Result().Cookies()
+	if len(cookies) != 1 || cookies[0].Name != conversionCookieName {
+		t.Fatalf("unexpected conversion cookies: %#v", cookies)
+	}
+	location = submission.Header().Get("Location")
+	redirectRequest := httptest.NewRequest(http.MethodGet, location, nil)
+	redirectRequest.AddCookie(cookies[0])
+	redirectResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(redirectResponse, redirectRequest)
+
+	if redirectResponse.Code != http.StatusOK {
+		t.Fatalf("got status %d, want %d", redirectResponse.Code, http.StatusOK)
+	}
+	body := redirectResponse.Body.String()
 	if !strings.Contains(body, "Thank you for subscribing") {
 		t.Fatal("response does not contain subscription success message")
 	}
 	if strings.Contains(body, `action="/newsletter"`) {
 		t.Fatal("response still contains newsletter form after submission")
+	}
+	if !strings.Contains(body, `data-analytics-conversion="sign_up"`) {
+		t.Error("successful subscription must include the conversion marker")
+	}
+
+	refreshRequest := httptest.NewRequest(http.MethodGet, location, nil)
+	refreshResponse := httptest.NewRecorder()
+	app.routes().ServeHTTP(refreshResponse, refreshRequest)
+	if !strings.Contains(refreshResponse.Body.String(), `action="/newsletter"`) {
+		t.Error("refreshing after consuming the success signal must show the form")
+	}
+	if strings.Contains(refreshResponse.Body.String(), "Thank you for subscribing") {
+		t.Error("refreshing after consuming the success signal must not show the acknowledgement")
 	}
 }
 
