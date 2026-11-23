@@ -1,5 +1,5 @@
 {
-  "name": "Go HTMX Tailwind",
+  "name": "Tabiri Website",
   "build": {
     "dockerfile": "Dockerfile"
   },
