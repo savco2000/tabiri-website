@@ -1,6 +1,6 @@
 {{define "base"}}
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -22,11 +22,12 @@
     <link rel="preload" href="/static/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin>
     <link href="/static/css/fonts.css?v=2" rel="stylesheet">
     <link href="/static/css/styles.css" rel="stylesheet">
+    <link href="/static/css/components.css" rel="stylesheet">
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-white"{{if .AnalyticsConversion}} data-analytics-conversion="{{.AnalyticsConversion}}" data-analytics-lead-source="{{.LeadSource}}" data-analytics-lead-type="{{.AnalyticsLeadType}}"{{end}}>
+<body class="site-body"{{if .AnalyticsConversion}} data-analytics-conversion="{{.AnalyticsConversion}}" data-analytics-lead-source="{{.LeadSource}}" data-analytics-lead-type="{{.AnalyticsLeadType}}"{{end}}>
     {{template "nav" .}}
 
-    <main class="pt-24 md:pt-28" id="index-main">
+    <main class="site-main" id="index-main">
         {{template "main" .}}        
     </main>
 
@@ -34,19 +35,19 @@
 
     <section
         id="analytics-consent"
-        class="fixed inset-x-4 bottom-4 z-[100] mx-auto max-w-3xl rounded-xl border border-outline-variant bg-surface-container-lowest p-5 shadow-2xl md:inset-x-6 md:bottom-6"
+        class="consent-banner"
         role="region"
         aria-label="Analytics preferences"
         aria-live="polite"
         hidden>
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div class="max-w-xl">
-                <h2 class="font-headline text-headline-sm text-on-background">Your privacy choices</h2>
-                <p class="mt-2 text-body-sm text-on-surface-variant">
-                    With your permission, we use Google Tag Manager for analytics. You can accept or reject analytics, and change your choice at any time. Read our <a class="text-primary underline" href="/privacy-policy">draft Privacy Policy</a>.
+        <div class="consent-banner__layout">
+            <div class="consent-banner__copy">
+                <h2 class="consent-banner__title">Your privacy choices</h2>
+                <p class="consent-banner__text">
+                    With your permission, we use Google Tag Manager for analytics. You can accept or reject analytics, and change your choice at any time. Read our <a class="consent-banner__link" href="/privacy-policy">draft Privacy Policy</a>.
                 </p>
             </div>
-            <div class="flex shrink-0 flex-wrap gap-3">
+            <div class="consent-banner__actions">
                 <button class="btn-secondary" id="reject-analytics" type="button">Reject analytics</button>
                 <button class="btn-primary" id="accept-analytics" type="button">Accept analytics</button>
             </div>
@@ -56,9 +57,9 @@
     <!-- Scroll Up Button -->
     <button 
         id="scrollUpBtn" 
-        class="fixed bottom-6 right-6 z-50 hidden translate-y-4 opacity-0 rounded-full bg-blue-600 p-3 text-white shadow-lg transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
-        aria-label="Go to top">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        class="scroll-up"
+        aria-label="Go to top" hidden>
+        <svg class="scroll-up__icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
         </svg>
     </button>

@@ -1,46 +1,46 @@
 {{define "main"}}
 <!-- Hero Section -->
-<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
-    <div class="absolute inset-0 opacity-40"></div>
-    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
-            <span class="material-symbols-outlined icon-size-sm text-primary">article</span>
-            <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Insights & Playbooks</span>
+<section class="page-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content--centered">
+        <div class="hero-kicker">
+            <span class="material-symbols-outlined icon-size-sm">article</span>
+            <span class="eyebrow">Insights & Playbooks</span>
         </div>
-        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
-            Ideas, signals, and <span class="text-primary">secure AI operating models</span> for the modern enterprise
+        <h1 class="hero-title">
+            Ideas, signals, and <span>secure AI operating models</span> for the modern enterprise
         </h1>
-        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+        <p class="hero-description">
             Practical thinking for teams that want to automate operations without compromising privacy, trust, or human accountability.
         </p>
-        <div class="mt-10 md:mt-12 flex flex-wrap justify-center gap-3">
-            <span class="inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm text-on-surface">AI Strategy</span>
-            <span class="inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm text-on-surface">Cybersecurity</span>
-            <span class="inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm text-on-surface">Operational Design</span>
-            <span class="inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-4 py-2 font-label text-label-sm text-on-surface">Governance</span>
+        <div class="blog-topics">
+            <span>AI Strategy</span>
+            <span>Cybersecurity</span>
+            <span>Operational Design</span>
+            <span>Governance</span>
         </div>
     </div>
 </section>
 
 <!-- Featured Post Section -->
-<section class="py-12 bg-surface-container-low border-b border-outline-variant" id="featured-post">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <article class="overflow-hidden rounded-4xl border border-outline-variant bg-surface-container-lowest shadow-sm lg:flex">
-            <div class="lg:w-[48%] relative min-h-70 md:min-h-90 bg-surface-container-low">
-                <img alt="AI agent activity flowing through observability signals to a human review console" class="absolute inset-0 h-full w-full object-cover" width="1600" height="1067" src="/static/images/continuous-agent-monitoring.avif">
+<section class="content-section content-section--muted content-section--border-bottom" id="featured-post">
+    <div class="section-container">
+        <article class="featured-post">
+            <div class="featured-post__image">
+                <img alt="AI agent activity flowing through observability signals to a human review console" width="1600" height="1067" src="/static/images/continuous-agent-monitoring.avif">
             </div>
-            <div class="lg:w-[52%] p-6 md:p-8 lg:p-10 flex flex-col justify-center">
-                <span class="inline-flex w-fit items-center gap-2 rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 font-label text-label-sm text-primary uppercase tracking-wider">Featured article</span>
-                <h2 class="mt-5 font-headline text-3xl md:text-headline-lg text-on-background">Why AI guardrails are not enough: the case for continuous agent monitoring</h2>
-                <p class="mt-4 text-body-md text-on-surface-variant leading-relaxed">
+            <div class="featured-post__content">
+                <span class="featured-post__badge">Featured article</span>
+                <h2 class="featured-post__title">Why AI guardrails are not enough: the case for continuous agent monitoring</h2>
+                <p class="featured-post__description">
                     What continuous cybersecurity monitoring teaches us about governing AI agent permissions, delegation, behavioral drift, evidence, and human intervention.
                 </p>
-                <div class="mt-6 flex flex-wrap items-center gap-4 text-body-sm text-on-surface-variant">
+                <div class="featured-post__meta">
                     <span>November 5, 2026</span>
                     <span>•</span>
                     <span>8 min read</span>
                 </div>
-                <div class="mt-8">
+                <div class="featured-post__action">
                     <a class="btn-primary" href="/blog/why-ai-guardrails-are-not-enough-continuous-agent-monitoring">Read the article</a>
                 </div>
             </div>
@@ -49,113 +49,113 @@
 </section>
 
 <!-- Latest Posts Section -->
-<section class="py-12 bg-surface-container-lowest" id="latest-posts">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <div class="mb-10 text-center md:text-left">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-outline-variant bg-surface-container-low mb-4">
-                <span class="material-symbols-outlined icon-size-sm text-primary">newspaper</span>
-                <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Latest posts</span>
+<section class="content-section content-section--light" id="latest-posts">
+    <div class="section-container">
+        <div class="latest-posts__intro">
+            <span class="section-kicker">
+                <span class="material-symbols-outlined icon-size-sm">newspaper</span>
+                <span class="eyebrow">Latest posts</span>
             </span>
-            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background">Fresh thinking for AI operations</h2>
+            <h2 class="latest-posts__title">Fresh thinking for AI operations</h2>
         </div>
 
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            <article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <div class="h-48 overflow-hidden bg-surface-container-lowest">
-                    <img alt="AI-assisted Node2Shell triage tracing Brotli-compressed requests through Node.js services" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" width="1600" height="1067" src="/static/images/node2shell-brotli-triage.avif">
+        <div class="post-grid">
+            <article class="post-card">
+                <div class="post-card__image-frame">
+                    <img alt="AI-assisted Node2Shell triage tracing Brotli-compressed requests through Node.js services" class="post-card__image" width="1600" height="1067" src="/static/images/node2shell-brotli-triage.avif">
                 </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <div class="mb-4 flex items-center gap-2 text-body-sm text-on-surface-variant">
-                        <span class="font-label text-label-sm uppercase tracking-wider text-primary">Cybersecurity</span>
+                <div class="post-card__content">
+                    <div class="post-card__meta">
+                        <span class="eyebrow eyebrow--primary">Cybersecurity</span>
                         <span>•</span>
                         <span>7 min read</span>
                     </div>
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">
-                        <a class="focus-ring transition-colors hover:text-primary hover:underline" href="/blog/one-brotli-error-five-leads-how-tabirids-ai-agent-traced-node2shell-risk">One Brotli error, five leads: how Tabiri's AI agent traced Node2Shell risk</a>
+                    <h3 class="heading-medium">
+                        <a class="focus-ring post-card__title-link" href="/blog/one-brotli-error-five-leads-how-tabirids-ai-agent-traced-node2shell-risk">One Brotli error, five leads: how Tabiri's AI agent traced Node2Shell risk</a>
                     </h3>
-                    <p class="mt-4 text-body-sm text-on-surface-variant leading-relaxed">How a newly disclosed decoder flaw became safe behavioral checks, focused service leads, and a human-owned final verdict.</p>
-                    <div class="mt-auto pt-6">
-                        <a class="text-primary font-label text-label-sm uppercase tracking-wider hover:opacity-80" href="/blog/one-brotli-error-five-leads-how-tabirids-ai-agent-traced-node2shell-risk">Read more</a>
+                    <p class="post-card__excerpt">How a newly disclosed decoder flaw became safe behavioral checks, focused service leads, and a human-owned final verdict.</p>
+                    <div class="post-card__footer">
+                        <a class="post-card__link" href="/blog/one-brotli-error-five-leads-how-tabirids-ai-agent-traced-node2shell-risk">Read more</a>
                     </div>
                 </div>
             </article>
 
-            <article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <div class="h-48 overflow-hidden bg-surface-container-lowest">
-                    <img alt="AI-assisted PHP vulnerability triage with safe checks and human validation" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" width="1600" height="1067" src="/static/images/php2shell-agentic-triage.avif">
+            <article class="post-card">
+                <div class="post-card__image-frame">
+                    <img alt="AI-assisted PHP vulnerability triage with safe checks and human validation" class="post-card__image" width="1600" height="1067" src="/static/images/php2shell-agentic-triage.avif">
                 </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <div class="mb-4 flex items-center gap-2 text-body-sm text-on-surface-variant">
-                        <span class="font-label text-label-sm uppercase tracking-wider text-primary">Cybersecurity</span>
+                <div class="post-card__content">
+                    <div class="post-card__meta">
+                        <span class="eyebrow eyebrow--primary">Cybersecurity</span>
                         <span>•</span>
                         <span>7 min read</span>
                     </div>
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">
-                        <a class="focus-ring transition-colors hover:text-primary hover:underline" href="/blog/how-tabiris-ai-agent-triaged-php2shell-safely-in-less-than-20-minutes">How Tabiri's AI agent triaged PHP2Shell safely in less than 20 minutes</a>
+                    <h3 class="heading-medium">
+                        <a class="focus-ring post-card__title-link" href="/blog/how-tabiris-ai-agent-triaged-php2shell-safely-in-less-than-20-minutes">How Tabiri's AI agent triaged PHP2Shell safely in less than 20 minutes</a>
                     </h3>
-                    <p class="mt-4 text-body-sm text-on-surface-variant leading-relaxed">How a new PHP advisory became targeted, non-exploit checks and a focused lead for human review in about twenty minutes.</p>
-                    <div class="mt-auto pt-6">
-                        <a class="text-primary font-label text-label-sm uppercase tracking-wider hover:opacity-80" href="/blog/how-tabiris-ai-agent-triaged-php2shell-safely-in-less-than-20-minutes">Read more</a>
+                    <p class="post-card__excerpt">How a new PHP advisory became targeted, non-exploit checks and a focused lead for human review in about twenty minutes.</p>
+                    <div class="post-card__footer">
+                        <a class="post-card__link" href="/blog/how-tabiris-ai-agent-triaged-php2shell-safely-in-less-than-20-minutes">Read more</a>
                     </div>
                 </div>
             </article>
 
-            <article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <div class="h-48 overflow-hidden bg-surface-container-lowest">
-                    <img alt="Secure digital payment infrastructure under assessment" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" width="1600" height="1067" src="/static/images/fintech-compliance.avif">
+            <article class="post-card">
+                <div class="post-card__image-frame">
+                    <img alt="Secure digital payment infrastructure under assessment" class="post-card__image" width="1600" height="1067" src="/static/images/fintech-compliance.avif">
                 </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <div class="mb-4 flex items-center gap-2 text-body-sm text-on-surface-variant">
-                        <span class="font-label text-label-sm uppercase tracking-wider text-primary">Cybersecurity</span>
+                <div class="post-card__content">
+                    <div class="post-card__meta">
+                        <span class="eyebrow eyebrow--primary">Cybersecurity</span>
                         <span>•</span>
                         <span>7 min read</span>
                     </div>
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">
-                        <a class="focus-ring transition-colors hover:text-primary hover:underline" href="/blog/inside-a-regulated-fintechs-agentic-secops-penetration-test">Inside a regulated fintech's Agentic SecOps penetration test</a>
+                    <h3 class="heading-medium">
+                        <a class="focus-ring post-card__title-link" href="/blog/inside-a-regulated-fintechs-agentic-secops-penetration-test">Inside a regulated fintech's Agentic SecOps penetration test</a>
                     </h3>
-                    <p class="mt-4 text-body-sm text-on-surface-variant leading-relaxed">How machine-speed coverage and human judgment exposed material risk and gave a regulated fintech a practical path to remediation.</p>
-                    <div class="mt-auto pt-6">
-                        <a class="text-primary font-label text-label-sm uppercase tracking-wider hover:opacity-80" href="/blog/inside-a-regulated-fintechs-agentic-secops-penetration-test">Read more</a>
+                    <p class="post-card__excerpt">How machine-speed coverage and human judgment exposed material risk and gave a regulated fintech a practical path to remediation.</p>
+                    <div class="post-card__footer">
+                        <a class="post-card__link" href="/blog/inside-a-regulated-fintechs-agentic-secops-penetration-test">Read more</a>
                     </div>
                 </div>
             </article>
 
-            <article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <div class="h-48 overflow-hidden bg-surface-container-lowest">
-                    <img alt="Utility GPS and GIS telemetry flowing through agentic analysis to human approval" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" width="1600" height="1067" src="/static/images/utility-agentic-secops.avif">
+            <article class="post-card">
+                <div class="post-card__image-frame">
+                    <img alt="Utility GPS and GIS telemetry flowing through agentic analysis to human approval" class="post-card__image" width="1600" height="1067" src="/static/images/utility-agentic-secops.avif">
                 </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <div class="mb-4 flex items-center gap-2 text-body-sm text-on-surface-variant">
-                        <span class="font-label text-label-sm uppercase tracking-wider text-primary">Cybersecurity</span>
+                <div class="post-card__content">
+                    <div class="post-card__meta">
+                        <span class="eyebrow eyebrow--primary">Cybersecurity</span>
                         <span>•</span>
                         <span>8 min read</span>
                     </div>
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">
-                        <a class="focus-ring transition-colors hover:text-primary hover:underline" href="/blog/from-alert-queues-to-agentic-defense-protecting-utility-infrastructure-mapping-systems">From alert queues to agentic defense: protecting utility-infrastructure mapping systems</a>
+                    <h3 class="heading-medium">
+                        <a class="focus-ring post-card__title-link" href="/blog/from-alert-queues-to-agentic-defense-protecting-utility-infrastructure-mapping-systems">From alert queues to agentic defense: protecting utility-infrastructure mapping systems</a>
                     </h3>
-                    <p class="mt-4 text-body-sm text-on-surface-variant leading-relaxed">How Tabiri helped CDP-MapSync evolve monitoring for proprietary GPS and GIS workflows—from endpoint telemetry and engineer-led investigation to a human-governed Agentic SecOps architecture supporting engineering and utility operations.</p>
-                    <div class="mt-auto pt-6">
-                        <a class="text-primary font-label text-label-sm uppercase tracking-wider hover:opacity-80" href="/blog/from-alert-queues-to-agentic-defense-protecting-utility-infrastructure-mapping-systems">Read more</a>
+                    <p class="post-card__excerpt">How Tabiri helped CDP-MapSync evolve monitoring for proprietary GPS and GIS workflows—from endpoint telemetry and engineer-led investigation to a human-governed Agentic SecOps architecture supporting engineering and utility operations.</p>
+                    <div class="post-card__footer">
+                        <a class="post-card__link" href="/blog/from-alert-queues-to-agentic-defense-protecting-utility-infrastructure-mapping-systems">Read more</a>
                     </div>
                 </div>
             </article>
 
-            <article class="group flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-low shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <div class="h-48 overflow-hidden bg-surface-container-lowest">
-                    <img alt="Office team reviewing secure AI workflows" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" src="/static/images/tabiri_office_environment.avif">
+            <article class="post-card">
+                <div class="post-card__image-frame">
+                    <img alt="Office team reviewing secure AI workflows" class="post-card__image" src="/static/images/tabiri_office_environment.avif">
                 </div>
-                <div class="flex flex-1 flex-col p-6">
-                    <div class="mb-4 flex items-center gap-2 text-body-sm text-on-surface-variant">
-                        <span class="font-label text-label-sm uppercase tracking-wider text-primary">AI Strategy</span>
+                <div class="post-card__content">
+                    <div class="post-card__meta">
+                        <span class="eyebrow eyebrow--primary">AI Strategy</span>
                         <span>•</span>
                         <span>7 min read</span>
                     </div>
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">
-                        <a class="focus-ring transition-colors hover:text-primary hover:underline" href="/blog/why-secure-ai-teams-outperform-generic-automation-tools">Why secure AI teams outperform generic automation tools</a>
+                    <h3 class="heading-medium">
+                        <a class="focus-ring post-card__title-link" href="/blog/why-secure-ai-teams-outperform-generic-automation-tools">Why secure AI teams outperform generic automation tools</a>
                     </h3>
-                    <p class="mt-4 text-body-sm text-on-surface-variant leading-relaxed">Why governance, controlled isolation, and human oversight matter more than raw model performance in secure enterprise AI workflows.</p>
-                    <div class="mt-auto pt-6">
-                        <a class="text-primary font-label text-label-sm uppercase tracking-wider hover:opacity-80" href="/blog/why-secure-ai-teams-outperform-generic-automation-tools">Read more</a>
+                    <p class="post-card__excerpt">Why governance, controlled isolation, and human oversight matter more than raw model performance in secure enterprise AI workflows.</p>
+                    <div class="post-card__footer">
+                        <a class="post-card__link" href="/blog/why-secure-ai-teams-outperform-generic-automation-tools">Read more</a>
                     </div>
                 </div>
             </article>
@@ -165,16 +165,16 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-12 px-gutter bg-surface-container-low border-t border-outline-variant" id="newsletter-signup-cta">
-    <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
-        <div class="absolute inset-0 bg-linear-gradient-to-tr from-[#1a45d2]/5 to-transparent"></div>
-        <div class="relative z-10 max-w-5xl mx-auto">
-            <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Lead Secure AI with Confidence</p>
-            <h2 class="font-headline text-4xl md:text-display-lg lg:whitespace-nowrap text-center mb-4">Get <span class="text-primary">practical AI insights</span> in your inbox</h2>
-            <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+<section class="callout-section" id="newsletter-signup-cta">
+    <div class="callout">
+        <div class="callout__overlay callout__overlay--transparent"></div>
+        <div class="callout__content">
+            <p class="callout__eyebrow">Lead Secure AI with Confidence</p>
+            <h2 class="callout__heading callout__heading--nowrap">Get <span>practical AI insights</span> in your inbox</h2>
+            <p class="callout__description">
                 Thoughtful analysis for leaders building secure, accountable AI systems.
             </p>
-            <div class="flex flex-wrap justify-center gap-4">
+            <div class="callout__actions">
                 <a class="btn-primary" href="/newsletter">Subscribe to Newsletter</a>
             </div>
         </div>

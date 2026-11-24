@@ -1,8 +1,4 @@
-FROM node:26.10.0-bookworm AS node
-
 FROM golang:1.27
-
-COPY --from=node /usr/local/ /usr/local/
 
 RUN apt-get update && apt-get install -y \
     ca-certificates \

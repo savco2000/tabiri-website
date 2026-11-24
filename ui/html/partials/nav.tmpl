@@ -1,38 +1,38 @@
 {{define "nav"}}
-<nav class="fixed top-0 inset-x-0 z-50 bg-surface-container-lowest/80 backdrop-blur-md border-b border-outline-variant">
-    <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-gutter py-3 flex justify-between items-center">
-        <div class="flex flex-1 items-center gap-4 xl:gap-8">
-            <div class="h-9 md:h-10 w-auto flex items-center">
-                <a href="/" class="inline-flex h-full items-center overflow-hidden">
-                    <img alt="Tabiri logo" class="h-full w-auto object-contain" width="161" height="77" src="/static/svg/logo.svg">
+<nav class="site-nav">
+    <div class="site-nav__bar">
+        <div class="site-nav__main">
+            <div class="site-nav__logo">
+                <a href="/" class="site-nav__logo-link">
+                    <img alt="Tabiri logo" class="site-nav__logo-image" width="161" height="77" src="/static/svg/logo.svg">
                 </a>
             </div>
-            <div class="hidden lg:flex flex-1 justify-center items-center gap-5 xl:gap-6">
-                <ul class="flex items-center gap-4 xl:gap-5">
+            <div class="site-nav__desktop">
+                <ul class="site-nav__links">
                     <li><a class="{{ if eq .CurrentPage "home" }} nav-link-active {{ else }} nav-link {{ end }}" href="/">Home</a></li>
-                    <li class="relative">
-                        <button class="nav-dropdown-trigger flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-on-surface" type="button" data-dropdown-target="solutions-menu">
+                    <li class="site-nav__dropdown">
+                        <button class="nav-dropdown-trigger site-nav__dropdown-trigger" type="button" data-dropdown-target="solutions-menu">
                             Solutions
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="site-nav__chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="nav-dropdown-menu absolute left-0 top-full mt-2 hidden min-w-[280px] rounded-2xl border border-outline-variant bg-surface-container-lowest p-2 shadow-lg shadow-black/5" id="solutions-menu">
-                            <a class="{{ if eq .CurrentPage "digital-employees" }} nav-link-active {{ else }} nav-link {{ end }} block rounded-xl px-3 py-2" href="/digital-employees">Digital Employees</a>
-                            <a class="{{ if eq .CurrentPage "operational-assessment" }} nav-link-active {{ else }} nav-link {{ end }} block rounded-xl px-3 py-2" href="/operational-assessment">Operational Assessment</a>
-                            <a class="{{ if eq .CurrentPage "penetration-testing" }} nav-link-active {{ else }} nav-link {{ end }} block rounded-xl px-3 py-2" href="/penetration-testing">Penetration Testing</a>
-                            <a class="{{ if eq .CurrentPage "managed-cybersecurity-services" }} nav-link-active {{ else }} nav-link {{ end }} block whitespace-nowrap rounded-xl px-3 py-2" href="/managed-cybersecurity-services">Managed Cybersecurity Services</a>
-                            <a class="{{ if eq .CurrentPage "cybersecurity-insurance" }} nav-link-active {{ else }} nav-link {{ end }} block rounded-xl px-3 py-2" href="/cybersecurity-insurance">Cybersecurity Insurance</a>
+                        <div class="nav-dropdown-menu site-nav__dropdown-menu site-nav__dropdown-menu--wide" id="solutions-menu" hidden>
+                            <a class="{{ if eq .CurrentPage "digital-employees" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__menu-link" href="/digital-employees">Digital Employees</a>
+                            <a class="{{ if eq .CurrentPage "operational-assessment" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__menu-link" href="/operational-assessment">Operational Assessment</a>
+                            <a class="{{ if eq .CurrentPage "penetration-testing" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__menu-link" href="/penetration-testing">Penetration Testing</a>
+                            <a class="{{ if eq .CurrentPage "managed-cybersecurity-services" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__menu-link site-nav__menu-link--nowrap" href="/managed-cybersecurity-services">Managed Cybersecurity Services</a>
+                            <a class="{{ if eq .CurrentPage "cybersecurity-insurance" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__menu-link" href="/cybersecurity-insurance">Cybersecurity Insurance</a>
                         </div>
                     </li>
                     <li><a class="{{ if eq .CurrentPage "data-protection" }} nav-link-active {{ else }} nav-link {{ end }}" href="/data-protection">Data Protection</a></li>
                     <li><a class="{{ if eq .CurrentPage "case-studies" }} nav-link-active {{ else }} nav-link {{ end }}" href="/case-studies">Case Studies</a></li>
                     <li><a class="{{ if eq .CurrentPage "channel-partners" }} nav-link-active {{ else }} nav-link {{ end }}" href="/channel-partners">Partners</a></li>
-                    <li class="relative">
-                        <button class="nav-dropdown-trigger flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-on-surface" type="button" data-dropdown-target="government-menu">
+                    <li class="site-nav__dropdown">
+                        <button class="nav-dropdown-trigger site-nav__dropdown-trigger" type="button" data-dropdown-target="government-menu">
                             Government Contracting
-                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="site-nav__chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div class="nav-dropdown-menu absolute left-0 top-full mt-2 hidden min-w-[220px] rounded-2xl border border-outline-variant bg-surface-container-lowest p-2 shadow-lg shadow-black/5" id="government-menu">
-                            <a class="{{ if eq .CurrentPage "capability-statement" }} nav-link-active {{ else }} nav-link {{ end }} block rounded-xl px-3 py-2" href="/capability-statement">Capability Statement</a>
+                        <div class="nav-dropdown-menu site-nav__dropdown-menu" id="government-menu" hidden>
+                            <a class="{{ if eq .CurrentPage "capability-statement" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__menu-link" href="/capability-statement">Capability Statement</a>
                         </div>
                     </li>
                     <li><a class="{{ if eq .CurrentPage "blog" }} nav-link-active {{ else }} nav-link {{ end }}" href="/blog">Blog</a></li>
@@ -40,8 +40,8 @@
                 </ul>
             </div>
         </div>
-        <div class="flex items-center gap-3">
-            <a class="nav-cta hidden sm:inline-flex" href="/contact">
+        <div class="site-nav__actions">
+            <a class="nav-cta site-nav__cta" href="/contact">
                 Book a call
             </a>
             <button aria-controls="mobile-nav-panel" aria-expanded="false" aria-label="Open site navigation" class="nav-toggle-button" id="mobile-nav-toggle" type="button">
@@ -49,27 +49,27 @@
             </button>
         </div>
     </div>
-    <div aria-hidden="true" class="mobile-nav-panel lg:hidden border-t border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md" id="mobile-nav-panel">
-        <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col gap-3">
-            <a class="{{ if eq .CurrentPage "home" }} nav-link-active {{ else }} nav-link{{ end }} py-2" href="/">Home</a>
-            <div class="flex flex-col gap-1 rounded-2xl border border-outline-variant/70 bg-surface-container-low p-3">
-                <p class="font-label text-label-sm uppercase tracking-[0.2em] text-on-surface-variant px-1">Solutions</p>
-                <a class="{{ if eq .CurrentPage "digital-employees" }} nav-link-active {{ else }}nav-link{{ end }} py-2 pl-3" href="/digital-employees">Digital Employees</a>
-                <a class="{{ if eq .CurrentPage "operational-assessment" }} nav-link-active{{ else }} nav-link {{ end }} py-2 pl-3" href="/operational-assessment">Operational Assessment</a>
-                <a class="{{ if eq .CurrentPage "penetration-testing" }} nav-link-active {{ else }} nav-link {{ end }} py-2 pl-3" href="/penetration-testing">Penetration Testing</a>
-                <a class="{{ if eq .CurrentPage "managed-cybersecurity-services" }} nav-link-active {{ else }} nav-link {{ end }} py-2 pl-3" href="/managed-cybersecurity-services">Managed Cybersecurity Services</a>
-                <a class="{{ if eq .CurrentPage "cybersecurity-insurance" }} nav-link-active {{ else }} nav-link {{ end }} py-2 pl-3" href="/cybersecurity-insurance">Cybersecurity Insurance</a>
+    <div aria-hidden="true" class="mobile-nav-panel site-nav__mobile-panel" id="mobile-nav-panel">
+        <div class="site-nav__mobile-content">
+            <a class="{{ if eq .CurrentPage "home" }} nav-link-active {{ else }} nav-link{{ end }} site-nav__mobile-link" href="/">Home</a>
+            <div class="site-nav__mobile-group">
+                <p class="site-nav__mobile-heading">Solutions</p>
+                <a class="{{ if eq .CurrentPage "digital-employees" }} nav-link-active {{ else }}nav-link{{ end }} site-nav__mobile-link site-nav__mobile-sublink" href="/digital-employees">Digital Employees</a>
+                <a class="{{ if eq .CurrentPage "operational-assessment" }} nav-link-active{{ else }} nav-link {{ end }} site-nav__mobile-link site-nav__mobile-sublink" href="/operational-assessment">Operational Assessment</a>
+                <a class="{{ if eq .CurrentPage "penetration-testing" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__mobile-link site-nav__mobile-sublink" href="/penetration-testing">Penetration Testing</a>
+                <a class="{{ if eq .CurrentPage "managed-cybersecurity-services" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__mobile-link site-nav__mobile-sublink" href="/managed-cybersecurity-services">Managed Cybersecurity Services</a>
+                <a class="{{ if eq .CurrentPage "cybersecurity-insurance" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__mobile-link site-nav__mobile-sublink" href="/cybersecurity-insurance">Cybersecurity Insurance</a>
             </div>
-            <a class="{{ if eq .CurrentPage "data-protection" }} nav-link-active {{ else }} nav-link {{ end }} py-2" href="/data-protection">Data Protection</a>
-            <a class="{{ if eq .CurrentPage "case-studies" }} nav-link-active {{ else }} nav-link{{ end }} py-2" href="/case-studies">Case Studies</a>
-            <a class="{{ if eq .CurrentPage "channel-partners" }} nav-link-active {{ else }} nav-link {{ end }} py-2" href="/channel-partners">Partners</a>
-            <div class="flex flex-col gap-1 rounded-2xl border border-outline-variant/70 bg-surface-container-low p-3">
-                <p class="font-label text-label-sm uppercase tracking-[0.2em] text-on-surface-variant px-1">Government Contracting</p>
-                <a class="{{ if eq .CurrentPage "capability-statement" }} nav-link-active {{ else }} nav-link {{ end }} py-2 pl-3" href="/capability-statement">Capability Statement</a>
+            <a class="{{ if eq .CurrentPage "data-protection" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__mobile-link" href="/data-protection">Data Protection</a>
+            <a class="{{ if eq .CurrentPage "case-studies" }} nav-link-active {{ else }} nav-link{{ end }} site-nav__mobile-link" href="/case-studies">Case Studies</a>
+            <a class="{{ if eq .CurrentPage "channel-partners" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__mobile-link" href="/channel-partners">Partners</a>
+            <div class="site-nav__mobile-group">
+                <p class="site-nav__mobile-heading">Government Contracting</p>
+                <a class="{{ if eq .CurrentPage "capability-statement" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__mobile-link site-nav__mobile-sublink" href="/capability-statement">Capability Statement</a>
             </div>
-            <a class="{{ if eq .CurrentPage "blog" }} nav-link-active {{ else }} nav-link {{ end }} py-2" href="/blog">Blog</a>
-            <a class="{{ if eq .CurrentPage "about" }} nav-link-active {{ else }} nav-link {{ end }} py-2" href="/about">About Us</a>
-            <a class="nav-cta mt-2 py-3" href="/contact">Book a call</a>
+            <a class="{{ if eq .CurrentPage "blog" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__mobile-link" href="/blog">Blog</a>
+            <a class="{{ if eq .CurrentPage "about" }} nav-link-active {{ else }} nav-link {{ end }} site-nav__mobile-link" href="/about">About Us</a>
+            <a class="nav-cta site-nav__mobile-cta" href="/contact">Book a call</a>
         </div>
     </div>
 </nav>

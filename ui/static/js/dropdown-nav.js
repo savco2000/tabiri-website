@@ -12,7 +12,7 @@
 
     const closeMenus = () => {
       menus.forEach((menu) => {
-        menu.classList.add('hidden');
+        menu.hidden = true;
         menu.setAttribute('aria-hidden', 'true');
       });
 
@@ -81,11 +81,11 @@
           return;
         }
 
-        const isOpen = !targetMenu.classList.contains('hidden');
+        const isOpen = !targetMenu.hidden;
         closeMenus();
 
         if (!isOpen) {
-          targetMenu.classList.remove('hidden');
+          targetMenu.hidden = false;
           targetMenu.setAttribute('aria-hidden', 'false');
           trigger.setAttribute('aria-expanded', 'true');
         }

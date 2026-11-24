@@ -1,87 +1,87 @@
 {{define "main"}}
 <!-- Hero Section -->  
-<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
-    <div class="absolute inset-0 opacity-40"></div>
-    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
-            <span class="material-symbols-outlined icon-size-sm text-primary">groups</span>
-            <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Channel Partner Application</span>
+<section class="page-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content--centered">
+        <div class="hero-kicker">
+            <span class="material-symbols-outlined icon-size-sm">groups</span>
+            <span class="eyebrow">Channel Partner Application</span>
         </div>
-        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
-            Grow Your Practice with <span class="text-primary">Secure AI Delivery</span>
+        <h1 class="hero-title">
+            Grow Your Practice with <span>Secure AI Delivery</span>
         </h1>
-        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+        <p class="hero-description">
             Apply to join Tabiri's channel partner network and tell us how your team delivers outcomes for enterprise or public-sector clients.
         </p>
     </div>
 </section>
 
 <!-- Partner Application Section -->
-<section class="py-12 bg-surface" id="partner-application">
-    <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
-        <article class="trust-card lg:col-span-2">
+<section class="content-section content-section--light" id="partner-application">
+    <div class="details-layout">
+        <article class="trust-card details-layout__main">
             {{if .FormSubmitted}}
-            <div class="mb-6 rounded-xl border border-outline-variant bg-surface-container-low p-6 md:p-8" role="status">
-                <div class="flex items-start gap-4">
-                    <div class="icon-tile mb-0 shrink-0 bg-primary/10">
-                        <span class="material-symbols-outlined text-primary">check_circle</span>
+            <div class="submission-success submission-success--spaced" role="status">
+                <div class="submission-success__summary">
+                    <div class="icon-tile icon-tile--fixed icon-tile--success">
+                        <span class="material-symbols-outlined">check_circle</span>
                     </div>
                     <div>
-                        <h3 class="font-headline text-headline-md text-on-surface">Thank you for applying</h3>
-                        <p class="mt-2 font-body text-body-md text-on-surface-variant">Your partner application has been submitted successfully!</p>
+                        <h3 class="heading-compact">Thank you for applying</h3>
+                        <p class="submission-success__message">Your partner application has been submitted successfully!</p>
                     </div>
                 </div>
-                <div class="mt-6 border-t border-outline-variant pt-6">
-                    <h4 class="font-headline text-headline-md text-on-surface">Review Timeline</h4>
-                    <ol class="mt-4 space-y-4">
-                        <li class="flex items-start gap-3">
-                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">1</span>
-                            <span class="pt-1 font-body text-body-sm text-on-surface-variant">Partner fit assessment</span>
+                <div class="submission-success__next">
+                    <h4 class="heading-compact">Review Timeline</h4>
+                    <ol class="submission-success__steps">
+                        <li>
+                            <span class="step-number">1</span>
+                            <span class="step-description">Partner fit assessment</span>
                         </li>
-                        <li class="flex items-start gap-3">
-                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">2</span>
-                            <span class="pt-1 font-body text-body-sm text-on-surface-variant">Architecture workshop</span>
+                        <li>
+                            <span class="step-number">2</span>
+                            <span class="step-description">Architecture workshop</span>
                         </li>
-                        <li class="flex items-start gap-3">
-                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">3</span>
-                            <span class="pt-1 font-body text-body-sm text-on-surface-variant">Pilot rollout plan</span>
+                        <li>
+                            <span class="step-number">3</span>
+                            <span class="step-description">Pilot rollout plan</span>
                         </li>
                     </ol>
-                    <a class="btn-secondary mt-6 inline-flex" href="/">Return to Homepage</a>
+                    <a class="btn-secondary submission-success__return" href="/">Return to Homepage</a>
                 </div>
             </div>
             {{else}}
-                <div class="mb-6 flex items-center gap-4">
-                <div class="icon-tile mb-0">
-                    <span class="material-symbols-outlined text-primary">handshake</span>
+                <div class="lead-form__heading">
+                <div class="icon-tile icon-tile--inline">
+                    <span class="material-symbols-outlined">handshake</span>
                 </div>
                 <div>
-                    <h2 class="font-headline text-headline-md text-on-surface">Apply To Become A Channel Partner</h2>
-                    <p class="font-body text-body-sm text-on-surface-variant">Tell us about your delivery model and client profile.</p>
+                    <h2 class="heading-compact">Apply To Become A Channel Partner</h2>
+                    <p class="body-copy-small-compact">Tell us about your delivery model and client profile.</p>
                 </div>
                 </div>
 
-                <form action="/partner-contact" class="space-y-6" method="post">
+                <form action="/partner-contact" class="lead-form" method="post">
                 <input name="form_proof" type="hidden" value="{{.FormProof}}">
                 <div aria-hidden="true" class="form-honeypot" hidden>
                     <label for="partner_website">Leave this field blank</label>
                     <input autocomplete="off" id="partner_website" name="website" tabindex="-1" type="text">
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
+                <div class="lead-form__fields">
+                    <div class="lead-form__field">
                         <label class="form-label" for="partner_agency_name">Agency Name</label>
                         <input autocomplete="organization" class="form-field-input" id="partner_agency_name" maxlength="200" name="agency_name" placeholder="Global Consulting Group" required type="text" value="{{.PartnerContactForm.AgencyName}}">
-                        {{with index .PartnerContactForm.Errors "agency_name"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                        {{with index .PartnerContactForm.Errors "agency_name"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                     </div>
-                    <div class="space-y-2">
+                    <div class="lead-form__field">
                         <label class="form-label" for="partner_corporate_email">Corporate Email</label>
                         <input autocomplete="email" class="form-field-input" id="partner_corporate_email" maxlength="320" name="corporate_email" placeholder="partner@agency.com" required type="email" value="{{.PartnerContactForm.CorporateEmail}}">
-                        {{with index .PartnerContactForm.Errors "corporate_email"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                        {{with index .PartnerContactForm.Errors "corporate_email"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
+                <div class="lead-form__fields">
+                    <div class="lead-form__field">
                         <label class="form-label" for="partner_client_volume">Client Volume</label>
                         <select class="form-field-input" id="partner_client_volume" name="client_volume" required>
                             <option disabled {{if not .PartnerContactForm.ClientVolume}}selected{{end}} value="">Select client volume</option>
@@ -89,83 +89,83 @@
                             <option {{if eq .PartnerContactForm.ClientVolume "11-50"}}selected{{end}} value="11-50">11-50 Clients</option>
                             <option {{if eq .PartnerContactForm.ClientVolume "50+"}}selected{{end}} value="50+">50+ Clients</option>
                         </select>
-                        {{with index .PartnerContactForm.Errors "client_volume"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                        {{with index .PartnerContactForm.Errors "client_volume"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                     </div>
-                    <div class="space-y-2">
+                    <div class="lead-form__field">
                         <label class="form-label" for="partner_primary_vertical">Primary Vertical</label>
                         <input class="form-field-input" id="partner_primary_vertical" maxlength="200" name="primary_vertical" placeholder="Healthcare, Finance, Legal..." required type="text" value="{{.PartnerContactForm.PrimaryVertical}}">
-                        {{with index .PartnerContactForm.Errors "primary_vertical"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                        {{with index .PartnerContactForm.Errors "primary_vertical"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                     </div>
                 </div>
 
-                <div class="space-y-2">
+                <div class="lead-form__field">
                     <label class="form-label" for="partner_delivery_constraint">Current Delivery Constraint</label>
                     <textarea class="form-field-input" id="partner_delivery_constraint" maxlength="5000" name="delivery_constraint" placeholder="Describe where your team is constrained today and what you want to scale first..." required rows="4">{{.PartnerContactForm.DeliveryConstraint}}</textarea>
-                    {{with index .PartnerContactForm.Errors "delivery_constraint"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                    {{with index .PartnerContactForm.Errors "delivery_constraint"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                 </div>
 
-                    <div class="space-y-2">
+                    <div class="lead-form__field">
                         <div class="cf-turnstile" data-action="partner_contact_submit" data-sitekey="{{.TurnstileSiteKey}}" data-size="flexible"></div>
-                        {{with index .PartnerContactForm.Errors "verification"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                        {{with index .PartnerContactForm.Errors "verification"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                     </div>
-                    <button class="btn-primary w-full" type="submit">Request Partner Review</button>
+                    <button class="btn-primary lead-form__submit" type="submit">Request Partner Review</button>
                 </form>
 
-                <div class="mt-8 pt-6 border-t border-outline-variant flex flex-col sm:flex-row gap-4 sm:gap-8">
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary">security</span>
-                        <p class="font-body text-body-sm text-on-surface-variant">SOC2 compliant architecture</p>
+                <div class="lead-form__security">
+                    <div class="lead-form__security-item">
+                        <span class="material-symbols-outlined">security</span>
+                        <p class="body-copy-small-compact">SOC2 compliant architecture</p>
                     </div>
                 </div>
             {{end}}            
         </article>
 
-        <div class="space-y-6">
+        <div class="card-stack">
             <article class="trust-card">
-                <div class="mb-5 flex items-center gap-3">
-                    <div class="icon-tile mb-0">
-                        <span class="material-symbols-outlined text-primary">mail</span>
+                <div class="card-heading-row card-heading-row--spacious">
+                    <div class="icon-tile icon-tile--inline">
+                        <span class="material-symbols-outlined">mail</span>
                     </div>
-                    <h2 class="font-headline text-headline-md text-on-surface">Email Direct</h2>
+                    <h2 class="heading-compact">Email Direct</h2>
                 </div>
-                <p class="font-body text-body-sm text-primary leading-relaxed">info@tabirianalytics.com</p>
+                <p class="body-copy-small body-copy-small--primary">info@tabirianalytics.com</p>
             </article>
 
             <article class="trust-card">
-                <div class="mb-5 flex items-center gap-3">
-                    <div class="icon-tile mb-0">
-                        <span class="material-symbols-outlined text-primary">support_agent</span>
+                <div class="card-heading-row card-heading-row--spacious">
+                    <div class="icon-tile icon-tile--inline">
+                        <span class="material-symbols-outlined">support_agent</span>
                     </div>
-                    <h2 class="font-headline text-headline-md text-on-surface">Availability</h2>
+                    <h2 class="heading-compact">Availability</h2>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Mon-Fri: 9am - 5pm EST</p>
+                <p class="body-copy-small">Mon-Fri: 9am - 5pm EST</p>
             </article>
 
             {{if not .FormSubmitted}}
             <article class="trust-card">
-                <div class="mb-4 flex items-center gap-3">
-                    <div class="icon-tile mb-0">
-                        <span class="material-symbols-outlined text-primary">schedule</span>
+                <div class="card-heading-row">
+                    <div class="icon-tile icon-tile--inline">
+                        <span class="material-symbols-outlined">schedule</span>
                     </div>
-                    <h3 class="font-headline text-headline-md text-on-surface">Review Timeline</h3>
+                    <h3 class="heading-compact">Review Timeline</h3>
                 </div>
-                <ul class="space-y-2">
-                    <li class="font-body text-body-sm text-on-surface-variant">Step 1: Partner fit assessment</li>
-                    <li class="font-body text-body-sm text-on-surface-variant">Step 2: Architecture workshop</li>
-                    <li class="font-body text-body-sm text-on-surface-variant">Step 3: Pilot rollout plan</li>
+                <ul class="partner-timeline">
+                    <li class="body-copy-small-compact">Step 1: Partner fit assessment</li>
+                    <li class="body-copy-small-compact">Step 2: Architecture workshop</li>
+                    <li class="body-copy-small-compact">Step 3: Pilot rollout plan</li>
                 </ul>
             </article>
             {{end}}
 
             <!--
             <article class="trust-card">
-                <div class="mb-4 flex items-center gap-3">
-                    <div class="icon-tile mb-0">
-                        <span class="material-symbols-outlined text-primary">security</span>
+                <div class="card-heading-row">
+                    <div class="icon-tile icon-tile--inline">
+                        <span class="material-symbols-outlined">security</span>
                     </div>
-                    <h3 class="font-headline text-headline-md text-on-surface">Security Baseline</h3>
+                    <h3 class="heading-compact">Security Baseline</h3>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant">All deployments align to private compute and enterprise-grade data control requirements.</p>
+                <p class="body-copy-small-compact">All deployments align to private compute and enterprise-grade data control requirements.</p>
             </article>
             -->
         </div>

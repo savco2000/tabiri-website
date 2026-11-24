@@ -1,43 +1,43 @@
 {{define "footer"}}
-<footer class="w-full py-12 px-4 md:px-8 lg:px-margin-desktop max-w-7xl mx-auto border-t border-outline-variant bg-surface" id="site-footer">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-16">
-        <div class="md:col-span-1">
-            <div class="h-10 mb-4 max-w-xs">
-                <img alt="Tabiri logo" class="h-full w-auto object-contain object-left" width="161" height="77" loading="lazy" decoding="async" src="/static/svg/logo.svg">
+<footer class="site-footer" id="site-footer">
+    <div class="site-footer__columns">
+        <div class="site-footer__brand">
+            <div class="site-footer__logo">
+                <img alt="Tabiri logo" class="site-footer__logo-image" width="161" height="77" loading="lazy" decoding="async" src="/static/svg/logo.svg">
             </div>
-            <p class="text-body-sm text-on-surface-variant max-w-xs">
+            <p class="site-footer__description">
                 Empowering the modern enterprise with secure, agentic intelligence. Sovereign by design.
             </p>
         </div>
         <div id="footer-product-links">
-            <h3 class="font-label text-label-md text-primary mb-6 uppercase tracking-wider">PRODUCT</h3>
-            <ul class="space-y-4">
+            <h3 class="site-footer__heading">PRODUCT</h3>
+            <ul class="site-footer__links">
                 <li><a class="footer-link" href="/case-studies">Case Studies</a></li>
                 <li><a class="footer-link" href="/data-protection">Sovereign Node</a></li>
                 <li><a class="footer-link" href="/managed-cybersecurity-services">CyberSecurity</a></li>                   
             </ul>
         </div>
         <div id="footer-company-links">
-            <h3 class="font-label text-label-md text-primary mb-6 uppercase tracking-wider">COMPANY</h3>
-            <ul class="space-y-4">
+            <h3 class="site-footer__heading">COMPANY</h3>
+            <ul class="site-footer__links">
                 <li><a class="footer-link" href="/about">About Us</a></li>
                 <li><a class="footer-link" href="/channel-partners">Partners</a></li>
                 <li><a class="footer-link" href="/contact">Contact</a></li>
             </ul>
         </div>
         <div>
-            <h3 class="font-label text-label-md text-primary mb-6 uppercase tracking-wider">LEGAL</h3>
-            <ul class="space-y-4">
-                <li><a class="footer-link" href="/privacy-policy">Privacy Policy <span class="text-xs">(draft)</span></a></li>
-                <li><a class="footer-link" href="/terms-of-service">Terms of Service <span class="text-xs">(draft)</span></a></li>
-                <li><a class="footer-link" href="/security-disclosure">Security Disclosure <span class="text-xs">(draft)</span></a></li>
+            <h3 class="site-footer__heading">LEGAL</h3>
+            <ul class="site-footer__links">
+                <li><a class="footer-link" href="/privacy-policy">Privacy Policy <span class="site-footer__draft">(draft)</span></a></li>
+                <li><a class="footer-link" href="/terms-of-service">Terms of Service <span class="site-footer__draft">(draft)</span></a></li>
+                <li><a class="footer-link" href="/security-disclosure">Security Disclosure <span class="site-footer__draft">(draft)</span></a></li>
             </ul>
         </div>
     </div>
-    <div class="border-t border-outline-variant pt-8 flex flex-col md:flex-row justify-between items-center text-body-sm text-on-surface-variant">
+    <div class="site-footer__bottom">
         <span>© {{.CurrentYear}} Tabiri Analytics. Lexington, KY, USA.</span>
-        <div class="flex gap-6 mt-4 md:mt-0">
-            <button class="footer-link underline" id="cookie-settings" type="button">Cookie settings</button>
+        <div class="site-footer__settings">
+            <button class="footer-link site-footer__settings-button" id="cookie-settings" type="button">Cookie settings</button>
         </div>
     </div>
 </footer>

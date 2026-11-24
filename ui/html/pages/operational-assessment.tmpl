@@ -1,85 +1,85 @@
 {{define "main"}}
 <!-- Hero Section -->
-<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant" id="operational-assessment-hero">
-    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
-            <span class="material-symbols-outlined icon-size-sm text-primary">analytics</span>
-            <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">TAMS-Powered Cybersecurity Maturity Assessment</span>
+<section class="page-hero" id="operational-assessment-hero">
+    <div class="hero-content--centered">
+        <div class="hero-kicker">
+            <span class="material-symbols-outlined icon-size-sm">analytics</span>
+            <span class="eyebrow">TAMS-Powered Cybersecurity Maturity Assessment</span>
         </div>
-        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
-            Know Your Cybersecurity Maturity. <span class="text-primary">Know What Comes Next.</span>
+        <h1 class="hero-title">
+            Know Your Cybersecurity Maturity. <span>Know What Comes Next.</span>
         </h1>
-        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+        <p class="hero-description">
             Give executives, security leaders, and compliance teams a shared view of what is working, where risk is accumulating, and which improvements deserve attention first. Tabiri Analytics Management System (TAMS) adapts to your responses across six essential cybersecurity domains instead of forcing your organization through a generic checklist.
         </p>
-        <div class="mt-10 md:mt-12 flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 w-full sm:w-auto">
-            <a class="btn-primary w-full sm:w-auto" href="/contact">Schedule an Operational Assessment</a>
+        <div class="hero-actions">
+            <a class="btn-primary" href="/contact">Schedule an Operational Assessment</a>
         </div>
     </div>
 </section>
 
 <!-- Customer Triggers -->
-<section class="py-12 bg-surface-container-lowest border-b border-outline-variant" id="when-to-assess">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <div class="text-center mb-8">
-            <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">When to Assess</p>
-            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Replace Assumptions with a <span class="text-primary">Defensible Baseline</span></h2>
-            <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">Assess when leadership needs more than a policy inventory: a current view of how security decisions and controls work across the organization.</p>
+<section class="content-section content-section--light content-section--border-bottom" id="when-to-assess">
+    <div class="section-container">
+        <div class="section-intro">
+            <p class="eyebrow eyebrow--accent">When to Assess</p>
+            <h2 class="section-heading">Replace Assumptions with a <span>Defensible Baseline</span></h2>
+            <p class="section-intro__description">Assess when leadership needs more than a policy inventory: a current view of how security decisions and controls work across the organization.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="feature-grid">
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">gavel</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Meet Scrutiny</span></h3></div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Prepare for regulatory review, customer due diligence, cyber insurance renewal, board reporting, or a formal compliance initiative with evidence your stakeholders can use.</p>
+                <div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">gavel</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Meet Scrutiny</span></h3></div>
+                <p class="body-copy-small">Prepare for regulatory review, customer due diligence, cyber insurance renewal, board reporting, or a formal compliance initiative with evidence your stakeholders can use.</p>
             </article>
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">sync_alt</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Navigate Change</span></h3></div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Reassess after rapid growth, leadership changes, an acquisition, cloud migration, new critical systems, or an incident changes your operating assumptions.</p>
+                <div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">sync_alt</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Navigate Change</span></h3></div>
+                <p class="body-copy-small">Reassess after rapid growth, leadership changes, an acquisition, cloud migration, new critical systems, or an incident changes your operating assumptions.</p>
             </article>
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">target</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Direct Investment</span></h3></div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Give decision-makers a consistent basis for prioritizing budget, ownership, and remediation instead of allowing the loudest concern to set the security agenda.</p>
+                <div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">target</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Direct Investment</span></h3></div>
+                <p class="body-copy-small">Give decision-makers a consistent basis for prioritizing budget, ownership, and remediation instead of allowing the loudest concern to set the security agenda.</p>
             </article>
         </div>
     </div>
 </section>
 
 <!-- TAMS Workflow -->
-<section class="py-12 bg-surface-container-low border-b border-outline-variant" id="tams-workflow">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <div class="text-center mb-8">
-            <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">The TAMS Experience</p>
-            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">A Structured Assessment That <span class="text-primary">Adapts to Your Answers</span></h2>
-            <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">Authorized respondents sign in to TAMS, complete the assessment online, and receive a maturity view generated from their responses.</p>
+<section class="content-section content-section--muted content-section--border-bottom" id="tams-workflow">
+    <div class="section-container">
+        <div class="section-intro">
+            <p class="eyebrow eyebrow--accent">The TAMS Experience</p>
+            <h2 class="section-heading">A Structured Assessment That <span>Adapts to Your Answers</span></h2>
+            <p class="section-intro__description">Authorized respondents sign in to TAMS, complete the assessment online, and receive a maturity view generated from their responses.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="feature-grid">
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">passkey</span></div>
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Secure Access</span></h3>
+                <div class="card-heading-row">
+                    <div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">passkey</span></div>
+                    <h3 class="heading-medium"><span class="heading-medium__highlight">Secure Access</span></h3>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Each respondent receives login access to complete the assessment through the TAMS online workspace.</p>
+                <p class="body-copy-small">Each respondent receives login access to complete the assessment through the TAMS online workspace.</p>
             </article>
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">account_tree</span></div>
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Adaptive Questions</span></h3>
+                <div class="card-heading-row">
+                    <div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">account_tree</span></div>
+                    <h3 class="heading-medium"><span class="heading-medium__highlight">Adaptive Questions</span></h3>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">TAMS uses each response to present relevant follow-up questions, capturing context beyond a fixed checklist.</p>
+                <p class="body-copy-small">TAMS uses each response to present relevant follow-up questions, capturing context beyond a fixed checklist.</p>
             </article>
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">neurology</span></div>
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Agentic AI Scoring</span></h3>
+                <div class="card-heading-row">
+                    <div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">neurology</span></div>
+                    <h3 class="heading-medium"><span class="heading-medium__highlight">Agentic AI Scoring</span></h3>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">The application evaluates completed responses automatically to produce a consistent view of cybersecurity maturity.</p>
+                <p class="body-copy-small">The application evaluates completed responses automatically to produce a consistent view of cybersecurity maturity.</p>
             </article>
         </div>
-        <div class="mt-8 rounded-xl border border-outline-variant bg-surface-container-lowest p-6 md:p-8">
-            <div class="flex items-start gap-4">
-                <span class="material-symbols-outlined text-primary">account_tree</span>
+        <div class="proof-card proof-card--spaced">
+            <div class="method-note__content">
+                <span class="material-symbols-outlined">account_tree</span>
                 <div>
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface mb-2"><span class="text-primary">Depth Where Your Answers Require It</span></h3>
-                    <p class="font-body text-body-md text-on-surface-variant leading-relaxed">A static questionnaire asks every organization the same questions and leaves analysts to reconstruct context later. TAMS follows relevant response paths while the assessment is underway, capturing ownership, scope, frequency, implementation, and supporting technology where those details affect the maturity view.</p>
+                    <h3 class="heading-medium heading-medium--compact"><span class="heading-medium__highlight">Depth Where Your Answers Require It</span></h3>
+                    <p class="body-copy body-copy--relaxed">A static questionnaire asks every organization the same questions and leaves analysts to reconstruct context later. TAMS follows relevant response paths while the assessment is underway, capturing ownership, scope, frequency, implementation, and supporting technology where those details affect the maturity view.</p>
                 </div>
             </div>
         </div>
@@ -87,115 +87,115 @@
 </section>
 
 <!-- Assessment Domains -->
-<section class="py-12 bg-surface-container-lowest" id="assessment-domains">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <div class="text-center mb-8">
-            <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">Six Operational Domains</p>
-            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">See Maturity Across the <span class="text-primary">Whole Security Program</span></h2>
-            <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">The questionnaire moves from leadership and risk decisions through technical safeguards and incident operations.</p>
+<section class="content-section content-section--light" id="assessment-domains">
+    <div class="section-container">
+        <div class="section-intro">
+            <p class="eyebrow eyebrow--accent">Six Operational Domains</p>
+            <h2 class="section-heading">See Maturity Across the <span>Whole Security Program</span></h2>
+            <p class="section-intro__description">The questionnaire moves from leadership and risk decisions through technical safeguards and incident operations.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-grid feature-grid--two-to-three">
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">corporate_fare</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Security Governance</span></h3></div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Examine oversight, policies, roles, awareness, and the processes used to sustain the security program.</p>
+                <div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">corporate_fare</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Security Governance</span></h3></div>
+                <p class="body-copy-small">Examine oversight, policies, roles, awareness, and the processes used to sustain the security program.</p>
             </article>
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">warning</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Security Risk Management</span></h3></div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Assess how cyber risks are identified, evaluated, treated, tracked, and communicated across the organization.</p>
+                <div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">warning</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Security Risk Management</span></h3></div>
+                <p class="body-copy-small">Assess how cyber risks are identified, evaluated, treated, tracked, and communicated across the organization.</p>
             </article>
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">shield_lock</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Data Protection</span></h3></div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Review the safeguards and operating practices used to manage and protect sensitive information.</p>
+                <div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">shield_lock</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Data Protection</span></h3></div>
+                <p class="body-copy-small">Review the safeguards and operating practices used to manage and protect sensitive information.</p>
             </article>
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">manage_accounts</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Access Management</span></h3></div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Evaluate how identities, privileges, authentication, and access lifecycles are governed and controlled.</p>
+                <div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">manage_accounts</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Access Management</span></h3></div>
+                <p class="body-copy-small">Evaluate how identities, privileges, authentication, and access lifecycles are governed and controlled.</p>
             </article>
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">architecture</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Security Architecture</span></h3></div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Measure operational controls across infrastructure, endpoints, applications, monitoring, and protective technologies.</p>
+                <div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">architecture</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Security Architecture</span></h3></div>
+                <p class="body-copy-small">Measure operational controls across infrastructure, endpoints, applications, monitoring, and protective technologies.</p>
             </article>
             <article class="trust-card group">
-                <div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">emergency</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Incident Response</span></h3></div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Assess readiness, detection, containment, investigation, remediation, and the use of incident metrics.</p>
+                <div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">emergency</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Incident Response</span></h3></div>
+                <p class="body-copy-small">Assess readiness, detection, containment, investigation, remediation, and the use of incident metrics.</p>
             </article>
         </div>
     </div>
 </section>
 
 <!-- Assessment Method -->
-<section class="py-12 bg-surface-container-low border-y border-outline-variant" id="assessment-method">
-    <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+<section class="content-section content-section--muted content-section--bordered" id="assessment-method">
+    <div class="method-layout">
         <div>
-            <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">From Response to Insight</p>
-            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">More Context Than a <span class="text-primary">One-Size-Fits-All Checklist</span></h2>
-            <p class="font-body text-body-md text-on-surface-variant mb-8">The assessment combines structured choices with contextual follow-ups. Depending on the topic and response, TAMS can ask about frequency, scope, ownership, process detail, supporting technology, or the extent of implementation.</p>
-            <div class="rounded-xl border border-outline-variant bg-surface-container-lowest p-6">
-                <div class="flex items-start gap-4">
-                    <span class="material-symbols-outlined text-primary">fact_check</span>
+            <p class="eyebrow eyebrow--accent">From Response to Insight</p>
+            <h2 class="section-heading">More Context Than a <span>One-Size-Fits-All Checklist</span></h2>
+            <p class="body-copy method-intro">The assessment combines structured choices with contextual follow-ups. Depending on the topic and response, TAMS can ask about frequency, scope, ownership, process detail, supporting technology, or the extent of implementation.</p>
+            <div class="method-note method-note--white">
+                <div class="method-note__content">
+                    <span class="material-symbols-outlined">fact_check</span>
                     <div>
-                        <h3 class="font-headline text-2xl md:text-headline-md text-on-surface mb-2"><span class="text-primary">Built Around Real Operations</span></h3>
-                        <p class="font-body text-body-sm text-on-surface-variant">Questions cover both documented controls and how those controls are implemented, reviewed, managed, and measured in practice.</p>
+                        <h3 class="heading-medium heading-medium--compact"><span class="heading-medium__highlight">Built Around Real Operations</span></h3>
+                        <p class="body-copy-small-compact">Questions cover both documented controls and how those controls are implemented, reviewed, managed, and measured in practice.</p>
                     </div>
                 </div>
             </div>
         </div>
-        <ol class="space-y-4">
-            <li class="trust-card-no-hover flex gap-5"><span class="font-label text-label-md text-primary">01</span><div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface mb-2"><span class="text-primary">Set Up Respondents</span></h3><p class="font-body text-body-sm text-on-surface-variant">Provide designated participants with credentials for the TAMS assessment workspace.</p></div></li>
-            <li class="trust-card-no-hover flex gap-5"><span class="font-label text-label-md text-primary">02</span><div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface mb-2"><span class="text-primary">Complete the Questionnaire</span></h3><p class="font-body text-body-sm text-on-surface-variant">Capture structured and narrative responses across the six operational domains.</p></div></li>
-            <li class="trust-card-no-hover flex gap-5"><span class="font-label text-label-md text-primary">03</span><div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface mb-2"><span class="text-primary">Follow Relevant Paths</span></h3><p class="font-body text-body-sm text-on-surface-variant">Use parent-linked follow-ups to explore the controls, processes, and capabilities that apply.</p></div></li>
-            <li class="trust-card-no-hover flex gap-5"><span class="font-label text-label-md text-primary">04</span><div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface mb-2"><span class="text-primary">Generate the Maturity View</span></h3><p class="font-body text-body-sm text-on-surface-variant">Apply Agentic AI scoring to the completed assessment and reveal strengths and areas for improvement.</p></div></li>
+        <ol class="process-steps">
+            <li class="trust-card-no-hover process-step-card"><span class="process-step__number">01</span><div><h3 class="heading-medium heading-medium--compact"><span class="heading-medium__highlight">Set Up Respondents</span></h3><p class="body-copy-small-compact">Provide designated participants with credentials for the TAMS assessment workspace.</p></div></li>
+            <li class="trust-card-no-hover process-step-card"><span class="process-step__number">02</span><div><h3 class="heading-medium heading-medium--compact"><span class="heading-medium__highlight">Complete the Questionnaire</span></h3><p class="body-copy-small-compact">Capture structured and narrative responses across the six operational domains.</p></div></li>
+            <li class="trust-card-no-hover process-step-card"><span class="process-step__number">03</span><div><h3 class="heading-medium heading-medium--compact"><span class="heading-medium__highlight">Follow Relevant Paths</span></h3><p class="body-copy-small-compact">Use parent-linked follow-ups to explore the controls, processes, and capabilities that apply.</p></div></li>
+            <li class="trust-card-no-hover process-step-card"><span class="process-step__number">04</span><div><h3 class="heading-medium heading-medium--compact"><span class="heading-medium__highlight">Generate the Maturity View</span></h3><p class="body-copy-small-compact">Apply Agentic AI scoring to the completed assessment and reveal strengths and areas for improvement.</p></div></li>
         </ol>
     </div>
 </section>
 
 <!-- Outcomes -->
-<section class="py-12 bg-surface-container-lowest" id="assessment-outcomes">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <div class="text-center mb-8">
-            <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">Clearer Decisions</p>
-            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Turn Assessment Responses into <span class="text-primary">Operational Direction</span></h2>
-            <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">Give leadership, security, and compliance stakeholders a common evidence base for deciding what to sustain, what to improve, and what to fund next.</p>
+<section class="content-section content-section--light" id="assessment-outcomes">
+    <div class="section-container">
+        <div class="section-intro">
+            <p class="eyebrow eyebrow--accent">Clearer Decisions</p>
+            <h2 class="section-heading">Turn Assessment Responses into <span>Operational Direction</span></h2>
+            <p class="section-intro__description">Give leadership, security, and compliance stakeholders a common evidence base for deciding what to sustain, what to improve, and what to fund next.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <article class="trust-card group"><div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">speed</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Executive Baseline</span></h3></div><p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Establish a concise, shared view of current maturity for leadership discussions, governance reviews, and progress tracking.</p></article>
-            <article class="trust-card group"><div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">search_insights</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Evidence-Backed Gaps</span></h3></div><p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Connect maturity gaps to the ownership, processes, implementation details, and technology described by your respondents.</p></article>
-            <article class="trust-card group"><div class="flex items-center gap-3 mb-4"><div class="icon-tile group-hover:bg-primary-container"><span class="material-symbols-outlined text-primary group-hover:text-white">route</span></div><h3 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Prioritized Roadmap</span></h3></div><p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Focus investment and improvement work on the areas with the greatest operational relevance instead of treating every gap equally.</p></article>
+        <div class="feature-grid">
+            <article class="trust-card group"><div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">speed</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Executive Baseline</span></h3></div><p class="body-copy-small">Establish a concise, shared view of current maturity for leadership discussions, governance reviews, and progress tracking.</p></article>
+            <article class="trust-card group"><div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">search_insights</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Evidence-Backed Gaps</span></h3></div><p class="body-copy-small">Connect maturity gaps to the ownership, processes, implementation details, and technology described by your respondents.</p></article>
+            <article class="trust-card group"><div class="card-heading-row"><div class="icon-tile icon-tile--primary"><span class="material-symbols-outlined icon-tile__symbol">route</span></div><h3 class="heading-medium"><span class="heading-medium__highlight">Prioritized Roadmap</span></h3></div><p class="body-copy-small">Focus investment and improvement work on the areas with the greatest operational relevance instead of treating every gap equally.</p></article>
         </div>
     </div>
 </section>
 
 <!-- Proven Outcomes -->
-<section class="py-12 bg-surface-container-low border-t border-outline-variant" id="operational-assessment-results">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <div class="rounded-xl border border-outline-variant bg-surface-container-lowest p-6 md:p-8">
-            <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_2fr] gap-6 lg:gap-10 items-center">
+<section class="content-section content-section--muted content-section--border-top" id="operational-assessment-results">
+    <div class="section-container">
+        <div class="proof-card">
+            <div class="proof-card__content">
                 <div>
-                    <p class="font-label text-label-sm text-accent mb-3 uppercase tracking-widest">Proven in a Regulated Payment Environment</p>
-                    <h2 class="font-headline text-3xl md:text-headline-lg text-on-surface mb-3">One View of <span class="text-primary">Technical and Operational Risk</span></h2>
-                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">For a regulated fintech, Tabiri paired operational assessment with penetration testing so executives, engineers, and compliance stakeholders could act from one body of evidence rather than disconnected questionnaires and scan results.</p>
+                    <p class="eyebrow eyebrow--accent eyebrow--compact">Proven in a Regulated Payment Environment</p>
+                    <h2 class="proof-card__heading">One View of <span>Technical and Operational Risk</span></h2>
+                    <p class="body-copy-small">For a regulated fintech, Tabiri paired operational assessment with penetration testing so executives, engineers, and compliance stakeholders could act from one body of evidence rather than disconnected questionnaires and scan results.</p>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="border-l-2 border-primary pl-4"><p class="font-headline text-3xl text-primary mb-1">26</p><p class="font-body text-body-sm text-on-surface-variant">governance domains examined</p></div>
-                    <div class="border-l-2 border-primary pl-4"><p class="font-headline text-3xl text-primary mb-1">6</p><p class="font-body text-body-sm text-on-surface-variant">operational security areas connected</p></div>
-                    <div class="border-l-2 border-primary pl-4"><p class="font-headline text-3xl text-primary mb-1">PCI DSS</p><p class="font-body text-body-sm text-on-surface-variant">requirements mapped into reporting</p></div>
+                <div class="proof-card__metrics">
+                    <div class="case-metric"><p class="case-metric__value">26</p><p class="body-copy-small-compact">governance domains examined</p></div>
+                    <div class="case-metric"><p class="case-metric__value">6</p><p class="body-copy-small-compact">operational security areas connected</p></div>
+                    <div class="case-metric"><p class="case-metric__value">PCI DSS</p><p class="body-copy-small-compact">requirements mapped into reporting</p></div>
                 </div>
             </div>
-            <div class="mt-6 pt-6 border-t border-outline-variant">
-                <a class="inline-flex items-center gap-2 font-label text-label-md text-primary hover:underline" href="/blog/inside-a-regulated-fintechs-agentic-secops-penetration-test">Read the regulated fintech case study <span class="material-symbols-outlined icon-size-sm">arrow_forward</span></a>
+            <div class="proof-card__footer">
+                <a class="text-link" href="/blog/inside-a-regulated-fintechs-agentic-secops-penetration-test">Read the regulated fintech case study <span class="material-symbols-outlined icon-size-sm">arrow_forward</span></a>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="py-12 px-gutter bg-surface-container-low" id="operational-assessment-cta">
-    <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
-        <div class="absolute inset-0 bg-gradient-to-tr from-[#1a45d2]/5 to-transparent"></div>
-        <div class="relative z-10 max-w-4xl mx-auto">
-            <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Know Where You Stand</p>
-            <h2 class="font-headline text-4xl md:text-display-lg text-center mb-4">Build Your Next Security Decision on a <span class="text-primary">Clear Maturity View</span></h2>
-            <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">Bring us the decision, deadline, or compliance pressure behind your assessment. We will help define the right participants and scope for a maturity view your organization can act on.</p>
+<section class="callout-section callout-section--unbordered" id="operational-assessment-cta">
+    <div class="callout">
+        <div class="callout__overlay"></div>
+        <div class="callout__content callout__content--narrow">
+            <p class="callout__eyebrow">Know Where You Stand</p>
+            <h2 class="callout__heading">Build Your Next <span>Security Decision</span> on a <span>Clear Maturity View</span></h2>
+            <p class="callout__description">Bring us the decision, deadline, or compliance pressure behind your assessment. We will help define the right participants and scope for a maturity view your organization can act on.</p>
             <a class="btn-primary" href="/contact">Start the Conversation</a>
         </div>
     </div>

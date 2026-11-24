@@ -1,48 +1,48 @@
 {{define "main"}}
 <!-- Hero Section -->
-<article class="pb-12">
-    <section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant" id="rapid-exposure-triage-hero">
-        <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 items-center">
-            <div class="flex flex-col items-center text-center lg:items-start lg:text-left">
-                <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
-                    <span class="material-symbols-outlined icon-size-sm text-primary">policy</span>
-                    <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">A Focused, Authorized First Step</span>
+<article class="triage-page">
+    <section class="page-hero" id="rapid-exposure-triage-hero">
+        <div class="hero-split">
+            <div class="hero-split__copy">
+                <div class="hero-kicker">
+                    <span class="material-symbols-outlined icon-size-sm">policy</span>
+                    <span class="eyebrow">A Focused, Authorized First Step</span>
                 </div>
-                <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
+                <h1 class="hero-title">
                     Rapid Exposure Triage
                 </h1>
-                <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+                <p class="hero-description">
                     When vulnerability research moves faster, response needs to keep pace. AI is changing how quickly security research can progress. Tabiri uses AI-assisted workflows to turn relevant advisories into focused, authorized checks - with experienced security professionals reviewing the evidence and guiding next steps.
                 </p>
-                <div class="mt-10 md:mt-12 flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 w-full sm:w-auto">
-                    <a class="btn-primary w-full sm:w-auto" data-analytics-service-inquiry="rapid_exposure_triage" href="/contact?workflow_name=rapid-exposure-triage">Discuss an authorized triage</a>
-                    <a class="btn-secondary w-full sm:w-auto" href="#how-it-works">How it works</a>
+                <div class="hero-actions hero-actions--left">
+                    <a class="btn-primary" data-analytics-service-inquiry="rapid_exposure_triage" href="/contact?workflow_name=rapid-exposure-triage">Discuss an authorized triage</a>
+                    <a class="btn-secondary" href="#how-it-works">How it works</a>
                 </div>
             </div>
-            <div class="relative">
-                <div class="absolute -inset-4 bg-primary-container/20 blur-3xl rounded-full"></div>
-                <figure class="relative rounded-2xl overflow-hidden border border-outline-variant shadow-2xl">
-                    <img alt="A vulnerability advisory moving through an authorized, shielded triage process to human review" class="w-full aspect-video object-cover" width="1536" height="1024" fetchpriority="high" decoding="async" src="/static/images/rapid-exposure-triage-social.avif">
+            <div class="hero-split__visual">
+                <div class="hero-split__glow"></div>
+                <figure class="hero-split__frame">
+                    <img alt="A vulnerability advisory moving through an authorized, shielded triage process to human review" class="hero-split__image hero-split__image--video" width="1536" height="1024" fetchpriority="high" decoding="async" src="/static/images/rapid-exposure-triage-social.avif">
                 </figure>
             </div>
         </div>
     </section>
 
-    <section class="py-12 bg-surface-container-low border-b border-outline-variant" id="triage-purpose">
-        <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+    <section class="content-section content-section--muted content-section--border-bottom" id="triage-purpose">
+        <div class="method-layout method-layout--compact">
             <div>
-                <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">Answer a focused question</p>
-                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">From new advisory to a <span class="text-primary">clear next step</span></h2>
-                <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-5">
+                <p class="eyebrow eyebrow--accent">Answer a focused question</p>
+                <h2 class="section-heading">From <span class="section-heading__accent">new advisory</span> to a <span>clear next step</span></h2>
+                <p class="body-copy body-copy--relaxed body-copy--first">
                     When a vulnerability is newly disclosed or a security concern needs quick investigation, teams may lack reliable version information or know which application paths matter. A bounded triage can gather relevant signals and help prioritize what engineers should verify next.
                 </p>
-                <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                <p class="body-copy body-copy--relaxed">
                     Agent-assisted checks can accelerate evidence collection. Tabiri's security professionals review the evidence, explain its limitations, and help determine whether remediation, deeper validation, or another response is appropriate.
                 </p>
             </div>
-            <aside class="rounded-xl border border-outline-variant bg-surface-container-lowest p-6 md:p-8">
-                <h3 class="font-headline text-2xl md:text-headline-md text-on-surface mb-4"><span class="text-primary">What triage is - and is not</span></h3>
-                <ul class="space-y-3 font-body text-body-sm text-on-surface-variant leading-relaxed">
+            <aside class="proof-card">
+                <h3 class="proof-card__heading proof-card__heading--compact proof-card__heading--separated"><span>What triage is - and is not</span></h3>
+                <ul class="triage-scope">
                     <li>A focused investigation of an agreed question and explicitly scoped systems.</li>
                     <li>A concise, human-reviewed account of checks, observations, uncertainty, and recommended next steps.</li>
                     <li>Not a full penetration test, a guarantee of safety, or automatic confirmation that a vulnerability is exploitable.</li>
@@ -52,51 +52,51 @@
         </div>
     </section>
 
-    <section class="py-12 bg-surface-container-lowest border-b border-outline-variant" id="how-it-works">
-        <div class="max-w-7xl mx-auto px-gutter">
-            <div class="text-center mb-8">
-                <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">A controlled process</p>
-                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Scope first. <span class="text-primary">Evidence second</span></h2>
-                <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">We agree on the question and authorization before any technical testing begins.</p>
+    <section class="content-section content-section--light content-section--border-bottom" id="how-it-works">
+        <div class="section-container">
+            <div class="section-intro">
+                <p class="eyebrow eyebrow--accent">A controlled process</p>
+                <h2 class="section-heading">Scope first. <span>Evidence second</span></h2>
+                <p class="section-intro__description">We agree on the question and authorization before any technical testing begins.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="feature-grid">
                 <article class="trust-card-no-hover">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="icon-tile"><span class="material-symbols-outlined text-primary">description</span></div>
-                        <h3 class="font-headline text-2xl md:text-headline-md text-primary">1. Confirm authority and scope</h3>
+                    <div class="card-heading-row">
+                        <div class="icon-tile"><span class="material-symbols-outlined">description</span></div>
+                        <h3 class="heading-medium heading-medium--primary">1. Confirm authority and scope</h3>
                     </div>
-                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Identify the asset owner and authorized requester, then document in-scope systems, permitted checks, timing, contacts, and stop conditions.</p>
+                    <p class="body-copy-small">Identify the asset owner and authorized requester, then document in-scope systems, permitted checks, timing, contacts, and stop conditions.</p>
                 </article>
                 <article class="trust-card-no-hover">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="icon-tile"><span class="material-symbols-outlined text-primary">manage_search</span></div>
-                        <h3 class="font-headline text-2xl md:text-headline-md text-primary">2. Investigate the question</h3>
+                    <div class="card-heading-row">
+                        <div class="icon-tile"><span class="material-symbols-outlined">manage_search</span></div>
+                        <h3 class="heading-medium heading-medium--primary">2. Investigate the question</h3>
                     </div>
-                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Use agreed, appropriately bounded checks to collect relevant signals. Testing stays within the approved scope; potentially disruptive actions require separate agreement.</p>
+                    <p class="body-copy-small">Use agreed, appropriately bounded checks to collect relevant signals. Testing stays within the approved scope; potentially disruptive actions require separate agreement.</p>
                 </article>
                 <article class="trust-card-no-hover">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="icon-tile"><span class="material-symbols-outlined text-primary">summarize</span></div>
-                        <h3 class="font-headline text-2xl md:text-headline-md text-primary">3. Review and recommend</h3>
+                    <div class="card-heading-row">
+                        <div class="icon-tile"><span class="material-symbols-outlined">summarize</span></div>
+                        <h3 class="heading-medium heading-medium--primary">3. Review and recommend</h3>
                     </div>
-                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">An experienced reviewer summarizes observations and uncertainty, then discusses practical verification, remediation, or further assessment options.</p>
+                    <p class="body-copy-small">An experienced reviewer summarizes observations and uncertainty, then discusses practical verification, remediation, or further assessment options.</p>
                 </article>
             </div>
         </div>
     </section>
 
-    <section class="py-12 bg-surface-container-low border-y border-outline-variant" id="authorization">
-        <div class="max-w-7xl mx-auto px-gutter">
-            <div class="max-w-4xl mx-auto rounded-xl border border-outline-variant bg-surface-container-lowest p-6 md:p-8">
-                <div class="flex items-start gap-4">
-                    <div class="icon-tile shrink-0"><span class="material-symbols-outlined text-primary">verified_user</span></div>
+    <section class="content-section content-section--muted content-section--bordered" id="authorization">
+        <div class="section-container">
+            <div class="proof-card proof-card--narrow">
+                <div class="method-note__content">
+                    <div class="icon-tile proof-card__icon"><span class="material-symbols-outlined">verified_user</span></div>
                     <div>
-                        <p class="font-label text-label-sm text-accent mb-3 uppercase tracking-widest">Permission is a prerequisite</p>
-                        <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">No testing without <span class="text-primary">written authorization</span></h2>
-                        <p class="font-body text-body-md text-on-surface-variant leading-relaxed mb-4">
+                        <p class="eyebrow eyebrow--accent eyebrow--compact">Permission is a prerequisite</p>
+                        <h2 class="section-heading">No testing without <span>written authorization</span></h2>
+                        <p class="body-copy body-copy--relaxed body-copy--separated">
                             Before testing, Tabiri must confirm written authorization from the asset owner or an authorized representative, along with the exact scope, allowed checks, timing, and escalation process. A matching business email and web domain can help verify a relationship, but it does not establish permission to test.
                         </p>
-                        <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+                        <p class="body-copy body-copy--relaxed">
                             Use the inquiry form to start a conversation only. Do not send credentials, secrets, or sensitive system data. We will not scan a domain just because it was submitted through the website.
                         </p>
                     </div>
@@ -105,60 +105,60 @@
         </div>
     </section>
 
-    <section class="py-12 bg-surface-container-lowest border-b border-outline-variant" id="triage-examples">
-        <div class="max-w-7xl mx-auto px-gutter">
-            <div class="text-center mb-8">
-                <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">Examples of the approach</p>
-                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Fast investigation. <span class="text-primary">Human judgment</span></h2>
-                <p class="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">See how Tabiri translated emerging vulnerability advisories into focused, authorized investigations without treating a signal as a verdict.</p>
+    <section class="content-section content-section--light content-section--border-bottom" id="triage-examples">
+        <div class="section-container">
+            <div class="section-intro">
+                <p class="eyebrow eyebrow--accent">Examples of the approach</p>
+                <h2 class="section-heading">Fast investigation. <span>Human judgment</span></h2>
+                <p class="section-intro__description">See how Tabiri translated emerging vulnerability advisories into focused, authorized investigations without treating a signal as a verdict.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <div class="triage-examples">
                 <a class="trust-card group" href="/blog/how-tabiris-ai-agent-triaged-php2shell-safely-in-less-than-20-minutes">
-                    <h3 class="font-headline text-2xl text-primary mb-3">PHP2Shell: a focused lead in about twenty minutes</h3>
-                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Read how an authorized environment was checked using targeted, non-exploit signals, with engineers responsible for confirming the system and risk.</p>
+                    <h3 class="triage-example__heading">PHP2Shell: a focused lead in about twenty minutes</h3>
+                    <p class="body-copy-small">Read how an authorized environment was checked using targeted, non-exploit signals, with engineers responsible for confirming the system and risk.</p>
                 </a>
                 <a class="trust-card group" href="/blog/one-brotli-error-five-leads-how-tabirids-ai-agent-traced-node2shell-risk">
-                    <h3 class="font-headline text-2xl text-primary mb-3">Node2Shell: five leads, not five confirmed vulnerabilities</h3>
-                    <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">See how safe behavioral checks mapped potential exposure across authorized systems and directed human review.</p>
+                    <h3 class="triage-example__heading">Node2Shell: five leads, not five confirmed vulnerabilities</h3>
+                    <p class="body-copy-small">See how safe behavioral checks mapped potential exposure across authorized systems and directed human review.</p>
                 </a>
             </div>
         </div>
     </section>
 
-    <section class="py-12 bg-surface-container-low border-y border-outline-variant" id="related-services">
-        <div class="max-w-7xl mx-auto px-gutter">
-            <div class="text-center mb-8">
-                <p class="font-label text-label-sm text-accent mb-4 uppercase tracking-widest">Choose the right next step</p>
-                <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Triage can connect to <span class="text-primary">broader security work</span></h2>
+    <section class="content-section content-section--muted content-section--bordered" id="related-services">
+        <div class="section-container">
+            <div class="section-intro">
+                <p class="eyebrow eyebrow--accent">Choose the right next step</p>
+                <h2 class="section-heading">Triage can connect to <span>broader security work</span></h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="related-services">
                 <a class="trust-card group" href="/penetration-testing">
-                    <h3 class="font-headline text-xl text-primary mb-2">Deeper validation</h3>
-                    <p class="font-body text-body-sm text-on-surface-variant">Explore Tabiri's <strong>Penetration Testing</strong> service for validated findings and a practical remediation plan.</p>
+                    <h3 class="related-services__heading">Deeper validation</h3>
+                    <p class="body-copy-small-compact">Explore Tabiri's <strong>Penetration Testing</strong> service for validated findings and a practical remediation plan.</p>
                 </a>
                 <a class="trust-card group" href="/managed-cybersecurity-services">
-                    <h3 class="font-headline text-xl text-primary mb-2">Ongoing visibility</h3>
-                    <p class="font-body text-body-sm text-on-surface-variant">Explore Tabiri's <strong>Managed Cybersecurity Services</strong> to track risk between assessments.</p>
+                    <h3 class="related-services__heading">Ongoing visibility</h3>
+                    <p class="body-copy-small-compact">Explore Tabiri's <strong>Managed Cybersecurity Services</strong> to track risk between assessments.</p>
                 </a>
                 <a class="trust-card group" href="/operational-assessment">
-                    <h3 class="font-headline text-xl text-primary mb-2">Broader baseline</h3>
-                    <p class="font-body text-body-sm text-on-surface-variant">Explore Tabiri's <strong>Operational Assessment</strong> to connect technical observations to organizational priorities.</p>
+                    <h3 class="related-services__heading">Broader baseline</h3>
+                    <p class="body-copy-small-compact">Explore Tabiri's <strong>Operational Assessment</strong> to connect technical observations to organizational priorities.</p>
                 </a>
                 <a class="trust-card group" href="/cybersecurity-insurance">
-                    <h3 class="font-headline text-xl text-primary mb-2">Insurance readiness</h3>
-                    <p class="font-body text-body-sm text-on-surface-variant">Explore Tabiri's <strong>Cybersecurity Insurance</strong> service to discuss how security evidence can inform readiness, without guaranteeing coverage or pricing.</p>
+                    <h3 class="related-services__heading">Insurance readiness</h3>
+                    <p class="body-copy-small-compact">Explore Tabiri's <strong>Cybersecurity Insurance</strong> service to discuss how security evidence can inform readiness, without guaranteeing coverage or pricing.</p>
                 </a>
             </div>
         </div>
     </section>
 
-    <section class="py-12 px-gutter bg-surface-container-lowest" id="rapid-exposure-triage-cta">
-        <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
-            <div class="absolute inset-0 bg-gradient-to-tr from-[#1a45d2]/5 to-transparent"></div>
-            <div class="relative z-10 max-w-4xl mx-auto">
-                <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Start with a conversation</p>
-                <h2 class="font-headline text-4xl md:text-display-lg text-center mb-4">Get clarity on your <span class="text-primary">next security decision</span></h2>
-                <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">Tell us about the advisory or question. We will discuss whether triage is appropriate and confirm authority and scope before any testing.</p>
+    <section class="callout-section callout-section--unbordered callout-section--white" id="rapid-exposure-triage-cta">
+        <div class="callout">
+            <div class="callout__overlay"></div>
+            <div class="callout__content callout__content--narrow">
+                <p class="callout__eyebrow">Start with a conversation</p>
+                <h2 class="callout__heading">Get clarity on your <span>next security decision</span></h2>
+                <p class="callout__description">Tell us about the advisory or question. We will discuss whether triage is appropriate and confirm authority and scope before any testing.</p>
                 <a class="btn-primary" data-analytics-service-inquiry="rapid_exposure_triage" href="/contact?workflow_name=rapid-exposure-triage">Discuss an authorized triage</a>
             </div>
         </div>

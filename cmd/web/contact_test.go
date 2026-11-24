@@ -312,7 +312,7 @@ func TestRapidExposureTriagePageExplainsAuthorizationAndNextSteps(t *testing.T) 
 		"When vulnerability research moves faster, response needs to keep pace.",
 		"Tabiri uses AI-assisted workflows to turn relevant advisories into focused, authorized checks",
 		"written authorization",
-		`material-symbols-outlined text-primary">description</span>`,
+		`material-symbols-outlined">description</span>`,
 		`<meta property="og:image" content="https://tabirianalytics.com/static/images/rapid-exposure-triage-social.avif">`,
 		`<meta name="twitter:image" content="https://tabirianalytics.com/static/images/rapid-exposure-triage-social.avif">`,
 		`src="/static/images/rapid-exposure-triage-social.avif"`,
@@ -334,7 +334,7 @@ func TestRapidExposureTriagePageExplainsAuthorizationAndNextSteps(t *testing.T) 
 			t.Errorf("triage page does not contain %q", expected)
 		}
 	}
-	if strings.Contains(response.Body.String(), `material-symbols-outlined text-primary">contract</span>`) {
+	if strings.Contains(response.Body.String(), `material-symbols-outlined">contract</span>`) {
 		t.Error("triage page contains the unsupported contract icon")
 	}
 }

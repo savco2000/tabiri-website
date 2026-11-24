@@ -76,8 +76,8 @@
       contactCTA.dataset.assessmentResult = band.key;
       checklistDownload.dataset.assessmentResult = band.key;
 
-      assessment.classList.add("hidden");
-      result.classList.remove("hidden");
+      assessment.hidden = true;
+      result.hidden = false;
       result.focus();
       result.scrollIntoView({
         behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",

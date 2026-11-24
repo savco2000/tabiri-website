@@ -26,7 +26,7 @@
     mobileNavToggle.setAttribute("aria-expanded", "false");
     mobileNavToggle.setAttribute("aria-label", "Open site navigation");
     mobileNavToggle.querySelector(".material-symbols-outlined").textContent = "menu";
-    document.body.classList.remove("overflow-hidden");
+    document.body.classList.remove("site-nav-open");
 
     if (mainContent) {
       mainContent.removeAttribute("inert");
@@ -40,7 +40,7 @@
     mobileNavToggle.setAttribute("aria-expanded", "true");
     mobileNavToggle.setAttribute("aria-label", "Close site navigation");
     mobileNavToggle.querySelector(".material-symbols-outlined").textContent = "close";
-    document.body.classList.add("overflow-hidden");
+    document.body.classList.add("site-nav-open");
 
     if (mainContent) {
       mainContent.setAttribute("inert", "");

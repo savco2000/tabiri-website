@@ -1,117 +1,117 @@
 {{define "main"}}
 <!-- Hero Section -->
-<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
-    <div class="absolute inset-0 opacity-40"></div>
-    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
-            <span class="material-symbols-outlined icon-size-sm text-primary">mail</span>
-            <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Tabiri Newsletter</span>
+<section class="page-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content--centered">
+        <div class="hero-kicker">
+            <span class="material-symbols-outlined icon-size-sm">mail</span>
+            <span class="eyebrow">Tabiri Newsletter</span>
         </div>
-        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
-            Practical ideas for leading <span class="text-primary">secure AI adoption</span>
+        <h1 class="hero-title">
+            Practical ideas for leading <span>secure AI adoption</span>
         </h1>
-        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+        <p class="hero-description">
             Get thoughtful analysis on AI operations, governance, and digital workforce design delivered to your inbox.
         </p>
     </div>
 </section>
 
-<section class="py-12 md:py-16 bg-surface-container-low border-b border-outline-variant" id="subscribe">
-    <div class="max-w-6xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
-        <article class="trust-card lg:col-span-3">
+<section class="newsletter-section" id="subscribe">
+    <div class="newsletter-layout">
+        <article class="trust-card newsletter-layout__form">
             {{if .FormSubmitted}}
-            <div class="rounded-xl border border-outline-variant bg-surface-container-low p-6 md:p-8" id="newsletter-success" role="status">
-                <div class="flex items-start gap-4">
-                    <div class="icon-tile mb-0 shrink-0 bg-primary/10">
-                        <span class="material-symbols-outlined text-primary">check_circle</span>
+            <div class="submission-success" id="newsletter-success" role="status">
+                <div class="submission-success__summary">
+                    <div class="icon-tile icon-tile--fixed icon-tile--success">
+                        <span class="material-symbols-outlined">check_circle</span>
                     </div>
                     <div>
-                        <h3 class="font-headline text-headline-md text-on-surface">Thank you for subscribing</h3>
-                        <p class="mt-2 font-body text-body-md text-on-surface-variant">You have successfully joined the Tabiri newsletter.</p>
+                        <h3 class="heading-compact">Thank you for subscribing</h3>
+                        <p class="submission-success__message">You have successfully joined the Tabiri newsletter.</p>
                     </div>
                 </div>
-                <a class="btn-secondary mt-6 inline-flex" href="/">Return to Homepage</a>
+                <a class="btn-secondary submission-success__return" href="/">Return to Homepage</a>
             </div>
             {{else}}
-            <div class="mb-8 flex items-center gap-4">
-                <div class="icon-tile mb-0 shrink-0">
-                    <span class="material-symbols-outlined text-primary">mark_email_unread</span>
+            <div class="lead-form__heading lead-form__heading--spacious">
+                <div class="icon-tile icon-tile--fixed">
+                    <span class="material-symbols-outlined">mark_email_unread</span>
                 </div>
                 <div>
-                    <h2 class="font-headline text-headline-md text-on-surface">Subscribe to the Newsletter</h2>
-                    <p class="font-body text-body-sm text-on-surface-variant">Join leaders building useful AI without compromising trust.</p>
+                    <h2 class="heading-compact">Subscribe to the Newsletter</h2>
+                    <p class="body-copy-small-compact">Join leaders building useful AI without compromising trust.</p>
                 </div>
             </div>
 
-            <form action="/newsletter" class="space-y-6" method="post">
+            <form action="/newsletter" class="lead-form" method="post">
                 <input name="form_proof" type="hidden" value="{{.FormProof}}">
                 <div aria-hidden="true" class="form-honeypot" hidden>
                     <label for="newsletter_website">Leave this field blank</label>
                     <input autocomplete="off" id="newsletter_website" name="website" tabindex="-1" type="text">
                 </div>
-                <div class="space-y-2">
+                <div class="lead-form__field">
                     <label class="form-label" for="newsletter_first_name">First Name</label>
                     <input autocomplete="given-name" class="form-field-input" id="newsletter_first_name" maxlength="200" name="first_name" placeholder="Your first name" type="text" value="{{.NewsletterForm.FirstName}}">
-                    {{with index .NewsletterForm.Errors "first_name"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                    {{with index .NewsletterForm.Errors "first_name"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                 </div>
 
-                <div class="space-y-2">
+                <div class="lead-form__field">
                     <label class="form-label" for="newsletter_email">Email Address</label>
                     <input autocomplete="email" class="form-field-input" id="newsletter_email" maxlength="320" name="email" placeholder="you@company.com" required type="email" value="{{.NewsletterForm.Email}}">
-                    {{with index .NewsletterForm.Errors "email"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                    {{with index .NewsletterForm.Errors "email"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                 </div>
 
-                <label class="flex items-start gap-3 text-body-sm text-on-surface-variant" for="newsletter_consent">
-                    <input class="mt-1 rounded border-outline-variant text-primary focus:ring-primary" id="newsletter_consent" name="consent" required type="checkbox"{{if .NewsletterForm.Consent}} checked{{end}}>
+                <label class="lead-form__consent" for="newsletter_consent">
+                    <input class="lead-form__checkbox" id="newsletter_consent" name="consent" required type="checkbox"{{if .NewsletterForm.Consent}} checked{{end}}>
                     <span>I agree to receive the Tabiri newsletter by email. I can unsubscribe at any time.</span>
                 </label>
-                {{with index .NewsletterForm.Errors "consent"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                {{with index .NewsletterForm.Errors "consent"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
 
-                <div class="space-y-2">
+                <div class="lead-form__field">
                     <div class="cf-turnstile" data-action="newsletter_submit" data-sitekey="{{.TurnstileSiteKey}}" data-size="flexible"></div>
-                    {{with index .NewsletterForm.Errors "verification"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                    {{with index .NewsletterForm.Errors "verification"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                 </div>
-                <button class="btn-primary w-full" type="submit">
-                    <span class="material-symbols-outlined mr-2 icon-size-sm">send</span>
+                <button class="btn-primary lead-form__submit" type="submit">
+                    <span class="material-symbols-outlined icon-size-sm lead-form__submit-icon">send</span>
                     Subscribe
                 </button>
             </form>
             {{end}}
         </article>
 
-        <aside class="lg:col-span-2 pt-2" aria-labelledby="newsletter-benefits-title">
-            <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-3">In Every Edition</p>
-            <h2 class="font-headline text-3xl text-on-background mb-8" id="newsletter-benefits-title">Signal, without the noise</h2>
-            <div class="space-y-7">
-                <div class="flex gap-4">
-                    <div class="icon-tile mb-0 shrink-0">
-                        <span class="material-symbols-outlined text-primary">strategy</span>
+        <aside class="newsletter-layout__benefits" aria-labelledby="newsletter-benefits-title">
+            <p class="newsletter-benefits__eyebrow">In Every Edition</p>
+            <h2 class="newsletter-benefits__heading" id="newsletter-benefits-title">Signal, without the noise</h2>
+            <div class="newsletter-benefits__list">
+                <div class="newsletter-benefits__item">
+                    <div class="icon-tile icon-tile--fixed">
+                        <span class="material-symbols-outlined">strategy</span>
                     </div>
                     <div>
-                        <h3 class="font-headline text-lg font-semibold text-on-surface mb-1">Practical Playbooks</h3>
-                        <p class="text-body-sm text-on-surface-variant">Clear guidance for introducing AI into real operating environments.</p>
+                        <h3>Practical Playbooks</h3>
+                        <p class="body-copy-small-compact">Clear guidance for introducing AI into real operating environments.</p>
                     </div>
                 </div>
-                <div class="flex gap-4">
-                    <div class="icon-tile mb-0 shrink-0">
-                        <span class="material-symbols-outlined text-primary">shield_lock</span>
+                <div class="newsletter-benefits__item">
+                    <div class="icon-tile icon-tile--fixed">
+                        <span class="material-symbols-outlined">shield_lock</span>
                     </div>
                     <div>
-                        <h3 class="font-headline text-lg font-semibold text-on-surface mb-1">Security Perspective</h3>
-                        <p class="text-body-sm text-on-surface-variant">Governance and data protection considerations explained plainly.</p>
+                        <h3>Security Perspective</h3>
+                        <p class="body-copy-small-compact">Governance and data protection considerations explained plainly.</p>
                     </div>
                 </div>
-                <div class="flex gap-4">
-                    <div class="icon-tile mb-0 shrink-0">
-                        <span class="material-symbols-outlined text-primary">schedule</span>
+                <div class="newsletter-benefits__item">
+                    <div class="icon-tile icon-tile--fixed">
+                        <span class="material-symbols-outlined">schedule</span>
                     </div>
                     <div>
-                        <h3 class="font-headline text-lg font-semibold text-on-surface mb-1">Respect for Your Time</h3>
-                        <p class="text-body-sm text-on-surface-variant">Concise, useful editions sent only when there is something worth sharing.</p>
+                        <h3>Respect for Your Time</h3>
+                        <p class="body-copy-small-compact">Concise, useful editions sent only when there is something worth sharing.</p>
                     </div>
                 </div>
             </div>
-            <a class="inline-flex items-center gap-2 mt-10 font-label text-label-md text-primary hover:opacity-80" href="/blog">
+            <a class="newsletter-benefits__back" href="/blog">
                 <span class="material-symbols-outlined icon-size-sm">arrow_back</span>
                 Return to the blog
             </a>

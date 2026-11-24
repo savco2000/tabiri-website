@@ -1,16 +1,16 @@
 {{define "main"}}
 <!-- Hero Section -->
-<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant" id="channel-partner-hero">
-    <div class="absolute inset-0 opacity-40"></div>
-    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
-            <span class="material-symbols-outlined icon-size-sm text-primary">handshake</span>
-            <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Channel Partner Program 2026</span>
+<section class="page-hero" id="channel-partner-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content--centered">
+        <div class="hero-kicker">
+            <span class="material-symbols-outlined icon-size-sm">handshake</span>
+            <span class="eyebrow">Channel Partner Program 2026</span>
         </div>
-        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 max-w-5xl">
-            Stop Just Generating Leads. <span class="text-primary">Become Your Clients' Operating System</span>
+        <h1 class="partner-hero__title">
+            Stop Just Generating Leads. <span>Become Your Clients' Operating System</span>
         </h1>
-        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl mb-10 leading-relaxed">
+        <p class="partner-hero__description">
             White-label Tabiri AI's secure digital workforce to eliminate your clients' back-office bottlenecks and unlock high-margin recurring monthly revenue.
         </p>
         <a class="btn-primary" href="/partner-contact">Apply To Join The Wholesale Pilot Program</a>
@@ -18,47 +18,47 @@
 </section>
 
 <!-- Agency Revenue Bottleneck Section -->
-<section class="py-12 bg-surface-container-low border-y border-outline-variant" id="agency-revenue-bottleneck">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <div class="text-center mb-8">
-            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background"><span class="text-accent">The Marketing Agency Trap</span></h2>
-            <p class="font-body text-body-md text-on-surface-variant leading-relaxed max-w-3xl mx-auto">
+<section class="content-section content-section--muted content-section--bordered" id="agency-revenue-bottleneck">
+    <div class="section-container">
+        <div class="section-intro">
+            <h2 class="section-heading section-heading--unspaced"><span class="section-heading__accent">The Marketing Agency Trap</span></h2>
+            <p class="body-copy body-copy--relaxed partner-section__description">
                 Revenue growth is limited by client bandwidth. Leads get delivered, but administrative teams get overwhelmed, creating a ceiling for your agency's scale.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
-            <figure class="lg:col-span-2 overflow-hidden rounded-4xl border border-outline-variant bg-surface-container-low shadow-sm">
-                <img alt="Strong marketing lead flow narrowing through overloaded client operations and resulting in delayed conversion and revenue leakage" class="h-auto w-full" width="1536" height="1024" loading="lazy" decoding="async" src="/static/images/agency-revenue-bottleneck.avif">
+        <div class="partner-bottleneck">
+            <figure class="partner-bottleneck__image">
+                <img alt="Strong marketing lead flow narrowing through overloaded client operations and resulting in delayed conversion and revenue leakage" width="1536" height="1024" loading="lazy" decoding="async" src="/static/images/agency-revenue-bottleneck.avif">
             </figure>
 
-            <div class="space-y-4">
+            <div class="process-steps">
                 <article class="trust-card-accent group">
-                    <div class="mb-4 flex items-center gap-3">
-                        <div class="icon-tile mb-0 bg-error/10 group-hover:bg-error/20">
-                            <span class="material-symbols-outlined text-error">trending_down</span>
+                    <div class="card-heading-row">
+                        <div class="icon-tile icon-tile--inline icon-tile--error">
+                            <span class="material-symbols-outlined icon-tile__symbol--error">trending_down</span>
                         </div>
-                        <h3 class="font-headline text-2xl md:text-headline-md text-accent">Dropped Revenue</h3>
+                        <h3 class="heading-medium heading-medium--accent">Dropped Revenue</h3>
                     </div>
-                    <p class="font-body text-body-sm text-on-surface-variant">Slow intake teams fail to follow up on the high-quality leads you provide.</p>
+                    <p class="body-copy-small-compact">Slow intake teams fail to follow up on the high-quality leads you provide.</p>
                 </article>
                 <article class="trust-card-accent group">
-                    <div class="mb-4 flex items-center gap-3">
-                        <div class="icon-tile mb-0 bg-error/10 group-hover:bg-error/20">
-                            <span class="material-symbols-outlined text-error">timer</span>
+                    <div class="card-heading-row">
+                        <div class="icon-tile icon-tile--inline icon-tile--error">
+                            <span class="material-symbols-outlined icon-tile__symbol--error">timer</span>
                         </div>
-                        <h3 class="font-headline text-2xl md:text-headline-md text-accent">Wasted Hours</h3>
+                        <h3 class="heading-medium heading-medium--accent">Wasted Hours</h3>
                     </div>
-                    <p class="font-body text-body-sm text-on-surface-variant">Skilled professionals spend valuable time on manual paperwork and entry-level tasks.</p>
+                    <p class="body-copy-small-compact">Skilled professionals spend valuable time on manual paperwork and entry-level tasks.</p>
                 </article>
                 <article class="trust-card-accent group">
-                    <div class="mb-4 flex items-center gap-3">
-                        <div class="icon-tile mb-0 bg-error/10 group-hover:bg-error/20">
-                            <span class="material-symbols-outlined text-error">sync_disabled</span>
+                    <div class="card-heading-row">
+                        <div class="icon-tile icon-tile--inline icon-tile--error">
+                            <span class="material-symbols-outlined icon-tile__symbol--error">sync_disabled</span>
                         </div>
-                        <h3 class="font-headline text-2xl md:text-headline-md text-accent">Contract Churn</h3>
+                        <h3 class="heading-medium heading-medium--accent">Contract Churn</h3>
                     </div>
-                    <p class="font-body text-body-sm text-on-surface-variant">Back-office bottlenecks lead to paused marketing spend when clients cannot handle the growth.</p>
+                    <p class="body-copy-small-compact">Back-office bottlenecks lead to paused marketing spend when clients cannot handle the growth.</p>
                 </article>
             </div>
         </div>
@@ -66,128 +66,128 @@
 </section>
 
 <!-- Agency Offerings Section -->
-<section class="py-12 bg-surface-container-lowest border-t border-outline-variant" id="what_your_agency_can_offer">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <div class="text-center mb-8">
-            <h3 class="font-headline text-3xl md:text-headline-lg text-on-background">What Your Agency  <span class="text-primary">Can Offer Your Existing Clients</span></h3>
-            <p class="font-body text-body-md text-on-surface-variant leading-relaxed">
+<section class="content-section content-section--light content-section--border-top" id="what_your_agency_can_offer">
+    <div class="section-container">
+        <div class="section-intro">
+            <h3 class="section-heading section-heading--unspaced">What Your Agency  <span>Can Offer Your Existing Clients</span></h3>
+            <p class="body-copy body-copy--relaxed">
             Tabiri AI is an invisible provider. Agencies white-label the platform, selling operational technology directly to their clients without the need to hire developers or AI engineers.
         </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="feature-grid feature-grid--four">
             <article class="trust-card group">
-                <div class="mb-4 flex items-center gap-3">
-                    <div class="icon-tile mb-0 group-hover:bg-primary">
-                        <span class="material-symbols-outlined text-primary group-hover:text-white">person_add</span>
+                <div class="card-heading-row">
+                    <div class="icon-tile icon-tile--inline icon-tile--primary">
+                        <span class="material-symbols-outlined icon-tile__symbol">person_add</span>
                     </div>
-                    <h4 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Automated Client Intake</span></h4>
+                    <h4 class="heading-medium"><span class="heading-medium__highlight">Automated Client Intake</span></h4>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant">Greeting prospects and building case files automatically 24/7.</p>
+                <p class="body-copy-small-compact">Greeting prospects and building case files automatically 24/7.</p>
             </article>
             <article class="trust-card group">
-                <div class="mb-4 flex items-center gap-3">
-                    <div class="icon-tile mb-0 group-hover:bg-primary">
-                        <span class="material-symbols-outlined text-primary group-hover:text-white">task_alt</span>
+                <div class="card-heading-row">
+                    <div class="icon-tile icon-tile--inline icon-tile--primary">
+                        <span class="material-symbols-outlined icon-tile__symbol">task_alt</span>
                     </div>
-                    <h4 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Back-Office Task Execution</span></h4>
+                    <h4 class="heading-medium"><span class="heading-medium__highlight">Back-Office Task Execution</span></h4>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant">Handling organization, billing, and payments with digital precision.</p>
+                <p class="body-copy-small-compact">Handling organization, billing, and payments with digital precision.</p>
             </article>
             <article class="trust-card group">
-                <div class="mb-4 flex items-center gap-3">
-                    <div class="icon-tile mb-0 group-hover:bg-primary">
-                        <span class="material-symbols-outlined text-primary group-hover:text-white">shield_lock</span>
+                <div class="card-heading-row">
+                    <div class="icon-tile icon-tile--inline icon-tile--primary">
+                        <span class="material-symbols-outlined icon-tile__symbol">shield_lock</span>
                     </div>
-                    <h4 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Private Data Security</span></h4>
+                    <h4 class="heading-medium"><span class="heading-medium__highlight">Private Data Security</span></h4>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant">Completely isolated Sovereign Nodes ensuring client data sovereignty.</p>
+                <p class="body-copy-small-compact">Completely isolated Sovereign Nodes ensuring client data sovereignty.</p>
             </article>
             <article class="trust-card group">
-                <div class="mb-4 flex items-center gap-3">
-                    <div class="icon-tile mb-0 group-hover:bg-primary">
-                        <span class="material-symbols-outlined text-primary group-hover:text-white">security</span>
+                <div class="card-heading-row">
+                    <div class="icon-tile icon-tile--inline icon-tile--primary">
+                        <span class="material-symbols-outlined icon-tile__symbol">security</span>
                     </div>
-                    <h4 class="font-headline text-2xl md:text-headline-md text-on-surface"><span class="text-primary">Active Threat Protection</span></h4>
+                    <h4 class="heading-medium"><span class="heading-medium__highlight">Active Threat Protection</span></h4>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant">Built-in monitoring to protect client infrastructure from emerging threats.</p>
+                <p class="body-copy-small-compact">Built-in monitoring to protect client infrastructure from emerging threats.</p>
             </article>
         </div>
     </div>
 </section>
 
 <!-- Wholesale Economics Section -->
-<section class="py-12 bg-surface-container-low border-y border-outline-variant">
-    <div class="max-w-7xl mx-auto px-gutter">
-        <div class="text-center mb-10 md:mb-12">
-            <h2 class="font-headline text-3xl md:text-headline-lg text-on-background mb-4">Simple Wholesale Economics</h2>
-            <p class="font-body text-body-md text-on-surface-variant">High-margin arbitrage through infrastructure ownership.</p>
+<section class="content-section content-section--muted content-section--bordered">
+    <div class="section-container">
+        <div class="section-intro section-intro--spacious">
+            <h2 class="section-heading">Simple Wholesale Economics</h2>
+            <p class="body-copy">High-margin arbitrage through infrastructure ownership.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <article class="md:col-span-8 trust-card-no-hover overflow-hidden">
-                <div class="flex justify-between items-center mb-6 gap-4 flex-wrap">
-                    <h3 class="font-headline text-2xl md:text-headline-md text-on-surface">Profit Summary</h3>
-                    <span class="font-label text-label-sm text-primary px-3 py-1 bg-primary/5 rounded">Agency Projections</span>
+        <div class="partner-economics">
+            <article class="trust-card-no-hover partner-economics__summary">
+                <div class="partner-economics__header">
+                    <h3 class="heading-medium">Profit Summary</h3>
+                    <span class="partner-economics__label">Agency Projections</span>
                 </div>
-                <div class="overflow-hidden rounded-lg border border-outline-variant/30">
-                    <table class="w-full text-left border-collapse">
+                <div class="profit-table__viewport">
+                    <table class="profit-table">
                         <thead>
-                            <tr class="bg-surface-container-high border-b border-outline-variant/30">
-                                <th class="p-5 font-label text-label-md text-on-surface">Revenue Stream</th>
-                                <th class="p-5 font-label text-label-md text-on-surface text-right">Details</th>
-                                <th class="p-5 font-label text-label-md text-primary text-right">Profit Potential</th>
+                            <tr>
+                                <th>Revenue Stream</th>
+                                <th>Details</th>
+                                <th>Profit Potential</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-outline-variant/30">
-                            <tr class="hover:bg-primary/5 transition-colors">
-                                <td class="p-5 font-body text-body-sm text-on-surface-variant">Wholesale Cost</td>
-                                <td class="p-5 font-body text-body-sm text-on-surface text-right">$1,500 / month per node</td>
-                                <td class="p-5 font-body text-right font-bold text-on-surface-variant">--</td>
+                        <tbody>
+                            <tr>
+                                <td>Wholesale Cost</td>
+                                <td>$1,500 / month per node</td>
+                                <td class="profit-table__amount--muted">--</td>
                             </tr>
-                            <tr class="hover:bg-primary/5 transition-colors">
-                                <td class="p-5 font-body text-body-sm text-on-surface-variant">Target Retail</td>
-                                <td class="p-5 font-body text-body-sm text-on-surface text-right">$2,500 - $4,000 / month</td>
-                                <td class="p-5 font-body text-right font-bold text-on-surface-variant">--</td>
+                            <tr>
+                                <td>Target Retail</td>
+                                <td>$2,500 - $4,000 / month</td>
+                                <td class="profit-table__amount--muted">--</td>
                             </tr>
-                            <tr class="hover:bg-primary/5 transition-colors">
-                                <td class="p-5 font-body text-body-sm text-on-surface-variant">Net Recurring Profit</td>
-                                <td class="p-5 font-body text-body-sm text-on-surface text-right">Per account</td>
-                                <td class="p-5 font-body text-right font-bold text-primary">$1,000 - $2,500 / mo</td>
+                            <tr>
+                                <td>Net Recurring Profit</td>
+                                <td>Per account</td>
+                                <td>$1,000 - $2,500 / mo</td>
                             </tr>
-                            <tr class="hover:bg-primary/5 transition-colors">
-                                <td class="p-5 font-body text-body-sm text-on-surface-variant">Implementation Fees</td>
-                                <td class="p-5 font-body text-body-sm text-on-surface text-right">Upfront setup</td>
-                                <td class="p-5 font-body text-right font-bold text-primary">$5,000 - $15,000</td>
+                            <tr>
+                                <td>Implementation Fees</td>
+                                <td>Upfront setup</td>
+                                <td>$5,000 - $15,000</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="mt-6 p-5 bg-primary/5 rounded-lg border border-primary/20 flex items-center justify-between gap-4 flex-wrap">
-                    <span class="font-headline text-2xl md:text-headline-md text-on-surface">Scaling Math</span>
-                    <span class="font-headline text-2xl md:text-headline-md text-primary">50 clients = $125,000 MRR</span>
+                <div class="partner-economics__scaling">
+                    <span class="heading-medium">Scaling Math</span>
+                    <span class="heading-medium heading-medium--primary">50 clients = $125,000 MRR</span>
                 </div>
             </article>
 
-            <article class="md:col-span-4 bg-primary rounded-2xl p-8 text-white relative overflow-hidden">
-                <div class="relative z-10">
-                    <h3 class="font-headline text-2xl md:text-headline-md mb-4">Pilot Network Availability</h3>
-                    <p class="font-body text-body-sm mb-8 text-white/90 leading-relaxed">We are accepting 4-5 regional agencies for the exclusive wholesale network.</p>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center font-label text-label-sm">
-                            <span class="uppercase tracking-wider">Active Slots</span>
-                            <span class="font-bold">4 / 5 Remaining</span>
+            <article class="partner-pilot">
+                <div class="partner-pilot__content">
+                    <h3 class="partner-pilot__heading">Pilot Network Availability</h3>
+                    <p class="partner-pilot__description">We are accepting 4-5 regional agencies for the exclusive wholesale network.</p>
+                    <div class="process-steps">
+                        <div class="partner-pilot__status">
+                            <span class="partner-pilot__status-label">Active Slots</span>
+                            <span class="partner-pilot__status-value">4 / 5 Remaining</span>
                         </div>
-                        <div class="w-full bg-white/20 h-3 rounded-full overflow-hidden">
-                            <div class="bg-accent h-full w-[20%]"></div>
+                        <div class="partner-pilot__progress">
+                            <div class="partner-pilot__progress-fill"></div>
                         </div>
                     </div>
-                    <div class="mt-8 flex items-center gap-3 p-4 bg-white/10 rounded border border-white/20">
-                        <span class="material-symbols-outlined text-white">info</span>
-                        <span class="font-body text-body-sm">Regional exclusivity. Applications reviewed weekly.</span>
+                    <div class="partner-pilot__notice">
+                        <span class="material-symbols-outlined">info</span>
+                        <span class="partner-pilot__notice-text">Regional exclusivity. Applications reviewed weekly.</span>
                     </div>
                 </div>
-                <div class="absolute -bottom-10 -right-10 opacity-10">
-                    <span class="material-symbols-outlined text-display-xl">hub</span>
+                <div class="partner-pilot__decoration">
+                    <span class="material-symbols-outlined">hub</span>
                 </div>
             </article>
         </div>
@@ -195,16 +195,16 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-12 px-gutter bg-surface-container-low border-t border-outline-variant" id="partner-network-cta">
-    <div class="max-w-7xl mx-auto rounded-3xl bg-[#e2e7ff] p-8 md:p-12 text-center text-on-surface relative overflow-hidden border border-outline-variant shadow-lg">
-        <div class="absolute inset-0 bg-gradient-to-tr from-[#1a45d2]/5 to-transparent"></div>
-        <div class="relative z-10 max-w-5xl mx-auto">
-            <p class="font-label text-label-sm uppercase tracking-[0.2em] text-primary mb-4">Turn Client Demand Into Recurring Revenue</p>
-            <h2 class="font-headline text-4xl md:text-display-lg lg:whitespace-nowrap text-center mb-4">Ready to Join the <span class="text-primary">Channel Partner Network?</h2>
-            <p class="font-body text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-8">
+<section class="callout-section" id="partner-network-cta">
+    <div class="callout">
+        <div class="callout__overlay"></div>
+        <div class="callout__content">
+            <p class="callout__eyebrow">Turn Client Demand Into Recurring Revenue</p>
+            <h2 class="callout__heading callout__heading--nowrap">Ready to Join the <span>Channel Partner Network?</h2>
+            <p class="callout__description">
                 Submit your partner application to start a fit assessment and explore regional rollout opportunities with the Tabiri platform.
             </p>
-            <div class="flex flex-wrap justify-center gap-4">
+            <div class="callout__actions">
                 <a class="btn-primary" href="/partner-contact">Apply as a Channel Partner</a>
             </div>
         </div>

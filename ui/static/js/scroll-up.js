@@ -11,12 +11,12 @@
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
-      scrollBtn.classList.remove('hidden', 'translate-y-4', 'opacity-0');
-      scrollBtn.classList.add('translate-y-0', 'opacity-100');
+      scrollBtn.hidden = false;
+      scrollBtn.classList.add('scroll-up--visible', 'scroll-up--raised');
     } else {
-      scrollBtn.classList.add('translate-y-4', 'opacity-0');
+      scrollBtn.classList.remove('scroll-up--raised');
       setTimeout(() => {
-        if (window.scrollY <= 300) scrollBtn.classList.add('hidden');
+        if (window.scrollY <= 300) scrollBtn.hidden = true;
       }, 300);
     }
   });

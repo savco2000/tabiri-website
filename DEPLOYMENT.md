@@ -1,5 +1,23 @@
 # Deployment and edge configuration
 
+## Local development and CSS
+
+Run the site from the repository root with `go run ./cmd/web/`. It listens on
+port 4000 by default. Edit the CSS in `ui/static/css/` directly; the server
+serves it without a frontend build or Node.js. Reload the page after changes.
+`components.css` contains authored component styles and is loaded after
+`styles.css` for its design tokens and cascade layers. `fonts.css` defines the
+local fonts.
+
+`styles.css` contains the site's base styles, design tokens, and cascade
+layers. Form controls use project-owned component styles in `components.css`.
+Templates use component classes; utility classes are no longer generated.
+Some migrated CSS originated in Tailwind-generated output, so retain the
+Tailwind license in `ui/static/css/TAILWIND-LICENSE.txt`.
+
+Production releases still require a Go binary and the `ui/` and `content/`
+directories; no frontend asset build is needed.
+
 ## Terraform rollout
 
 Terraform configuration lives under `infra/`. The rollout is intentionally

@@ -1,98 +1,98 @@
 {{define "main"}}
 <!-- Hero Section -->  
-<section class="relative py-14 md:py-16 px-gutter overflow-hidden bg-surface-container-lowest border-b border-outline-variant">
-    <div class="absolute inset-0 opacity-40"></div>
-    <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-        <div class="mb-8 flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
-            <span class="material-symbols-outlined icon-size-sm text-primary">apartment</span>
-            <span class="font-label text-label-sm text-on-surface uppercase tracking-wider">Commercial Customer Contact</span>
+<section class="page-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content--centered">
+        <div class="hero-kicker">
+            <span class="material-symbols-outlined icon-size-sm">apartment</span>
+            <span class="eyebrow">Commercial Customer Contact</span>
         </div>
-        <h1 class="font-headline text-4xl md:text-display-lg text-on-background mb-6 md:mb-8 max-w-4xl">
-            {{if eq .LeadSource "rapid-exposure-triage"}}Discuss <span class="text-primary">Rapid Exposure Triage</span>{{else}}Optimize Operations with <span class="text-primary">Secure AI Support</span>{{end}}
+        <h1 class="hero-title">
+            {{if eq .LeadSource "rapid-exposure-triage"}}Discuss <span>Rapid Exposure Triage</span>{{else}}Optimize Operations with <span>Secure AI Support</span>{{end}}
         </h1>
-        <p class="font-body text-body-lg text-on-surface-variant max-w-3xl">
+        <p class="hero-description">
             {{if eq .LeadSource "rapid-exposure-triage"}}Tell us what prompted your inquiry. We will discuss whether a focused assessment is appropriate; no testing begins from this form submission.{{else}}This page is for commercial organizations looking to modernize workflows, reduce manual overhead, and deploy secure AI capabilities.{{end}}
         </p>
     </div>
 </section>
 
 <!-- Contact Details Section -->
-<section class="py-12 bg-surface-container-low border-y border-outline-variant" id="contact">
-    <div class="max-w-7xl mx-auto px-gutter grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
-        <div class="lg:col-span-2">
+<section class="content-section content-section--muted content-section--bordered" id="contact">
+    <div class="details-layout">
+        <div class="details-layout__main">
             <article class="trust-card">
                 {{if .FormSubmitted}}
-                <div class="mb-6 rounded-xl border border-outline-variant bg-surface-container-low p-6 md:p-8" data-lead-source="{{.LeadSource}}" id="contact-success" role="status">
-                    <div class="flex items-start gap-4">
-                        <div class="icon-tile mb-0 shrink-0 bg-primary/10">
-                            <span class="material-symbols-outlined text-primary">check_circle</span>
+                <div class="submission-success submission-success--spaced" data-lead-source="{{.LeadSource}}" id="contact-success" role="status">
+                    <div class="submission-success__summary">
+                        <div class="icon-tile icon-tile--fixed icon-tile--success">
+                            <span class="material-symbols-outlined">check_circle</span>
                         </div>
                         <div>
-                            <h3 class="font-headline text-headline-md text-on-surface">Thank you for contacting us</h3>
-                            <p class="mt-2 font-body text-body-md text-on-surface-variant">Your response has been submitted successfully!</p>
+                            <h3 class="heading-compact">Thank you for contacting us</h3>
+                            <p class="submission-success__message">Your response has been submitted successfully!</p>
                         </div>
                     </div>
-                    <div class="mt-6 border-t border-outline-variant pt-6">
-                        <h4 class="font-headline text-headline-md text-on-surface">What Happens Next</h4>
-                        {{if eq .LeadSource "rapid-exposure-triage"}}<p class="mt-2 font-body text-body-sm text-on-surface-variant">Your inquiry does not authorize or initiate testing.</p>{{end}}
-                        <ol class="mt-4 space-y-4">
+                    <div class="submission-success__next">
+                        <h4 class="heading-compact">What Happens Next</h4>
+                        {{if eq .LeadSource "rapid-exposure-triage"}}<p class="submission-success__note">Your inquiry does not authorize or initiate testing.</p>{{end}}
+                        <ol class="submission-success__steps">
                             {{if eq .LeadSource "rapid-exposure-triage"}}
-                            <li class="flex items-start gap-3">
-                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">1</span>
-                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">We review the issue and the systems you would like to discuss.</span>
+                            <li>
+                                <span class="step-number">1</span>
+                                <span class="step-description">We review the issue and the systems you would like to discuss.</span>
                             </li>
-                            <li class="flex items-start gap-3">
-                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">2</span>
-                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">Before any testing, we confirm your authority, written scope, permitted checks, and timing.</span>
+                            <li>
+                                <span class="step-number">2</span>
+                                <span class="step-description">Before any testing, we confirm your authority, written scope, permitted checks, and timing.</span>
                             </li>
-                            <li class="flex items-start gap-3">
-                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">3</span>
-                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">If the engagement proceeds, an engineer reviews the evidence and discusses next steps with you.</span>
+                            <li>
+                                <span class="step-number">3</span>
+                                <span class="step-description">If the engagement proceeds, an engineer reviews the evidence and discusses next steps with you.</span>
                             </li>
                             {{else}}
-                            <li class="flex items-start gap-3">
-                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">1</span>
-                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">We review your workflow bottleneck and current operating constraints.</span>
+                            <li>
+                                <span class="step-number">1</span>
+                                <span class="step-description">We review your workflow bottleneck and current operating constraints.</span>
                             </li>
-                            <li class="flex items-start gap-3">
-                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">2</span>
-                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">We recommend the right digital associate or automation pathway.</span>
+                            <li>
+                                <span class="step-number">2</span>
+                                <span class="step-description">We recommend the right digital associate or automation pathway.</span>
                             </li>
-                            <li class="flex items-start gap-3">
-                                <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm font-bold text-white">3</span>
-                                <span class="pt-1 font-body text-body-sm text-on-surface-variant">We scope a secure deployment plan tailored to your environment.</span>
+                            <li>
+                                <span class="step-number">3</span>
+                                <span class="step-description">We scope a secure deployment plan tailored to your environment.</span>
                             </li>
                             {{end}}
                         </ol>
-                        <a class="btn-secondary mt-6 inline-flex" href="/">Return to Homepage</a>
+                        <a class="btn-secondary submission-success__return" href="/">Return to Homepage</a>
                     </div>
                 </div>
                 {{else}}
-                    <div class="mb-6 flex items-center gap-4">
-                        <div class="icon-tile mb-0">
-                            <span class="material-symbols-outlined text-primary">contact_support</span>
+                    <div class="lead-form__heading">
+                        <div class="icon-tile icon-tile--inline">
+                            <span class="material-symbols-outlined">contact_support</span>
                         </div>
                         <div>
-                            <h2 class="font-headline text-headline-md text-on-surface">{{if eq .LeadSource "rapid-exposure-triage"}}Discuss Rapid Exposure Triage{{else if .ContactForm.AssessmentResult}}Discuss Your Automation Assessment{{else}}Talk to Our Commercial Team{{end}}</h2>
-                            <p class="font-body text-body-sm text-on-surface-variant">{{if eq .LeadSource "rapid-exposure-triage"}}Share your organization and the advisory or security question. We will confirm authority and scope separately; this inquiry does not authorize or initiate testing.{{else if .ContactForm.AssessmentResult}}Your assessment context is attached, so you do not need to repeat your answers.{{else}}Start a commercial readiness assessment for secure AI deployment in your organization.{{end}}</p>
+                            <h2 class="heading-compact">{{if eq .LeadSource "rapid-exposure-triage"}}Discuss Rapid Exposure Triage{{else if .ContactForm.AssessmentResult}}Discuss Your Automation Assessment{{else}}Talk to Our Commercial Team{{end}}</h2>
+                            <p class="body-copy-small-compact">{{if eq .LeadSource "rapid-exposure-triage"}}Share your organization and the advisory or security question. We will confirm authority and scope separately; this inquiry does not authorize or initiate testing.{{else if .ContactForm.AssessmentResult}}Your assessment context is attached, so you do not need to repeat your answers.{{else}}Start a commercial readiness assessment for secure AI deployment in your organization.{{end}}</p>
                         </div>
                     </div>
                     {{if .ContactForm.Errors}}
-                    <div class="mb-6 rounded-xl border border-error/30 bg-surface-container-low p-4" role="alert">
-                        <p class="font-label text-label-sm text-error">Review the form and assessment details:</p>
-                        <ul class="mt-2 list-disc space-y-1 pl-5 text-body-sm text-error">
+                    <div class="lead-form__validation" role="alert">
+                        <p class="lead-form__validation-title">Review the form and assessment details:</p>
+                        <ul class="lead-form__validation-list">
                             {{range $message := .ContactForm.Errors}}<li>{{$message}}</li>{{end}}
                         </ul>
                     </div>
                     {{end}}
                     {{if .ContactForm.AssessmentResult}}
-                    <div class="mb-6 rounded-xl border border-primary/30 bg-surface-container-low p-5">
-                        <p class="font-label text-label-sm uppercase tracking-wider text-primary">Automation readiness result</p>
-                        <p class="mt-2 font-headline text-headline-md text-on-surface">{{.ContactForm.AssessmentLabel}} · {{.ContactForm.AssessmentScore}}/10</p>
-                        {{if .ContactForm.WorkflowName}}<p class="mt-1 font-body text-body-sm text-on-surface-variant">Workflow: {{.ContactForm.WorkflowName}}</p>{{end}}
+                    <div class="lead-form__assessment">
+                        <p class="eyebrow eyebrow--primary">Automation readiness result</p>
+                        <p class="lead-form__assessment-result">{{.ContactForm.AssessmentLabel}} · {{.ContactForm.AssessmentScore}}/10</p>
+                        {{if .ContactForm.WorkflowName}}<p class="lead-form__assessment-workflow">Workflow: {{.ContactForm.WorkflowName}}</p>{{end}}
                     </div>
                     {{end}}
-                    <form action="/contact" class="space-y-6" data-lead-source="{{.LeadSource}}" id="contact-form" method="post">
+                    <form action="/contact" class="lead-form" data-lead-source="{{.LeadSource}}" id="contact-form" method="post">
                         <input name="form_proof" type="hidden" value="{{.FormProof}}">
                         <div aria-hidden="true" class="form-honeypot" hidden>
                             <label for="contact_website">Leave this field blank</label>
@@ -107,60 +107,60 @@
                         <input name="utm_campaign" type="hidden" value="{{.ContactForm.UTMCampaign}}">
                         <input name="utm_content" type="hidden" value="{{.ContactForm.UTMContent}}">
                         <input name="referrer" type="hidden" value="{{.ContactForm.Referrer}}">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
+                        <div class="lead-form__fields">
+                            <div class="lead-form__field">
                                 <label class="form-label" for="contact_full_name">Full Name</label>
                                 <input autocomplete="name" class="form-field-input" id="contact_full_name" maxlength="200" name="full_name" placeholder="John Doe" required type="text" value="{{.ContactForm.FullName}}">
-                                {{with index .ContactForm.Errors "full_name"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                                {{with index .ContactForm.Errors "full_name"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                             </div>
-                            <div class="space-y-2">
+                            <div class="lead-form__field">
                                 <label class="form-label" for="contact_corporate_email">Corporate Email</label>
                                 <input autocomplete="email" class="form-field-input" id="contact_corporate_email" maxlength="320" name="corporate_email" placeholder="john@company.com" required type="email" value="{{.ContactForm.CorporateEmail}}">
-                                {{with index .ContactForm.Errors "corporate_email"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                                {{with index .ContactForm.Errors "corporate_email"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                             </div>
                         </div>
 
-                        <div class="space-y-2">
+                        <div class="lead-form__field">
                             <label class="form-label" for="contact_workflow_bottleneck">{{if eq .LeadSource "rapid-exposure-triage"}}Organization and security question{{else if .ContactForm.AssessmentResult}}Workflow or Additional Context{{else}}Workflow Bottleneck{{end}}</label>
                             <textarea class="form-field-input" id="contact_workflow_bottleneck" maxlength="5000" name="workflow_bottleneck" placeholder="{{if eq .LeadSource "rapid-exposure-triage"}}Share your organization, the vulnerability advisory or concern, and the systems you would like to discuss. Do not include credentials or sensitive data.{{else}}Describe the manual process or backlog slowing your operations...{{end}}" required rows="4">{{.ContactForm.WorkflowBottleneck}}</textarea>
-                            {{with index .ContactForm.Errors "workflow_bottleneck"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                            {{with index .ContactForm.Errors "workflow_bottleneck"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                         </div>
 
-                        <div class="space-y-2">
+                        <div class="lead-form__field">
                             <div class="cf-turnstile" data-action="contact_submit" data-sitekey="{{.TurnstileSiteKey}}" data-size="flexible"></div>
-                            {{with index .ContactForm.Errors "verification"}}<p class="text-sm text-error" role="alert">{{.}}</p>{{end}}
+                            {{with index .ContactForm.Errors "verification"}}<p class="lead-form__error" role="alert">{{.}}</p>{{end}}
                         </div>
-                        <button class="btn-primary w-full" type="submit">Submit</button>
+                        <button class="btn-primary lead-form__submit" type="submit">Submit</button>
                     </form>
-                    <div class="mt-8 pt-6 border-t border-outline-variant flex flex-col sm:flex-row gap-4 sm:gap-8">
-                    <div class="flex items-center gap-3">
-                        <span class="material-symbols-outlined text-primary">security</span>
-                        <p class="font-body text-body-sm text-on-surface-variant">SOC2 compliant architecture</p>
+                    <div class="lead-form__security">
+                    <div class="lead-form__security-item">
+                        <span class="material-symbols-outlined">security</span>
+                        <p class="body-copy-small-compact">SOC2 compliant architecture</p>
                     </div>
                 </div>
                 {{end}}                
             </article>
         </div>
 
-        <div class="space-y-6">
+        <div class="card-stack">
             <article class="trust-card">
-                <div class="mb-5 flex items-center gap-3">
-                    <div class="icon-tile mb-0">
-                        <span class="material-symbols-outlined text-primary">mail</span>
+                <div class="card-heading-row card-heading-row--spacious">
+                    <div class="icon-tile icon-tile--inline">
+                        <span class="material-symbols-outlined">mail</span>
                     </div>
-                    <h2 class="font-headline text-headline-md text-on-surface">Email Direct</h2>
+                    <h2 class="heading-compact">Email Direct</h2>
                 </div>
-                <p class="font-body text-body-sm text-primary leading-relaxed">info@tabirianalytics.com</p>
+                <p class="body-copy-small body-copy-small--primary">info@tabirianalytics.com</p>
             </article>
 
             <article class="trust-card">
-                <div class="mb-5 flex items-center gap-3">
-                    <div class="icon-tile mb-0">
-                        <span class="material-symbols-outlined text-primary">support_agent</span>
+                <div class="card-heading-row card-heading-row--spacious">
+                    <div class="icon-tile icon-tile--inline">
+                        <span class="material-symbols-outlined">support_agent</span>
                     </div>
-                    <h2 class="font-headline text-headline-md text-on-surface">Availability</h2>
+                    <h2 class="heading-compact">Availability</h2>
                 </div>
-                <p class="font-body text-body-sm text-on-surface-variant leading-relaxed">Mon-Fri: 9am - 5pm EST</p>
+                <p class="body-copy-small">Mon-Fri: 9am - 5pm EST</p>
             </article>
         </div>
     </div>
