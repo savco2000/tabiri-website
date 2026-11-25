@@ -3820,7 +3820,7 @@
   }
   .sovereign-list li > .material-symbols-outlined {
     margin-top: 0.25rem;
-    color: #B33A18;
+    color: #1A45D2;
   }
   .compliance-layout {
     display: grid;
@@ -3977,26 +3977,15 @@
   .monitoring-warning__icon .material-symbols-outlined {
     color: #B33A18;
   }
-  .monitoring-warning__list > :not(:last-child) {
-    margin-block-end: 2rem;
-  }
   .monitoring-step {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
   }
-  .monitoring-warning__title {
-    display: block;
-    margin-bottom: 0.25rem;
-    font-size: 1.125rem;
-    line-height: calc(1.75 / 1.125);
+  .monitoring-step__icon {
+    font-size: 14px;
+    line-height: 20px;
     color: #B33A18;
-  }
-  .monitoring-warning__description {
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 400;
-    color: #444655;
   }
   .monitoring-step__heading {
     margin-bottom: 0.25rem;
@@ -4004,6 +3993,9 @@
     font-size: 1.25rem;
     line-height: calc(1.75 / 1.25);
     color: #1A45D2;
+  }
+  .monitoring-step__heading--accent {
+    color: #B33A18;
   }
   .response-section {
     color: #131b2e;
